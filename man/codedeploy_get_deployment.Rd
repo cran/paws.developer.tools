@@ -7,12 +7,12 @@
 codedeploy_get_deployment(deploymentId)
 }
 \arguments{
-\item{deploymentId}{[required] The unique ID of a deployment associated with the IAM user or AWS
-account.}
+\item{deploymentId}{[required] The unique ID of a deployment associated with the IAM user or Amazon Web
+Services account.}
 }
 \description{
 Gets information about a deployment.
 
-See \url{https://paws-r.github.io/docs/codedeploy/get_deployment.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codedeploy_get_deployment/} for full documentation.
 }
 \keyword{internal}

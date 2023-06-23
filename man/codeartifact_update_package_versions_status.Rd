@@ -38,6 +38,7 @@ component that specifies its namespace depends on its type. For example:
 \item Python and NuGet package versions do not contain a corresponding
 component, package versions of those formats do not have a
 namespace.
+\item The namespace of a generic package is its \code{namespace}.
 }}
 
 \item{package}{[required] The name of the package with the version statuses to update.}
@@ -60,6 +61,6 @@ is called matches \code{expectedStatus}.}
 \description{
 Updates the status of one or more versions of a package. Using \code{\link[=codeartifact_update_package_versions_status]{update_package_versions_status}}, you can update the status of package versions to \code{Archived}, \code{Published}, or \code{Unlisted}. To set the status of a package version to \code{Disposed}, use \code{\link[=codeartifact_dispose_package_versions]{dispose_package_versions}}.
 
-See \url{https://paws-r.github.io/docs/codeartifact/update_package_versions_status.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codeartifact_update_package_versions_status/} for full documentation.
 }
 \keyword{internal}

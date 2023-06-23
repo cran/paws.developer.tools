@@ -42,6 +42,7 @@ namespace is required when copying Maven package versions.
 \item Python and NuGet package versions do not contain a corresponding
 component, package versions of those formats do not have a
 namespace.
+\item The namespace of a generic package is its \code{namespace}.
 }}
 
 \item{package}{[required] The name of the package that contains the versions to be copied.}
@@ -72,6 +73,6 @@ is false. For more information, see \href{https://docs.aws.amazon.com/codeartifa
 \description{
 Copies package versions from one repository to another repository in the same domain.
 
-See \url{https://paws-r.github.io/docs/codeartifact/copy_package_versions.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codeartifact_copy_package_versions/} for full documentation.
 }
 \keyword{internal}

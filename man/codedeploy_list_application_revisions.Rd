@@ -15,13 +15,13 @@ codedeploy_list_application_revisions(
 )
 }
 \arguments{
-\item{applicationName}{[required] The name of an AWS CodeDeploy application associated with the IAM user
-or AWS account.}
+\item{applicationName}{[required] The name of an CodeDeploy application associated with the IAM user or
+Amazon Web Services account.}
 
 \item{sortBy}{The column name to use to sort the list results:
 \itemize{
 \item \code{registerTime}: Sort by the time the revisions were registered with
-AWS CodeDeploy.
+CodeDeploy.
 \item \code{firstUsedTime}: Sort by the time the revisions were first used in a
 deployment.
 \item \code{lastUsedTime}: Sort by the time the revisions were last used in a
@@ -65,6 +65,6 @@ call. It can be used to return the next set of applications in the list.}
 \description{
 Lists information about revisions for an application.
 
-See \url{https://paws-r.github.io/docs/codedeploy/list_application_revisions.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codedeploy_list_application_revisions/} for full documentation.
 }
 \keyword{internal}

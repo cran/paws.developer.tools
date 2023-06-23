@@ -12,7 +12,7 @@ codegurureviewer_describe_recommendation_feedback(
 }
 \arguments{
 \item{CodeReviewArn}{[required] The Amazon Resource Name (ARN) of the
-\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html}{\code{CodeReview}}
+\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html}{CodeReview}
 object.}
 
 \item{RecommendationId}{[required] The recommendation ID that can be used to track the provided
@@ -29,6 +29,6 @@ in the \emph{Amazon Web Services Identity and Access Management User Guide}.}
 \description{
 Describes the customer feedback for a CodeGuru Reviewer recommendation.
 
-See \url{https://paws-r.github.io/docs/codegurureviewer/describe_recommendation_feedback.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codegurureviewer_describe_recommendation_feedback/} for full documentation.
 }
 \keyword{internal}

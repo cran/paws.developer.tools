@@ -38,6 +38,7 @@ example:
 \item Python and NuGet package versions do not contain a corresponding
 component, package versions of those formats do not have a
 namespace.
+\item The namespace of a generic package is its \code{namespace}.
 }}
 
 \item{package}{[required] The name of the package with the versions you want to dispose.}
@@ -51,6 +52,6 @@ namespace.
 \description{
 Deletes the assets in package versions and sets the package versions' status to \code{Disposed}. A disposed package version cannot be restored in your repository because its assets are deleted.
 
-See \url{https://paws-r.github.io/docs/codeartifact/dispose_package_versions.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codeartifact_dispose_package_versions/} for full documentation.
 }
 \keyword{internal}

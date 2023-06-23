@@ -10,7 +10,7 @@ NULL
 #' @description
 #' Creates an Cloud9 development environment, launches an Amazon Elastic Compute Cloud (Amazon EC2) instance, and then connects from the instance to the environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/create_environment_ec2.html](https://paws-r.github.io/docs/cloud9/create_environment_ec2.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_create_environment_ec2/](https://www.paws-r-sdk.com/docs/cloud9_create_environment_ec2/) for full documentation.
 #'
 #' @param name &#91;required&#93; The name of the environment to create.
 #' 
@@ -31,10 +31,13 @@ NULL
 #' the EC2 instance. To choose an AMI for the instance, you must specify a
 #' valid AMI alias or a valid Amazon EC2 Systems Manager (SSM) path.
 #' 
-#' The default AMI is used if the parameter isn't explicitly assigned a
-#' value in the request. Because Amazon Linux AMI has ended standard
-#' support as of December 31, 2020, we recommend you choose Amazon Linux 2,
-#' which includes long term support through 2023.
+#' The default Amazon Linux AMI is currently used if the parameter isn't
+#' explicitly assigned a value in the request.
+#' 
+#' In the future the parameter for Amazon Linux will no longer be available
+#' when you specify an AMI for your instance. Amazon Linux 2 will then
+#' become the default AMI, which is used to launch your instance if no
+#' parameter is explicitly defined.
 #' 
 #' **AMI aliases**
 #' 
@@ -99,7 +102,7 @@ cloud9_create_environment_ec2 <- function(name, description = NULL, clientReques
 #' @description
 #' Adds an environment member to an Cloud9 development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/create_environment_membership.html](https://paws-r.github.io/docs/cloud9/create_environment_membership.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_create_environment_membership/](https://www.paws-r-sdk.com/docs/cloud9_create_environment_membership/) for full documentation.
 #'
 #' @param environmentId &#91;required&#93; The ID of the environment that contains the environment member you want
 #' to add.
@@ -137,7 +140,7 @@ cloud9_create_environment_membership <- function(environmentId, userArn, permiss
 #' @description
 #' Deletes an Cloud9 development environment. If an Amazon EC2 instance is connected to the environment, also terminates the instance.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/delete_environment.html](https://paws-r.github.io/docs/cloud9/delete_environment.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_delete_environment/](https://www.paws-r-sdk.com/docs/cloud9_delete_environment/) for full documentation.
 #'
 #' @param environmentId &#91;required&#93; The ID of the environment to delete.
 #'
@@ -161,12 +164,12 @@ cloud9_delete_environment <- function(environmentId) {
 }
 .cloud9$operations$delete_environment <- cloud9_delete_environment
 
-#' Deletes an environment member from an Cloud9 development environment
+#' Deletes an environment member from a development environment
 #'
 #' @description
-#' Deletes an environment member from an Cloud9 development environment.
+#' Deletes an environment member from a development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/delete_environment_membership.html](https://paws-r.github.io/docs/cloud9/delete_environment_membership.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_delete_environment_membership/](https://www.paws-r-sdk.com/docs/cloud9_delete_environment_membership/) for full documentation.
 #'
 #' @param environmentId &#91;required&#93; The ID of the environment to delete the environment member from.
 #' @param userArn &#91;required&#93; The Amazon Resource Name (ARN) of the environment member to delete from
@@ -198,7 +201,7 @@ cloud9_delete_environment_membership <- function(environmentId, userArn) {
 #' @description
 #' Gets information about environment members for an Cloud9 development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/describe_environment_memberships.html](https://paws-r.github.io/docs/cloud9/describe_environment_memberships.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_describe_environment_memberships/](https://www.paws-r-sdk.com/docs/cloud9_describe_environment_memberships/) for full documentation.
 #'
 #' @param userArn The Amazon Resource Name (ARN) of an individual environment member to
 #' get information about. If no value is specified, information about all
@@ -248,7 +251,7 @@ cloud9_describe_environment_memberships <- function(userArn = NULL, environmentI
 #' @description
 #' Gets status information for an Cloud9 development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/describe_environment_status.html](https://paws-r.github.io/docs/cloud9/describe_environment_status.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_describe_environment_status/](https://www.paws-r-sdk.com/docs/cloud9_describe_environment_status/) for full documentation.
 #'
 #' @param environmentId &#91;required&#93; The ID of the environment to get status information about.
 #'
@@ -277,7 +280,7 @@ cloud9_describe_environment_status <- function(environmentId) {
 #' @description
 #' Gets information about Cloud9 development environments.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/describe_environments.html](https://paws-r.github.io/docs/cloud9/describe_environments.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_describe_environments/](https://www.paws-r-sdk.com/docs/cloud9_describe_environments/) for full documentation.
 #'
 #' @param environmentIds &#91;required&#93; The IDs of individual environments to get information about.
 #'
@@ -306,7 +309,7 @@ cloud9_describe_environments <- function(environmentIds) {
 #' @description
 #' Gets a list of Cloud9 development environment identifiers.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/list_environments.html](https://paws-r.github.io/docs/cloud9/list_environments.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_list_environments/](https://www.paws-r-sdk.com/docs/cloud9_list_environments/) for full documentation.
 #'
 #' @param nextToken During a previous call, if there are more than 25 items in the list,
 #' only the first 25 items are returned, along with a unique string called
@@ -342,7 +345,7 @@ cloud9_list_environments <- function(nextToken = NULL, maxResults = NULL) {
 #' @description
 #' Gets a list of the tags associated with an Cloud9 development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/list_tags_for_resource.html](https://paws-r.github.io/docs/cloud9/list_tags_for_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/cloud9_list_tags_for_resource/) for full documentation.
 #'
 #' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the Cloud9 development environment to
 #' get the tags for.
@@ -372,7 +375,7 @@ cloud9_list_tags_for_resource <- function(ResourceARN) {
 #' @description
 #' Adds tags to an Cloud9 development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/tag_resource.html](https://paws-r.github.io/docs/cloud9/tag_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_tag_resource/](https://www.paws-r-sdk.com/docs/cloud9_tag_resource/) for full documentation.
 #'
 #' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the Cloud9 development environment to
 #' add tags to.
@@ -403,7 +406,7 @@ cloud9_tag_resource <- function(ResourceARN, Tags) {
 #' @description
 #' Removes tags from an Cloud9 development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/untag_resource.html](https://paws-r.github.io/docs/cloud9/untag_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_untag_resource/](https://www.paws-r-sdk.com/docs/cloud9_untag_resource/) for full documentation.
 #'
 #' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the Cloud9 development environment to
 #' remove tags from.
@@ -435,7 +438,7 @@ cloud9_untag_resource <- function(ResourceARN, TagKeys) {
 #' @description
 #' Changes the settings of an existing Cloud9 development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/update_environment.html](https://paws-r.github.io/docs/cloud9/update_environment.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_update_environment/](https://www.paws-r-sdk.com/docs/cloud9_update_environment/) for full documentation.
 #'
 #' @param environmentId &#91;required&#93; The ID of the environment to change settings.
 #' @param name A replacement name for the environment.
@@ -479,7 +482,7 @@ cloud9_update_environment <- function(environmentId, name = NULL, description = 
 #' @description
 #' Changes the settings of an existing environment member for an Cloud9 development environment.
 #'
-#' See [https://paws-r.github.io/docs/cloud9/update_environment_membership.html](https://paws-r.github.io/docs/cloud9/update_environment_membership.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/cloud9_update_environment_membership/](https://www.paws-r-sdk.com/docs/cloud9_update_environment_membership/) for full documentation.
 #'
 #' @param environmentId &#91;required&#93; The ID of the environment for the environment member whose settings you
 #' want to change.

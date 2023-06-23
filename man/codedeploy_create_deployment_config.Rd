@@ -25,7 +25,7 @@ healthy instances as an absolute value.
 \item FLEET_PERCENT: The value parameter represents the minimum number of
 healthy instances as a percentage of the total number of instances
 in the deployment. If you specify FLEET_PERCENT, at the start of the
-deployment, AWS CodeDeploy converts the percentage to the equivalent
+deployment, CodeDeploy converts the percentage to the equivalent
 number of instances and rounds up fractional instances.
 }
 
@@ -42,6 +42,6 @@ FLEET_PERCENT and a value of 95.}
 \description{
 Creates a deployment configuration.
 
-See \url{https://paws-r.github.io/docs/codedeploy/create_deployment_config.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codedeploy_create_deployment_config/} for full documentation.
 }
 \keyword{internal}

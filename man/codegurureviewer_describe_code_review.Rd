@@ -9,12 +9,12 @@ codegurureviewer_describe_code_review(CodeReviewArn)
 }
 \arguments{
 \item{CodeReviewArn}{[required] The Amazon Resource Name (ARN) of the
-\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html}{\code{CodeReview}}
+\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html}{CodeReview}
 object.}
 }
 \description{
 Returns the metadata associated with the code review along with its status.
 
-See \url{https://paws-r.github.io/docs/codegurureviewer/describe_code_review.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codegurureviewer_describe_code_review/} for full documentation.
 }
 \keyword{internal}

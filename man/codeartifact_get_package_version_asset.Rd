@@ -38,6 +38,7 @@ type. For example:
 \item Python and NuGet package versions do not contain a corresponding
 component, package versions of those formats do not have a
 namespace.
+\item The namespace of a generic package is its \code{namespace}.
 }}
 
 \item{package}{[required] The name of the package that contains the requested asset.}
@@ -52,6 +53,6 @@ asset.}
 \description{
 Returns an asset (or file) that is in a package. For example, for a Maven package version, use \code{\link[=codeartifact_get_package_version_asset]{get_package_version_asset}} to download a \code{JAR} file, a \code{POM} file, or any other assets in the package version.
 
-See \url{https://paws-r.github.io/docs/codeartifact/get_package_version_asset.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codeartifact_get_package_version_asset/} for full documentation.
 }
 \keyword{internal}

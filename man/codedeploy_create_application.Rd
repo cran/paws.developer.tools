@@ -12,7 +12,7 @@ codedeploy_create_application(
 }
 \arguments{
 \item{applicationName}{[required] The name of the application. This name must be unique with the
-applicable IAM user or AWS account.}
+applicable IAM or Amazon Web Services account.}
 
 \item{computePlatform}{The destination platform type for the deployment (\code{Lambda}, \code{Server}, or
 \code{ECS}).}
@@ -24,6 +24,6 @@ value, both of which you define.}
 \description{
 Creates an application.
 
-See \url{https://paws-r.github.io/docs/codedeploy/create_application.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codedeploy_create_application/} for full documentation.
 }
 \keyword{internal}

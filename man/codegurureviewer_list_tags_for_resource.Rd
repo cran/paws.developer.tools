@@ -9,14 +9,13 @@ codegurureviewer_list_tags_for_resource(resourceArn)
 }
 \arguments{
 \item{resourceArn}{[required] The Amazon Resource Name (ARN) of the
-\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociation.html}{\code{RepositoryAssociation}}
+\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociation.html}{RepositoryAssociation}
 object. You can retrieve this ARN by calling
-\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html}{\code{list_repository_associations}}
-.}
+\code{\link[=codegurureviewer_list_repository_associations]{list_repository_associations}}.}
 }
 \description{
 Returns the list of tags associated with an associated repository resource.
 
-See \url{https://paws-r.github.io/docs/codegurureviewer/list_tags_for_resource.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codegurureviewer_list_tags_for_resource/} for full documentation.
 }
 \keyword{internal}

@@ -10,11 +10,11 @@ codestarnotifications_tag_resource(Arn, Tags)
 \item{Arn}{[required] The Amazon Resource Name (ARN) of the notification rule to tag.}
 
 \item{Tags}{[required] The list of tags to associate with the resource. Tag key names cannot
-start with "aws".}
+start with "\code{aws}".}
 }
 \description{
 Associates a set of provided tags with a notification rule.
 
-See \url{https://paws-r.github.io/docs/codestarnotifications/tag_resource.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codestarnotifications_tag_resource/} for full documentation.
 }
 \keyword{internal}

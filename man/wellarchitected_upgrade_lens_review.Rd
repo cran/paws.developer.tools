@@ -2,7 +2,7 @@
 % Please edit documentation in R/wellarchitected_operations.R
 \name{wellarchitected_upgrade_lens_review}
 \alias{wellarchitected_upgrade_lens_review}
-\title{Upgrade lens review}
+\title{Upgrade lens review for a particular workload}
 \usage{
 wellarchitected_upgrade_lens_review(
   WorkloadId,
@@ -21,8 +21,8 @@ wellarchitected_upgrade_lens_review(
 \item{ClientRequestToken}{}
 }
 \description{
-Upgrade lens review.
+Upgrade lens review for a particular workload.
 
-See \url{https://paws-r.github.io/docs/wellarchitected/upgrade_lens_review.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/wellarchitected_upgrade_lens_review/} for full documentation.
 }
 \keyword{internal}

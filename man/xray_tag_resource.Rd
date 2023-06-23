@@ -12,7 +12,7 @@ xray_tag_resource(ResourceARN, Tags)
 
 \item{Tags}{[required] A map that contains one or more tag keys and tag values to attach to an
 X-Ray group or sampling rule. For more information about ways to use
-tags, see \href{https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html}{Tagging Amazon Web Services resources}
+tags, see \href{https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html}{Tagging Amazon Web Services resources}
 in the \emph{Amazon Web Services General Reference}.
 
 The following restrictions apply to tags:
@@ -30,6 +30,6 @@ Services use. You cannot edit or delete system tags.
 \description{
 Applies tags to an existing Amazon Web Services X-Ray group or sampling rule.
 
-See \url{https://paws-r.github.io/docs/xray/tag_resource.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/xray_tag_resource/} for full documentation.
 }
 \keyword{internal}

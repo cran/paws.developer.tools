@@ -15,8 +15,8 @@ wellarchitected_list_workload_shares(
 \arguments{
 \item{WorkloadId}{[required]}
 
-\item{SharedWithPrefix}{The Amazon Web Services account ID or IAM role with which the workload
-is shared.}
+\item{SharedWithPrefix}{The Amazon Web Services account ID, IAM role, organization ID, or
+organizational unit (OU) ID with which the workload is shared.}
 
 \item{NextToken}{}
 
@@ -27,6 +27,6 @@ is shared.}
 \description{
 List the workload shares associated with the workload.
 
-See \url{https://paws-r.github.io/docs/wellarchitected/list_workload_shares.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/wellarchitected_list_workload_shares/} for full documentation.
 }
 \keyword{internal}

@@ -8,11 +8,11 @@ codedeploy_get_deployment_config(deploymentConfigName)
 }
 \arguments{
 \item{deploymentConfigName}{[required] The name of a deployment configuration associated with the IAM user or
-AWS account.}
+Amazon Web Services account.}
 }
 \description{
 Gets information about a deployment configuration.
 
-See \url{https://paws-r.github.io/docs/codedeploy/get_deployment_config.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codedeploy_get_deployment_config/} for full documentation.
 }
 \keyword{internal}

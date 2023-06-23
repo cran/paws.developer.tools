@@ -12,7 +12,7 @@ codegurureviewer_put_recommendation_feedback(
 }
 \arguments{
 \item{CodeReviewArn}{[required] The Amazon Resource Name (ARN) of the
-\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html}{\code{CodeReview}}
+\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html}{CodeReview}
 object.}
 
 \item{RecommendationId}{[required] The recommendation ID that can be used to track the provided
@@ -24,6 +24,6 @@ you send an empty list it clears all your feedback.}
 \description{
 Stores customer feedback for a CodeGuru Reviewer recommendation. When this API is called again with different reactions the previous feedback is overwritten.
 
-See \url{https://paws-r.github.io/docs/codegurureviewer/put_recommendation_feedback.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codegurureviewer_put_recommendation_feedback/} for full documentation.
 }
 \keyword{internal}

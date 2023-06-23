@@ -29,8 +29,8 @@ this operation. If this value is null, it retrieves the first page.}
 \item{Type}{[required] The type of insights you are searching for (\code{REACTIVE} or \code{PROACTIVE}).}
 }
 \description{
-Returns a list of insights in your Amazon Web Services account. You can specify which insights are returned by their start time, one or more statuses (\code{ONGOING}, \code{CLOSED}, and \code{CLOSED}), one or more severities (\code{LOW}, \code{MEDIUM}, and \code{HIGH}), and type (\code{REACTIVE} or \code{PROACTIVE}).
+Returns a list of insights in your Amazon Web Services account. You can specify which insights are returned by their start time, one or more statuses (\code{ONGOING} or \code{CLOSED}), one or more severities (\code{LOW}, \code{MEDIUM}, and \code{HIGH}), and type (\code{REACTIVE} or \code{PROACTIVE}).
 
-See \url{https://paws-r.github.io/docs/devopsguru/search_insights.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/devopsguru_search_insights/} for full documentation.
 }
 \keyword{internal}

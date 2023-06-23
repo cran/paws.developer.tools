@@ -39,14 +39,14 @@ displaying the result.}
 \item{MaxResults}{The maximum number of results that are returned per call. The default is
 100.}
 
-\item{NextToken}{If nextToken is returned, there are more results available. The value of
-nextToken is a unique pagination token for each page. Make the call
+\item{NextToken}{If \code{nextToken} is returned, there are more results available. The value
+of \code{nextToken} is a unique pagination token for each page. Make the call
 again using the returned token to retrieve the next page. Keep all other
 arguments unchanged.}
 }
 \description{
 Lists all the code reviews that the customer has created in the past 90 days.
 
-See \url{https://paws-r.github.io/docs/codegurureviewer/list_code_reviews.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codegurureviewer_list_code_reviews/} for full documentation.
 }
 \keyword{internal}

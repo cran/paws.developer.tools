@@ -11,14 +11,14 @@ codepipeline_acknowledge_job(jobId, nonce)
 \item{jobId}{[required] The unique system-generated ID of the job for which you want to confirm
 receipt.}
 
-\item{nonce}{[required] A system-generated random number that AWS CodePipeline uses to ensure
-that the job is being worked on by only one job worker. Get this number
-from the response of the \code{\link[=codepipeline_poll_for_jobs]{poll_for_jobs}}
+\item{nonce}{[required] A system-generated random number that CodePipeline uses to ensure that
+the job is being worked on by only one job worker. Get this number from
+the response of the \code{\link[=codepipeline_poll_for_jobs]{poll_for_jobs}}
 request that returned this job.}
 }
 \description{
 Returns information about a specified job and whether that job has been received by the job worker. Used for custom actions only.
 
-See \url{https://paws-r.github.io/docs/codepipeline/acknowledge_job.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codepipeline_acknowledge_job/} for full documentation.
 }
 \keyword{internal}

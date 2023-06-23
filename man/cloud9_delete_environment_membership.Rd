@@ -2,7 +2,7 @@
 % Please edit documentation in R/cloud9_operations.R
 \name{cloud9_delete_environment_membership}
 \alias{cloud9_delete_environment_membership}
-\title{Deletes an environment member from an Cloud9 development environment}
+\title{Deletes an environment member from a development environment}
 \usage{
 cloud9_delete_environment_membership(environmentId, userArn)
 }
@@ -13,8 +13,8 @@ cloud9_delete_environment_membership(environmentId, userArn)
 the environment.}
 }
 \description{
-Deletes an environment member from an Cloud9 development environment.
+Deletes an environment member from a development environment.
 
-See \url{https://paws-r.github.io/docs/cloud9/delete_environment_membership.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/cloud9_delete_environment_membership/} for full documentation.
 }
 \keyword{internal}

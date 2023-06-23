@@ -23,16 +23,18 @@ the domain. It does not include dashes or spaces.}
 following values are supported:
 \itemize{
 \item \code{public:npmjs} - for the npm public repository.
+\item \code{public:nuget-org} - for the NuGet Gallery.
 \item \code{public:pypi} - for the Python Package Index.
 \item \code{public:maven-central} - for Maven Central.
 \item \code{public:maven-googleandroid} - for the Google Android repository.
 \item \code{public:maven-gradleplugins} - for the Gradle plugins repository.
 \item \code{public:maven-commonsware} - for the CommonsWare Android repository.
+\item \code{public:maven-clojars} - for the Clojars repository.
 }}
 }
 \description{
 Adds an existing external connection to a repository. One external connection is allowed per repository.
 
-See \url{https://paws-r.github.io/docs/codeartifact/associate_external_connection.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codeartifact_associate_external_connection/} for full documentation.
 }
 \keyword{internal}

@@ -23,7 +23,7 @@ traces.}
 \itemize{
 \item The InsightsEnabled boolean can be set to true to enable insights
 for the group or false to disable insights for the group.
-\item The NotifcationsEnabled boolean can be set to true to enable
+\item The NotificationsEnabled boolean can be set to true to enable
 insights notifications for the group. Notifications can only be
 enabled on a group with InsightsEnabled set to true.
 }}
@@ -31,6 +31,6 @@ enabled on a group with InsightsEnabled set to true.
 \description{
 Updates a group resource.
 
-See \url{https://paws-r.github.io/docs/xray/update_group.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/xray_update_group/} for full documentation.
 }
 \keyword{internal}

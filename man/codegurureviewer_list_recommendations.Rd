@@ -17,12 +17,12 @@ codegurureviewer_list_recommendations(
 100.}
 
 \item{CodeReviewArn}{[required] The Amazon Resource Name (ARN) of the
-\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html}{\code{CodeReview}}
+\href{https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html}{CodeReview}
 object.}
 }
 \description{
 Returns the list of all recommendations for a completed code review.
 
-See \url{https://paws-r.github.io/docs/codegurureviewer/list_recommendations.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codegurureviewer_list_recommendations/} for full documentation.
 }
 \keyword{internal}

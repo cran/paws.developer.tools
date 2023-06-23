@@ -34,6 +34,7 @@ component that specifies its namespace depends on its type. For example:
 \item Python and NuGet package versions do not contain a corresponding
 component, package versions of those formats do not have a
 namespace.
+\item The namespace of a generic package is its \code{namespace}.
 }}
 
 \item{package}{[required] The name of the requested package version.}
@@ -43,6 +44,6 @@ namespace.
 \description{
 Returns a \href{https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionDescription.html}{PackageVersionDescription} object that contains information about the requested package version.
 
-See \url{https://paws-r.github.io/docs/codeartifact/describe_package_version.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codeartifact_describe_package_version/} for full documentation.
 }
 \keyword{internal}

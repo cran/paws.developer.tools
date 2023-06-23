@@ -33,6 +33,7 @@ required when requesting Maven packages.
 \item The namespace of an npm package is its \code{scope}.
 \item Python and NuGet packages do not contain a corresponding component,
 packages of those formats do not have a namespace.
+\item The namespace of a generic package is its \code{namespace}.
 }}
 
 \item{package}{[required] The name of the requested package.}
@@ -40,6 +41,6 @@ packages of those formats do not have a namespace.
 \description{
 Returns a \href{https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageDescription.html}{PackageDescription} object that contains information about the requested package.
 
-See \url{https://paws-r.github.io/docs/codeartifact/describe_package.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codeartifact_describe_package/} for full documentation.
 }
 \keyword{internal}

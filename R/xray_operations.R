@@ -8,7 +8,7 @@ NULL
 #' @description
 #' Retrieves a list of traces specified by ID. Each trace is a collection of segment documents that originates from a single request. Use [`get_trace_summaries`][xray_get_trace_summaries] to get a list of trace IDs.
 #'
-#' See [https://paws-r.github.io/docs/xray/batch_get_traces.html](https://paws-r.github.io/docs/xray/batch_get_traces.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_batch_get_traces/](https://www.paws-r-sdk.com/docs/xray_batch_get_traces/) for full documentation.
 #'
 #' @param TraceIds &#91;required&#93; Specify the trace IDs of requests for which to retrieve segments.
 #' @param NextToken Pagination token.
@@ -38,7 +38,7 @@ xray_batch_get_traces <- function(TraceIds, NextToken = NULL) {
 #' @description
 #' Creates a group resource with a name and a filter expression.
 #'
-#' See [https://paws-r.github.io/docs/xray/create_group.html](https://paws-r.github.io/docs/xray/create_group.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_create_group/](https://www.paws-r-sdk.com/docs/xray_create_group/) for full documentation.
 #'
 #' @param GroupName &#91;required&#93; The case-sensitive name of the new group. Default is a reserved name and
 #' names must be unique.
@@ -48,13 +48,13 @@ xray_batch_get_traces <- function(TraceIds, NextToken = NULL) {
 #' -   The InsightsEnabled boolean can be set to true to enable insights
 #'     for the new group or false to disable insights for the new group.
 #' 
-#' -   The NotifcationsEnabled boolean can be set to true to enable
+#' -   The NotificationsEnabled boolean can be set to true to enable
 #'     insights notifications for the new group. Notifications may only be
 #'     enabled on a group with InsightsEnabled set to true.
 #' @param Tags A map that contains one or more tag keys and tag values to attach to an
 #' X-Ray group. For more information about ways to use tags, see [Tagging
 #' Amazon Web Services
-#' resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html)
+#' resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
 #' in the *Amazon Web Services General Reference*.
 #' 
 #' The following restrictions apply to tags:
@@ -99,13 +99,13 @@ xray_create_group <- function(GroupName, FilterExpression = NULL, InsightsConfig
 #' @description
 #' Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with [`get_sampling_rules`][xray_get_sampling_rules], and evaluate each rule in ascending order of *priority* for each request. If a rule matches, the service records a trace, borrowing it from the reservoir size. After 10 seconds, the service reports back to X-Ray with [`get_sampling_targets`][xray_get_sampling_targets] to get updated versions of each in-use rule. The updated rule contains a trace quota that the service can use instead of borrowing from the reservoir.
 #'
-#' See [https://paws-r.github.io/docs/xray/create_sampling_rule.html](https://paws-r.github.io/docs/xray/create_sampling_rule.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_create_sampling_rule/](https://www.paws-r-sdk.com/docs/xray_create_sampling_rule/) for full documentation.
 #'
 #' @param SamplingRule &#91;required&#93; The rule definition.
 #' @param Tags A map that contains one or more tag keys and tag values to attach to an
 #' X-Ray sampling rule. For more information about ways to use tags, see
 #' [Tagging Amazon Web Services
-#' resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html)
+#' resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
 #' in the *Amazon Web Services General Reference*.
 #' 
 #' The following restrictions apply to tags:
@@ -149,7 +149,7 @@ xray_create_sampling_rule <- function(SamplingRule, Tags = NULL) {
 #' @description
 #' Deletes a group resource.
 #'
-#' See [https://paws-r.github.io/docs/xray/delete_group.html](https://paws-r.github.io/docs/xray/delete_group.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_delete_group/](https://www.paws-r-sdk.com/docs/xray_delete_group/) for full documentation.
 #'
 #' @param GroupName The case-sensitive name of the group.
 #' @param GroupARN The ARN of the group that was generated on creation.
@@ -174,12 +174,45 @@ xray_delete_group <- function(GroupName = NULL, GroupARN = NULL) {
 }
 .xray$operations$delete_group <- xray_delete_group
 
+#' Deletes a resource policy from the target Amazon Web Services account
+#'
+#' @description
+#' Deletes a resource policy from the target Amazon Web Services account.
+#'
+#' See [https://www.paws-r-sdk.com/docs/xray_delete_resource_policy/](https://www.paws-r-sdk.com/docs/xray_delete_resource_policy/) for full documentation.
+#'
+#' @param PolicyName &#91;required&#93; The name of the resource policy to delete.
+#' @param PolicyRevisionId Specifies a specific policy revision to delete. Provide a
+#' `PolicyRevisionId` to ensure an atomic delete operation. If the provided
+#' revision id does not match the latest policy revision id, an
+#' `InvalidPolicyRevisionIdException` exception is returned.
+#'
+#' @keywords internal
+#'
+#' @rdname xray_delete_resource_policy
+xray_delete_resource_policy <- function(PolicyName, PolicyRevisionId = NULL) {
+  op <- new_operation(
+    name = "DeleteResourcePolicy",
+    http_method = "POST",
+    http_path = "/DeleteResourcePolicy",
+    paginator = list()
+  )
+  input <- .xray$delete_resource_policy_input(PolicyName = PolicyName, PolicyRevisionId = PolicyRevisionId)
+  output <- .xray$delete_resource_policy_output()
+  config <- get_config()
+  svc <- .xray$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.xray$operations$delete_resource_policy <- xray_delete_resource_policy
+
 #' Deletes a sampling rule
 #'
 #' @description
 #' Deletes a sampling rule.
 #'
-#' See [https://paws-r.github.io/docs/xray/delete_sampling_rule.html](https://paws-r.github.io/docs/xray/delete_sampling_rule.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_delete_sampling_rule/](https://www.paws-r-sdk.com/docs/xray_delete_sampling_rule/) for full documentation.
 #'
 #' @param RuleName The name of the sampling rule. Specify a rule by either name or ARN, but
 #' not both.
@@ -211,7 +244,7 @@ xray_delete_sampling_rule <- function(RuleName = NULL, RuleARN = NULL) {
 #' @description
 #' Retrieves the current encryption configuration for X-Ray data.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_encryption_config.html](https://paws-r.github.io/docs/xray/get_encryption_config.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_encryption_config/](https://www.paws-r-sdk.com/docs/xray_get_encryption_config/) for full documentation.
 #'
 #' @keywords internal
 #'
@@ -238,7 +271,7 @@ xray_get_encryption_config <- function() {
 #' @description
 #' Retrieves group resource details.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_group.html](https://paws-r.github.io/docs/xray/get_group.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_group/](https://www.paws-r-sdk.com/docs/xray_get_group/) for full documentation.
 #'
 #' @param GroupName The case-sensitive name of the group.
 #' @param GroupARN The ARN of the group that was generated on creation.
@@ -268,7 +301,7 @@ xray_get_group <- function(GroupName = NULL, GroupARN = NULL) {
 #' @description
 #' Retrieves all active group details.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_groups.html](https://paws-r.github.io/docs/xray/get_groups.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_groups/](https://www.paws-r-sdk.com/docs/xray_get_groups/) for full documentation.
 #'
 #' @param NextToken Pagination token.
 #'
@@ -297,7 +330,7 @@ xray_get_groups <- function(NextToken = NULL) {
 #' @description
 #' Retrieves the summary information of an insight. This includes impact to clients and root cause services, the top anomalous services, the category, the state of the insight, and the start and end time of the insight.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_insight.html](https://paws-r.github.io/docs/xray/get_insight.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_insight/](https://www.paws-r-sdk.com/docs/xray_get_insight/) for full documentation.
 #'
 #' @param InsightId &#91;required&#93; The insight's unique identifier. Use the GetInsightSummaries action to
 #' retrieve an InsightId.
@@ -328,7 +361,7 @@ xray_get_insight <- function(InsightId) {
 #' @description
 #' X-Ray reevaluates insights periodically until they're resolved, and records each intermediate state as an event. You can review an insight's events in the Impact Timeline on the Inspect page in the X-Ray console.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_insight_events.html](https://paws-r.github.io/docs/xray/get_insight_events.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_insight_events/](https://www.paws-r-sdk.com/docs/xray_get_insight_events/) for full documentation.
 #'
 #' @param InsightId &#91;required&#93; The insight's unique identifier. Use the GetInsightSummaries action to
 #' retrieve an InsightId.
@@ -361,7 +394,7 @@ xray_get_insight_events <- function(InsightId, MaxResults = NULL, NextToken = NU
 #' @description
 #' Retrieves a service graph structure filtered by the specified insight. The service graph is limited to only structural information. For a complete service graph, use this API with the GetServiceGraph API.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_insight_impact_graph.html](https://paws-r.github.io/docs/xray/get_insight_impact_graph.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_insight_impact_graph/](https://www.paws-r-sdk.com/docs/xray_get_insight_impact_graph/) for full documentation.
 #'
 #' @param InsightId &#91;required&#93; The insight's unique identifier. Use the GetInsightSummaries action to
 #' retrieve an InsightId.
@@ -400,7 +433,7 @@ xray_get_insight_impact_graph <- function(InsightId, StartTime, EndTime, NextTok
 #' @description
 #' Retrieves the summaries of all insights in the specified group matching the provided filter values.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_insight_summaries.html](https://paws-r.github.io/docs/xray/get_insight_summaries.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_insight_summaries/](https://www.paws-r-sdk.com/docs/xray_get_insight_summaries/) for full documentation.
 #'
 #' @param States The list of insight states.
 #' @param GroupARN The Amazon Resource Name (ARN) of the group. Required if the GroupName
@@ -438,7 +471,7 @@ xray_get_insight_summaries <- function(States = NULL, GroupARN = NULL, GroupName
 #' @description
 #' Retrieves all sampling rules.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_sampling_rules.html](https://paws-r.github.io/docs/xray/get_sampling_rules.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_sampling_rules/](https://www.paws-r-sdk.com/docs/xray_get_sampling_rules/) for full documentation.
 #'
 #' @param NextToken Pagination token.
 #'
@@ -468,7 +501,7 @@ xray_get_sampling_rules <- function(NextToken = NULL) {
 #' @description
 #' Retrieves information about recent sampling results for all sampling rules.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_sampling_statistic_summaries.html](https://paws-r.github.io/docs/xray/get_sampling_statistic_summaries.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_sampling_statistic_summaries/](https://www.paws-r-sdk.com/docs/xray_get_sampling_statistic_summaries/) for full documentation.
 #'
 #' @param NextToken Pagination token.
 #'
@@ -498,7 +531,7 @@ xray_get_sampling_statistic_summaries <- function(NextToken = NULL) {
 #' @description
 #' Requests a sampling quota for rules that the service is using to sample requests.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_sampling_targets.html](https://paws-r.github.io/docs/xray/get_sampling_targets.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_sampling_targets/](https://www.paws-r-sdk.com/docs/xray_get_sampling_targets/) for full documentation.
 #'
 #' @param SamplingStatisticsDocuments &#91;required&#93; Information about rules that the service is using to sample requests.
 #'
@@ -528,7 +561,7 @@ xray_get_sampling_targets <- function(SamplingStatisticsDocuments) {
 #' @description
 #' Retrieves a document that describes services that process incoming requests, and downstream services that they call as a result. Root services process incoming requests and make calls to downstream services. Root services are applications that use the [Amazon Web Services X-Ray SDK](https://docs.aws.amazon.com/xray/index.html). Downstream services can be other applications, Amazon Web Services resources, HTTP web APIs, or SQL databases.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_service_graph.html](https://paws-r.github.io/docs/xray/get_service_graph.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_service_graph/](https://www.paws-r-sdk.com/docs/xray_get_service_graph/) for full documentation.
 #'
 #' @param StartTime &#91;required&#93; The start of the time frame for which to generate a graph.
 #' @param EndTime &#91;required&#93; The end of the timeframe for which to generate a graph.
@@ -563,7 +596,7 @@ xray_get_service_graph <- function(StartTime, EndTime, GroupName = NULL, GroupAR
 #' @description
 #' Get an aggregation of service statistics defined by a specific time range.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_time_series_service_statistics.html](https://paws-r.github.io/docs/xray/get_time_series_service_statistics.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_time_series_service_statistics/](https://www.paws-r-sdk.com/docs/xray_get_time_series_service_statistics/) for full documentation.
 #'
 #' @param StartTime &#91;required&#93; The start of the time frame for which to aggregate statistics.
 #' @param EndTime &#91;required&#93; The end of the time frame for which to aggregate statistics.
@@ -603,7 +636,7 @@ xray_get_time_series_service_statistics <- function(StartTime, EndTime, GroupNam
 #' @description
 #' Retrieves a service graph for one or more specific trace IDs.
 #'
-#' See [https://paws-r.github.io/docs/xray/get_trace_graph.html](https://paws-r.github.io/docs/xray/get_trace_graph.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_trace_graph/](https://www.paws-r-sdk.com/docs/xray_get_trace_graph/) for full documentation.
 #'
 #' @param TraceIds &#91;required&#93; Trace IDs of requests for which to generate a service graph.
 #' @param NextToken Pagination token.
@@ -634,7 +667,7 @@ xray_get_trace_graph <- function(TraceIds, NextToken = NULL) {
 #' @description
 #' Retrieves IDs and annotations for traces available for a specified time frame using an optional filter. To get the full traces, pass the trace IDs to [`batch_get_traces`][xray_batch_get_traces].
 #'
-#' See [https://paws-r.github.io/docs/xray/get_trace_summaries.html](https://paws-r.github.io/docs/xray/get_trace_summaries.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_get_trace_summaries/](https://www.paws-r-sdk.com/docs/xray_get_trace_summaries/) for full documentation.
 #'
 #' @param StartTime &#91;required&#93; The start of the time frame for which to retrieve traces.
 #' @param EndTime &#91;required&#93; The end of the time frame for which to retrieve traces.
@@ -668,13 +701,43 @@ xray_get_trace_summaries <- function(StartTime, EndTime, TimeRangeType = NULL, S
 }
 .xray$operations$get_trace_summaries <- xray_get_trace_summaries
 
+#' Returns the list of resource policies in the target Amazon Web Services
+#' account
+#'
+#' @description
+#' Returns the list of resource policies in the target Amazon Web Services account.
+#'
+#' See [https://www.paws-r-sdk.com/docs/xray_list_resource_policies/](https://www.paws-r-sdk.com/docs/xray_list_resource_policies/) for full documentation.
+#'
+#' @param NextToken Not currently supported.
+#'
+#' @keywords internal
+#'
+#' @rdname xray_list_resource_policies
+xray_list_resource_policies <- function(NextToken = NULL) {
+  op <- new_operation(
+    name = "ListResourcePolicies",
+    http_method = "POST",
+    http_path = "/ListResourcePolicies",
+    paginator = list()
+  )
+  input <- .xray$list_resource_policies_input(NextToken = NextToken)
+  output <- .xray$list_resource_policies_output()
+  config <- get_config()
+  svc <- .xray$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.xray$operations$list_resource_policies <- xray_list_resource_policies
+
 #' Returns a list of tags that are applied to the specified Amazon Web
 #' Services X-Ray group or sampling rule
 #'
 #' @description
 #' Returns a list of tags that are applied to the specified Amazon Web Services X-Ray group or sampling rule.
 #'
-#' See [https://paws-r.github.io/docs/xray/list_tags_for_resource.html](https://paws-r.github.io/docs/xray/list_tags_for_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/xray_list_tags_for_resource/) for full documentation.
 #'
 #' @param ResourceARN &#91;required&#93; The Amazon Resource Number (ARN) of an X-Ray group or sampling rule.
 #' @param NextToken A pagination token. If multiple pages of results are returned, use the
@@ -706,7 +769,7 @@ xray_list_tags_for_resource <- function(ResourceARN, NextToken = NULL) {
 #' @description
 #' Updates the encryption configuration for X-Ray data.
 #'
-#' See [https://paws-r.github.io/docs/xray/put_encryption_config.html](https://paws-r.github.io/docs/xray/put_encryption_config.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_put_encryption_config/](https://www.paws-r-sdk.com/docs/xray_put_encryption_config/) for full documentation.
 #'
 #' @param KeyId An Amazon Web Services KMS key in one of the following formats:
 #' 
@@ -745,12 +808,65 @@ xray_put_encryption_config <- function(KeyId = NULL, Type) {
 }
 .xray$operations$put_encryption_config <- xray_put_encryption_config
 
+#' Sets the resource policy to grant one or more Amazon Web Services
+#' services and accounts permissions to access X-Ray
+#'
+#' @description
+#' Sets the resource policy to grant one or more Amazon Web Services services and accounts permissions to access X-Ray. Each resource policy will be associated with a specific Amazon Web Services account. Each Amazon Web Services account can have a maximum of 5 resource policies, and each policy name must be unique within that account. The maximum size of each resource policy is 5KB.
+#'
+#' See [https://www.paws-r-sdk.com/docs/xray_put_resource_policy/](https://www.paws-r-sdk.com/docs/xray_put_resource_policy/) for full documentation.
+#'
+#' @param PolicyName &#91;required&#93; The name of the resource policy. Must be unique within a specific Amazon
+#' Web Services account.
+#' @param PolicyDocument &#91;required&#93; The resource policy document, which can be up to 5kb in size.
+#' @param PolicyRevisionId Specifies a specific policy revision, to ensure an atomic create
+#' operation. By default the resource policy is created if it does not
+#' exist, or updated with an incremented revision id. The revision id is
+#' unique to each policy in the account.
+#' 
+#' If the policy revision id does not match the latest revision id, the
+#' operation will fail with an `InvalidPolicyRevisionIdException`
+#' exception. You can also provide a `PolicyRevisionId` of 0. In this case,
+#' the operation will fail with an `InvalidPolicyRevisionIdException`
+#' exception if a resource policy with the same name already exists.
+#' @param BypassPolicyLockoutCheck A flag to indicate whether to bypass the resource policy lockout safety
+#' check.
+#' 
+#' Setting this value to true increases the risk that the policy becomes
+#' unmanageable. Do not set this value to true indiscriminately.
+#' 
+#' Use this parameter only when you include a policy in the request and you
+#' intend to prevent the principal that is making the request from making a
+#' subsequent [`put_resource_policy`][xray_put_resource_policy] request.
+#' 
+#' The default value is false.
+#'
+#' @keywords internal
+#'
+#' @rdname xray_put_resource_policy
+xray_put_resource_policy <- function(PolicyName, PolicyDocument, PolicyRevisionId = NULL, BypassPolicyLockoutCheck = NULL) {
+  op <- new_operation(
+    name = "PutResourcePolicy",
+    http_method = "POST",
+    http_path = "/PutResourcePolicy",
+    paginator = list()
+  )
+  input <- .xray$put_resource_policy_input(PolicyName = PolicyName, PolicyDocument = PolicyDocument, PolicyRevisionId = PolicyRevisionId, BypassPolicyLockoutCheck = BypassPolicyLockoutCheck)
+  output <- .xray$put_resource_policy_output()
+  config <- get_config()
+  svc <- .xray$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.xray$operations$put_resource_policy <- xray_put_resource_policy
+
 #' Used by the Amazon Web Services X-Ray daemon to upload telemetry
 #'
 #' @description
 #' Used by the Amazon Web Services X-Ray daemon to upload telemetry.
 #'
-#' See [https://paws-r.github.io/docs/xray/put_telemetry_records.html](https://paws-r.github.io/docs/xray/put_telemetry_records.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_put_telemetry_records/](https://www.paws-r-sdk.com/docs/xray_put_telemetry_records/) for full documentation.
 #'
 #' @param TelemetryRecords &#91;required&#93; 
 #' @param EC2InstanceId 
@@ -782,7 +898,7 @@ xray_put_telemetry_records <- function(TelemetryRecords, EC2InstanceId = NULL, H
 #' @description
 #' Uploads segment documents to Amazon Web Services X-Ray. The [X-Ray SDK](https://docs.aws.amazon.com/xray/index.html) generates segment documents and sends them to the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress segment, or an array of subsegments.
 #'
-#' See [https://paws-r.github.io/docs/xray/put_trace_segments.html](https://paws-r.github.io/docs/xray/put_trace_segments.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_put_trace_segments/](https://www.paws-r-sdk.com/docs/xray_put_trace_segments/) for full documentation.
 #'
 #' @param TraceSegmentDocuments &#91;required&#93; A string containing a JSON document defining one or more segments or
 #' subsegments.
@@ -813,13 +929,13 @@ xray_put_trace_segments <- function(TraceSegmentDocuments) {
 #' @description
 #' Applies tags to an existing Amazon Web Services X-Ray group or sampling rule.
 #'
-#' See [https://paws-r.github.io/docs/xray/tag_resource.html](https://paws-r.github.io/docs/xray/tag_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_tag_resource/](https://www.paws-r-sdk.com/docs/xray_tag_resource/) for full documentation.
 #'
 #' @param ResourceARN &#91;required&#93; The Amazon Resource Number (ARN) of an X-Ray group or sampling rule.
 #' @param Tags &#91;required&#93; A map that contains one or more tag keys and tag values to attach to an
 #' X-Ray group or sampling rule. For more information about ways to use
 #' tags, see [Tagging Amazon Web Services
-#' resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html)
+#' resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
 #' in the *Amazon Web Services General Reference*.
 #' 
 #' The following restrictions apply to tags:
@@ -863,7 +979,7 @@ xray_tag_resource <- function(ResourceARN, Tags) {
 #' @description
 #' Removes tags from an Amazon Web Services X-Ray group or sampling rule. You cannot edit or delete system tags (those with an `aws:` prefix).
 #'
-#' See [https://paws-r.github.io/docs/xray/untag_resource.html](https://paws-r.github.io/docs/xray/untag_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_untag_resource/](https://www.paws-r-sdk.com/docs/xray_untag_resource/) for full documentation.
 #'
 #' @param ResourceARN &#91;required&#93; The Amazon Resource Number (ARN) of an X-Ray group or sampling rule.
 #' @param TagKeys &#91;required&#93; Keys for one or more tags that you want to remove from an X-Ray group or
@@ -894,7 +1010,7 @@ xray_untag_resource <- function(ResourceARN, TagKeys) {
 #' @description
 #' Updates a group resource.
 #'
-#' See [https://paws-r.github.io/docs/xray/update_group.html](https://paws-r.github.io/docs/xray/update_group.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_update_group/](https://www.paws-r-sdk.com/docs/xray_update_group/) for full documentation.
 #'
 #' @param GroupName The case-sensitive name of the group.
 #' @param GroupARN The ARN that was generated upon creation.
@@ -905,7 +1021,7 @@ xray_untag_resource <- function(ResourceARN, TagKeys) {
 #' -   The InsightsEnabled boolean can be set to true to enable insights
 #'     for the group or false to disable insights for the group.
 #' 
-#' -   The NotifcationsEnabled boolean can be set to true to enable
+#' -   The NotificationsEnabled boolean can be set to true to enable
 #'     insights notifications for the group. Notifications can only be
 #'     enabled on a group with InsightsEnabled set to true.
 #'
@@ -934,7 +1050,7 @@ xray_update_group <- function(GroupName = NULL, GroupARN = NULL, FilterExpressio
 #' @description
 #' Modifies a sampling rule's configuration.
 #'
-#' See [https://paws-r.github.io/docs/xray/update_sampling_rule.html](https://paws-r.github.io/docs/xray/update_sampling_rule.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/xray_update_sampling_rule/](https://www.paws-r-sdk.com/docs/xray_update_sampling_rule/) for full documentation.
 #'
 #' @param SamplingRuleUpdate &#91;required&#93; The rule and fields to change.
 #'

@@ -19,7 +19,9 @@ wellarchitected_update_workload(
   IndustryType = NULL,
   Industry = NULL,
   Notes = NULL,
-  ImprovementStatus = NULL
+  ImprovementStatus = NULL,
+  DiscoveryConfig = NULL,
+  Applications = NULL
 )
 }
 \arguments{
@@ -57,10 +59,15 @@ added.}
 \item{Notes}{}
 
 \item{ImprovementStatus}{}
+
+\item{DiscoveryConfig}{Well-Architected discovery configuration settings to associate to the
+workload.}
+
+\item{Applications}{List of AppRegistry application ARNs to associate to the workload.}
 }
 \description{
 Update an existing workload.
 
-See \url{https://paws-r.github.io/docs/wellarchitected/update_workload.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/wellarchitected_update_workload/} for full documentation.
 }
 \keyword{internal}

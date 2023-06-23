@@ -7,12 +7,12 @@
 codedeploy_get_application(applicationName)
 }
 \arguments{
-\item{applicationName}{[required] The name of an AWS CodeDeploy application associated with the IAM user
-or AWS account.}
+\item{applicationName}{[required] The name of an CodeDeploy application associated with the IAM user or
+Amazon Web Services account.}
 }
 \description{
 Gets information about an application.
 
-See \url{https://paws-r.github.io/docs/codedeploy/get_application.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codedeploy_get_application/} for full documentation.
 }
 \keyword{internal}

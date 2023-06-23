@@ -7,14 +7,14 @@
 codedeploy_batch_get_deployment_groups(applicationName, deploymentGroupNames)
 }
 \arguments{
-\item{applicationName}{[required] The name of an AWS CodeDeploy application associated with the applicable
-IAM user or AWS account.}
+\item{applicationName}{[required] The name of an CodeDeploy application associated with the applicable IAM
+or Amazon Web Services account.}
 
 \item{deploymentGroupNames}{[required] The names of the deployment groups.}
 }
 \description{
 Gets information about one or more deployment groups.
 
-See \url{https://paws-r.github.io/docs/codedeploy/batch_get_deployment_groups.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codedeploy_batch_get_deployment_groups/} for full documentation.
 }
 \keyword{internal}

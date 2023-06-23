@@ -15,8 +15,8 @@ wellarchitected_list_lens_shares(
 \arguments{
 \item{LensAlias}{[required]}
 
-\item{SharedWithPrefix}{The Amazon Web Services account ID or IAM role with which the lens is
-shared.}
+\item{SharedWithPrefix}{The Amazon Web Services account ID, IAM role, organization ID, or
+organizational unit (OU) ID with which the lens is shared.}
 
 \item{NextToken}{}
 
@@ -27,6 +27,6 @@ shared.}
 \description{
 List the lens shares associated with the lens.
 
-See \url{https://paws-r.github.io/docs/wellarchitected/list_lens_shares.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/wellarchitected_list_lens_shares/} for full documentation.
 }
 \keyword{internal}

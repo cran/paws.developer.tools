@@ -8,7 +8,7 @@ codepipeline_get_pipeline(name, version = NULL)
 }
 \arguments{
 \item{name}{[required] The name of the pipeline for which you want to get information. Pipeline
-names must be unique under an AWS user account.}
+names must be unique in an Amazon Web Services account.}
 
 \item{version}{The version number of the pipeline. If you do not specify a version,
 defaults to the current version.}
@@ -16,6 +16,6 @@ defaults to the current version.}
 \description{
 Returns the metadata, structure, stages, and actions of a pipeline. Can be used to return the entire structure of a pipeline in JSON format, which can then be modified and used to update the pipeline structure with \code{\link[=codepipeline_update_pipeline]{update_pipeline}}.
 
-See \url{https://paws-r.github.io/docs/codepipeline/get_pipeline.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/codepipeline_get_pipeline/} for full documentation.
 }
 \keyword{internal}
