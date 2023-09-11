@@ -4,22 +4,47 @@
 \alias{codestarconnections}
 \title{AWS CodeStar connections}
 \usage{
-codestarconnections(config = list())
+codestarconnections(
+  config = list(),
+  credentials = list(),
+  endpoint = NULL,
+  region = NULL
+)
 }
 \arguments{
 \item{config}{Optional configuration of credentials, endpoint, and/or region.
 \itemize{
+\item{\strong{credentials}:} {\itemize{
+\item{\strong{creds}:} {\itemize{
 \item{\strong{access_key_id}:} {AWS access key ID}
 \item{\strong{secret_access_key}:} {AWS secret access key}
 \item{\strong{session_token}:} {AWS temporary session token}
+}}
 \item{\strong{profile}:} {The name of a profile to use. If not given, then the default profile is used.}
 \item{\strong{anonymous}:} {Set anonymous credentials.}
 \item{\strong{endpoint}:} {The complete URL to use for the constructed client.}
 \item{\strong{region}:} {The AWS Region used in instantiating the client.}
+}}
 \item{\strong{close_connection}:} {Immediately close all HTTP connections.}
 \item{\strong{timeout}:} {The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
-\item{\strong{s3_force_path_style}:} {Set this to \code{true} to force the request to use path-style addressing, i.e., \verb{http://s3.amazonaws.com/BUCKET/KEY}.}
+\item{\strong{s3_force_path_style}:} {Set this to \code{true} to force the request to use path-style addressing, i.e. \verb{http://s3.amazonaws.com/BUCKET/KEY}.}
+\item{\strong{sts_regional_endpoint}:} {Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
 }}
+
+\item{credentials}{Optional credentials shorthand for the config parameter
+\itemize{
+\item{\strong{creds}:} {\itemize{
+\item{\strong{access_key_id}:} {AWS access key ID}
+\item{\strong{secret_access_key}:} {AWS secret access key}
+\item{\strong{session_token}:} {AWS temporary session token}
+}}
+\item{\strong{profile}:} {The name of a profile to use. If not given, then the default profile is used.}
+\item{\strong{anonymous}:} {Set anonymous credentials.}
+}}
+
+\item{endpoint}{Optional shorthand for complete URL to use for the constructed client.}
+
+\item{region}{Optional shorthand for AWS Region used in instantiating the client.}
 }
 \value{
 A client for the service. You can call the service's operations using
@@ -30,18 +55,19 @@ Operations section.
 \description{
 AWS CodeStar Connections
 
-This AWS CodeStar Connections API Reference provides descriptions and
-usage examples of the operations and data types for the AWS CodeStar
-Connections API. You can use the connections API to work with
-connections and installations.
+This Amazon Web Services CodeStar Connections API Reference provides
+descriptions and usage examples of the operations and data types for the
+Amazon Web Services CodeStar Connections API. You can use the
+connections API to work with connections and installations.
 
-\emph{Connections} are configurations that you use to connect AWS resources
-to external code repositories. Each connection is a resource that can be
-given to services such as CodePipeline to connect to a third-party
-repository such as Bitbucket. For example, you can add the connection in
-CodePipeline so that it triggers your pipeline when a code change is
-made to your third-party code repository. Each connection is named and
-associated with a unique ARN that is used to reference the connection.
+\emph{Connections} are configurations that you use to connect Amazon Web
+Services resources to external code repositories. Each connection is a
+resource that can be given to services such as CodePipeline to connect
+to a third-party repository such as Bitbucket. For example, you can add
+the connection in CodePipeline so that it triggers your pipeline when a
+code change is made to your third-party code repository. Each connection
+is named and associated with a unique ARN that is used to reference the
+connection.
 
 When you create a connection, the console initiates a third-party
 connection handshake. \emph{Installations} are the apps that are used to
@@ -79,20 +105,23 @@ information about the host, including the setup status.
 hosts associated with your account.
 }
 
-You can work with tags in AWS CodeStar Connections by calling the
-following:
+You can work with tags in Amazon Web Services CodeStar Connections by
+calling the following:
 \itemize{
 \item \code{\link[=codestarconnections_list_tags_for_resource]{list_tags_for_resource}},
-which gets information about AWS tags for a specified Amazon
-Resource Name (ARN) in AWS CodeStar Connections.
+which gets information about Amazon Web Services tags for a
+specified Amazon Resource Name (ARN) in Amazon Web Services CodeStar
+Connections.
 \item \code{\link[=codestarconnections_tag_resource]{tag_resource}}, which adds or
-updates tags for a resource in AWS CodeStar Connections.
+updates tags for a resource in Amazon Web Services CodeStar
+Connections.
 \item \code{\link[=codestarconnections_untag_resource]{untag_resource}}, which
-removes tags for a resource in AWS CodeStar Connections.
+removes tags for a resource in Amazon Web Services CodeStar
+Connections.
 }
 
-For information about how to use AWS CodeStar Connections, see the
-\href{https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html}{Developer Tools User Guide}.
+For information about how to use Amazon Web Services CodeStar
+Connections, see the \href{https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html}{Developer Tools User Guide}.
 }
 \section{Service syntax}{
 
@@ -112,8 +141,20 @@ For information about how to use AWS CodeStar Connections, see the
     region = "string",
     close_connection = "logical",
     timeout = "numeric",
-    s3_force_path_style = "logical"
-  )
+    s3_force_path_style = "logical",
+    sts_regional_endpoint = "string"
+  ),
+  credentials = list(
+    creds = list(
+      access_key_id = "string",
+      secret_access_key = "string",
+      session_token = "string"
+    ),
+    profile = "string",
+    anonymous = "logical"
+  ),
+  endpoint = "string",
+  region = "string"
 )
 }\if{html}{\out{</div>}}
 }
@@ -121,7 +162,7 @@ For information about how to use AWS CodeStar Connections, see the
 \section{Operations}{
 
 \tabular{ll}{
-\link[=codestarconnections_create_connection]{create_connection} \tab Creates a connection that can then be given to other AWS services like CodePipeline so that it can access third-party code repositories\cr
+\link[=codestarconnections_create_connection]{create_connection} \tab Creates a connection that can then be given to other Amazon Web Services services like CodePipeline so that it can access third-party code repositories\cr
 \link[=codestarconnections_create_host]{create_host} \tab Creates a resource that represents the infrastructure where a third-party provider is installed\cr
 \link[=codestarconnections_delete_connection]{delete_connection} \tab The connection to be deleted\cr
 \link[=codestarconnections_delete_host]{delete_host} \tab The host to be deleted\cr
@@ -131,7 +172,7 @@ For information about how to use AWS CodeStar Connections, see the
 \link[=codestarconnections_list_hosts]{list_hosts} \tab Lists the hosts associated with your account\cr
 \link[=codestarconnections_list_tags_for_resource]{list_tags_for_resource} \tab Gets the set of key-value pairs (metadata) that are used to manage the resource\cr
 \link[=codestarconnections_tag_resource]{tag_resource} \tab Adds to or modifies the tags of the given resource\cr
-\link[=codestarconnections_untag_resource]{untag_resource} \tab Removes tags from an AWS resource\cr
+\link[=codestarconnections_untag_resource]{untag_resource} \tab Removes tags from an Amazon Web Services resource\cr
 \link[=codestarconnections_update_host]{update_host} \tab Updates a specified host with the provided configurations
 }
 }
