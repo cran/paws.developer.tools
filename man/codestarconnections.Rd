@@ -14,32 +14,32 @@ codestarconnections(
 \arguments{
 \item{config}{Optional configuration of credentials, endpoint, and/or region.
 \itemize{
-\item{\strong{credentials}:} {\itemize{
-\item{\strong{creds}:} {\itemize{
-\item{\strong{access_key_id}:} {AWS access key ID}
-\item{\strong{secret_access_key}:} {AWS secret access key}
-\item{\strong{session_token}:} {AWS temporary session token}
+\item{\strong{credentials}: \itemize{
+\item{\strong{creds}: \itemize{
+\item{\strong{access_key_id}: AWS access key ID}
+\item{\strong{secret_access_key}: AWS secret access key}
+\item{\strong{session_token}: AWS temporary session token}
 }}
-\item{\strong{profile}:} {The name of a profile to use. If not given, then the default profile is used.}
-\item{\strong{anonymous}:} {Set anonymous credentials.}
-\item{\strong{endpoint}:} {The complete URL to use for the constructed client.}
-\item{\strong{region}:} {The AWS Region used in instantiating the client.}
+\item{\strong{profile}: The name of a profile to use. If not given, then the default profile is used.}
+\item{\strong{anonymous}: Set anonymous credentials.}
 }}
-\item{\strong{close_connection}:} {Immediately close all HTTP connections.}
-\item{\strong{timeout}:} {The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
-\item{\strong{s3_force_path_style}:} {Set this to \code{true} to force the request to use path-style addressing, i.e. \verb{http://s3.amazonaws.com/BUCKET/KEY}.}
-\item{\strong{sts_regional_endpoint}:} {Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
+\item{\strong{endpoint}: The complete URL to use for the constructed client.}
+\item{\strong{region}: The AWS Region used in instantiating the client.}
+\item{\strong{close_connection}: Immediately close all HTTP connections.}
+\item{\strong{timeout}: The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
+\item{\strong{s3_force_path_style}: Set this to \code{true} to force the request to use path-style addressing, i.e. \verb{http://s3.amazonaws.com/BUCKET/KEY}.}
+\item{\strong{sts_regional_endpoint}: Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
 }}
 
 \item{credentials}{Optional credentials shorthand for the config parameter
 \itemize{
-\item{\strong{creds}:} {\itemize{
-\item{\strong{access_key_id}:} {AWS access key ID}
-\item{\strong{secret_access_key}:} {AWS secret access key}
-\item{\strong{session_token}:} {AWS temporary session token}
+\item{\strong{creds}: \itemize{
+\item{\strong{access_key_id}: AWS access key ID}
+\item{\strong{secret_access_key}: AWS secret access key}
+\item{\strong{session_token}: AWS temporary session token}
 }}
-\item{\strong{profile}:} {The name of a profile to use. If not given, then the default profile is used.}
-\item{\strong{anonymous}:} {Set anonymous credentials.}
+\item{\strong{profile}: The name of a profile to use. If not given, then the default profile is used.}
+\item{\strong{anonymous}: Set anonymous credentials.}
 }}
 
 \item{endpoint}{Optional shorthand for complete URL to use for the constructed client.}
@@ -164,16 +164,31 @@ Connections, see the \href{https://docs.aws.amazon.com/dtconsole/latest/userguid
 \tabular{ll}{
 \link[=codestarconnections_create_connection]{create_connection} \tab Creates a connection that can then be given to other Amazon Web Services services like CodePipeline so that it can access third-party code repositories\cr
 \link[=codestarconnections_create_host]{create_host} \tab Creates a resource that represents the infrastructure where a third-party provider is installed\cr
+\link[=codestarconnections_create_repository_link]{create_repository_link} \tab Creates a link to a specified external Git repository\cr
+\link[=codestarconnections_create_sync_configuration]{create_sync_configuration} \tab Creates a sync configuration which allows Amazon Web Services to sync content from a Git repository to update a specified Amazon Web Services resource\cr
 \link[=codestarconnections_delete_connection]{delete_connection} \tab The connection to be deleted\cr
 \link[=codestarconnections_delete_host]{delete_host} \tab The host to be deleted\cr
+\link[=codestarconnections_delete_repository_link]{delete_repository_link} \tab Deletes the association between your connection and a specified external Git repository\cr
+\link[=codestarconnections_delete_sync_configuration]{delete_sync_configuration} \tab Deletes the sync configuration for a specified repository and connection\cr
 \link[=codestarconnections_get_connection]{get_connection} \tab Returns the connection ARN and details such as status, owner, and provider type\cr
 \link[=codestarconnections_get_host]{get_host} \tab Returns the host ARN and details such as status, provider type, endpoint, and, if applicable, the VPC configuration\cr
+\link[=codestarconnections_get_repository_link]{get_repository_link} \tab Returns details about a repository link\cr
+\link[=codestarconnections_get_repository_sync_status]{get_repository_sync_status} \tab Returns details about the sync status for a repository\cr
+\link[=codestarconnections_get_resource_sync_status]{get_resource_sync_status} \tab Returns the status of the sync with the Git repository for a specific Amazon Web Services resource\cr
+\link[=codestarconnections_get_sync_blocker_summary]{get_sync_blocker_summary} \tab Returns a list of the most recent sync blockers\cr
+\link[=codestarconnections_get_sync_configuration]{get_sync_configuration} \tab Returns details about a sync configuration, including the sync type and resource name\cr
 \link[=codestarconnections_list_connections]{list_connections} \tab Lists the connections associated with your account\cr
 \link[=codestarconnections_list_hosts]{list_hosts} \tab Lists the hosts associated with your account\cr
+\link[=codestarconnections_list_repository_links]{list_repository_links} \tab Lists the repository links created for connections in your account\cr
+\link[=codestarconnections_list_repository_sync_definitions]{list_repository_sync_definitions} \tab Lists the repository sync definitions for repository links in your account\cr
+\link[=codestarconnections_list_sync_configurations]{list_sync_configurations} \tab Returns a list of sync configurations for a specified repository\cr
 \link[=codestarconnections_list_tags_for_resource]{list_tags_for_resource} \tab Gets the set of key-value pairs (metadata) that are used to manage the resource\cr
 \link[=codestarconnections_tag_resource]{tag_resource} \tab Adds to or modifies the tags of the given resource\cr
 \link[=codestarconnections_untag_resource]{untag_resource} \tab Removes tags from an Amazon Web Services resource\cr
-\link[=codestarconnections_update_host]{update_host} \tab Updates a specified host with the provided configurations
+\link[=codestarconnections_update_host]{update_host} \tab Updates a specified host with the provided configurations\cr
+\link[=codestarconnections_update_repository_link]{update_repository_link} \tab Updates the association between your connection and a specified external Git repository\cr
+\link[=codestarconnections_update_sync_blocker]{update_sync_blocker} \tab Allows you to update the status of a sync blocker, resolving the blocker and allowing syncing to continue\cr
+\link[=codestarconnections_update_sync_configuration]{update_sync_configuration} \tab Updates the sync configuration for your connection and a specified external Git repository
 }
 }
 
