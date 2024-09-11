@@ -26,12 +26,13 @@ codepipeline_acknowledge_job <- function(jobId, nonce) {
     name = "AcknowledgeJob",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$acknowledge_job_input(jobId = jobId, nonce = nonce)
   output <- .codepipeline$acknowledge_job_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -63,12 +64,13 @@ codepipeline_acknowledge_third_party_job <- function(jobId, nonce, clientToken) 
     name = "AcknowledgeThirdPartyJob",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$acknowledge_third_party_job_input(jobId = jobId, nonce = nonce, clientToken = clientToken)
   output <- .codepipeline$acknowledge_third_party_job_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -109,12 +111,13 @@ codepipeline_create_custom_action_type <- function(category, provider, version, 
     name = "CreateCustomActionType",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$create_custom_action_type_input(category = category, provider = provider, version = version, settings = settings, configurationProperties = configurationProperties, inputArtifactDetails = inputArtifactDetails, outputArtifactDetails = outputArtifactDetails, tags = tags)
   output <- .codepipeline$create_custom_action_type_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -140,12 +143,13 @@ codepipeline_create_pipeline <- function(pipeline, tags = NULL) {
     name = "CreatePipeline",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$create_pipeline_input(pipeline = pipeline, tags = tags)
   output <- .codepipeline$create_pipeline_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -173,12 +177,13 @@ codepipeline_delete_custom_action_type <- function(category, provider, version) 
     name = "DeleteCustomActionType",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$delete_custom_action_type_input(category = category, provider = provider, version = version)
   output <- .codepipeline$delete_custom_action_type_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -202,12 +207,13 @@ codepipeline_delete_pipeline <- function(name) {
     name = "DeletePipeline",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$delete_pipeline_input(name = name)
   output <- .codepipeline$delete_pipeline_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -231,12 +237,13 @@ codepipeline_delete_webhook <- function(name) {
     name = "DeleteWebhook",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$delete_webhook_input(name = name)
   output <- .codepipeline$delete_webhook_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -261,12 +268,13 @@ codepipeline_deregister_webhook_with_third_party <- function(webhookName = NULL)
     name = "DeregisterWebhookWithThirdParty",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$deregister_webhook_with_third_party_input(webhookName = webhookName)
   output <- .codepipeline$deregister_webhook_with_third_party_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -301,12 +309,13 @@ codepipeline_disable_stage_transition <- function(pipelineName, stageName, trans
     name = "DisableStageTransition",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$disable_stage_transition_input(pipelineName = pipelineName, stageName = stageName, transitionType = transitionType, reason = reason)
   output <- .codepipeline$disable_stage_transition_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -338,12 +347,13 @@ codepipeline_enable_stage_transition <- function(pipelineName, stageName, transi
     name = "EnableStageTransition",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$enable_stage_transition_input(pipelineName = pipelineName, stageName = stageName, transitionType = transitionType)
   output <- .codepipeline$enable_stage_transition_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -387,12 +397,13 @@ codepipeline_get_action_type <- function(category, owner, provider, version) {
     name = "GetActionType",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$get_action_type_input(category = category, owner = owner, provider = provider, version = version)
   output <- .codepipeline$get_action_type_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -416,12 +427,13 @@ codepipeline_get_job_details <- function(jobId) {
     name = "GetJobDetails",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$get_job_details_input(jobId = jobId)
   output <- .codepipeline$get_job_details_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -448,12 +460,13 @@ codepipeline_get_pipeline <- function(name, version = NULL) {
     name = "GetPipeline",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$get_pipeline_input(name = name, version = version)
   output <- .codepipeline$get_pipeline_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -481,12 +494,13 @@ codepipeline_get_pipeline_execution <- function(pipelineName, pipelineExecutionI
     name = "GetPipelineExecution",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$get_pipeline_execution_input(pipelineName = pipelineName, pipelineExecutionId = pipelineExecutionId)
   output <- .codepipeline$get_pipeline_execution_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -511,12 +525,13 @@ codepipeline_get_pipeline_state <- function(name) {
     name = "GetPipelineState",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$get_pipeline_state_input(name = name)
   output <- .codepipeline$get_pipeline_state_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -543,12 +558,13 @@ codepipeline_get_third_party_job_details <- function(jobId, clientToken) {
     name = "GetThirdPartyJobDetails",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$get_third_party_job_details_input(jobId = jobId, clientToken = clientToken)
   output <- .codepipeline$get_third_party_job_details_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -569,9 +585,6 @@ codepipeline_get_third_party_job_details <- function(jobId, clientToken) {
 #' the remaining results, make another call with the returned nextToken
 #' value. Action execution history is retained for up to 12 months, based
 #' on action execution start times. Default value is 100.
-#' 
-#' Detailed execution history is available for executions run on or after
-#' February 21, 2019.
 #' @param nextToken The token that was returned from the previous
 #' [`list_action_executions`][codepipeline_list_action_executions] call,
 #' which can be used to return the next set of action executions in the
@@ -585,12 +598,13 @@ codepipeline_list_action_executions <- function(pipelineName, filter = NULL, max
     name = "ListActionExecutions",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "actionExecutionDetails")
   )
   input <- .codepipeline$list_action_executions_input(pipelineName = pipelineName, filter = filter, maxResults = maxResults, nextToken = nextToken)
   output <- .codepipeline$list_action_executions_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -619,12 +633,13 @@ codepipeline_list_action_types <- function(actionOwnerFilter = NULL, nextToken =
     name = "ListActionTypes",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", result_key = "actionTypes")
   )
   input <- .codepipeline$list_action_types_input(actionOwnerFilter = actionOwnerFilter, nextToken = nextToken, regionFilter = regionFilter)
   output <- .codepipeline$list_action_types_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -658,12 +673,13 @@ codepipeline_list_pipeline_executions <- function(pipelineName, maxResults = NUL
     name = "ListPipelineExecutions",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "pipelineExecutionSummaries")
   )
   input <- .codepipeline$list_pipeline_executions_input(pipelineName = pipelineName, maxResults = maxResults, filter = filter, nextToken = nextToken)
   output <- .codepipeline$list_pipeline_executions_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -692,17 +708,89 @@ codepipeline_list_pipelines <- function(nextToken = NULL, maxResults = NULL) {
     name = "ListPipelines",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "pipelines")
   )
   input <- .codepipeline$list_pipelines_input(nextToken = nextToken, maxResults = maxResults)
   output <- .codepipeline$list_pipelines_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
 }
 .codepipeline$operations$list_pipelines <- codepipeline_list_pipelines
+
+#' Lists the rule executions that have occurred in a pipeline configured
+#' for conditions with rules
+#'
+#' @description
+#' Lists the rule executions that have occurred in a pipeline configured for conditions with rules.
+#'
+#' See [https://www.paws-r-sdk.com/docs/codepipeline_list_rule_executions/](https://www.paws-r-sdk.com/docs/codepipeline_list_rule_executions/) for full documentation.
+#'
+#' @param pipelineName &#91;required&#93; The name of the pipeline for which you want to get execution summary
+#' information.
+#' @param filter Input information used to filter rule execution history.
+#' @param maxResults The maximum number of results to return in a single call. To retrieve
+#' the remaining results, make another call with the returned nextToken
+#' value. Pipeline history is limited to the most recent 12 months, based
+#' on pipeline execution start times. Default value is 100.
+#' @param nextToken The token that was returned from the previous
+#' [`list_rule_executions`][codepipeline_list_rule_executions] call, which
+#' can be used to return the next set of rule executions in the list.
+#'
+#' @keywords internal
+#'
+#' @rdname codepipeline_list_rule_executions
+codepipeline_list_rule_executions <- function(pipelineName, filter = NULL, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListRuleExecutions",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "ruleExecutionDetails")
+  )
+  input <- .codepipeline$list_rule_executions_input(pipelineName = pipelineName, filter = filter, maxResults = maxResults, nextToken = nextToken)
+  output <- .codepipeline$list_rule_executions_output()
+  config <- get_config()
+  svc <- .codepipeline$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.codepipeline$operations$list_rule_executions <- codepipeline_list_rule_executions
+
+#' Lists the rules for the condition
+#'
+#' @description
+#' Lists the rules for the condition.
+#'
+#' See [https://www.paws-r-sdk.com/docs/codepipeline_list_rule_types/](https://www.paws-r-sdk.com/docs/codepipeline_list_rule_types/) for full documentation.
+#'
+#' @param ruleOwnerFilter The rule owner to filter on.
+#' @param regionFilter The rule Region to filter on.
+#'
+#' @keywords internal
+#'
+#' @rdname codepipeline_list_rule_types
+codepipeline_list_rule_types <- function(ruleOwnerFilter = NULL, regionFilter = NULL) {
+  op <- new_operation(
+    name = "ListRuleTypes",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list()
+  )
+  input <- .codepipeline$list_rule_types_input(ruleOwnerFilter = ruleOwnerFilter, regionFilter = regionFilter)
+  output <- .codepipeline$list_rule_types_output()
+  config <- get_config()
+  svc <- .codepipeline$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.codepipeline$operations$list_rule_types <- codepipeline_list_rule_types
 
 #' Gets the set of key-value pairs (metadata) that are used to manage the
 #' resource
@@ -726,12 +814,13 @@ codepipeline_list_tags_for_resource <- function(resourceArn, nextToken = NULL, m
     name = "ListTagsForResource",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "tags")
   )
   input <- .codepipeline$list_tags_for_resource_input(resourceArn = resourceArn, nextToken = nextToken, maxResults = maxResults)
   output <- .codepipeline$list_tags_for_resource_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -760,17 +849,53 @@ codepipeline_list_webhooks <- function(NextToken = NULL, MaxResults = NULL) {
     name = "ListWebhooks",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "webhooks")
   )
   input <- .codepipeline$list_webhooks_input(NextToken = NextToken, MaxResults = MaxResults)
   output <- .codepipeline$list_webhooks_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
 }
 .codepipeline$operations$list_webhooks <- codepipeline_list_webhooks
+
+#' Used to override a stage condition
+#'
+#' @description
+#' Used to override a stage condition.
+#'
+#' See [https://www.paws-r-sdk.com/docs/codepipeline_override_stage_condition/](https://www.paws-r-sdk.com/docs/codepipeline_override_stage_condition/) for full documentation.
+#'
+#' @param pipelineName &#91;required&#93; The name of the pipeline with the stage that will override the
+#' condition.
+#' @param stageName &#91;required&#93; The name of the stage for the override.
+#' @param pipelineExecutionId &#91;required&#93; The ID of the pipeline execution for the override.
+#' @param conditionType &#91;required&#93; The type of condition to override for the stage, such as entry
+#' conditions, failure conditions, or success conditions.
+#'
+#' @keywords internal
+#'
+#' @rdname codepipeline_override_stage_condition
+codepipeline_override_stage_condition <- function(pipelineName, stageName, pipelineExecutionId, conditionType) {
+  op <- new_operation(
+    name = "OverrideStageCondition",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list()
+  )
+  input <- .codepipeline$override_stage_condition_input(pipelineName = pipelineName, stageName = stageName, pipelineExecutionId = pipelineExecutionId, conditionType = conditionType)
+  output <- .codepipeline$override_stage_condition_output()
+  config <- get_config()
+  svc <- .codepipeline$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.codepipeline$operations$override_stage_condition <- codepipeline_override_stage_condition
 
 #' Returns information about any jobs for CodePipeline to act on
 #'
@@ -795,12 +920,13 @@ codepipeline_poll_for_jobs <- function(actionTypeId, maxBatchSize = NULL, queryP
     name = "PollForJobs",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$poll_for_jobs_input(actionTypeId = actionTypeId, maxBatchSize = maxBatchSize, queryParam = queryParam)
   output <- .codepipeline$poll_for_jobs_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -826,12 +952,13 @@ codepipeline_poll_for_third_party_jobs <- function(actionTypeId, maxBatchSize = 
     name = "PollForThirdPartyJobs",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$poll_for_third_party_jobs_input(actionTypeId = actionTypeId, maxBatchSize = maxBatchSize)
   output <- .codepipeline$poll_for_third_party_jobs_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -860,12 +987,13 @@ codepipeline_put_action_revision <- function(pipelineName, stageName, actionName
     name = "PutActionRevision",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$put_action_revision_input(pipelineName = pipelineName, stageName = stageName, actionName = actionName, actionRevision = actionRevision)
   output <- .codepipeline$put_action_revision_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -897,12 +1025,13 @@ codepipeline_put_approval_result <- function(pipelineName, stageName, actionName
     name = "PutApprovalResult",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$put_approval_result_input(pipelineName = pipelineName, stageName = stageName, actionName = actionName, result = result, token = token)
   output <- .codepipeline$put_approval_result_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -929,12 +1058,13 @@ codepipeline_put_job_failure_result <- function(jobId, failureDetails) {
     name = "PutJobFailureResult",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$put_job_failure_result_input(jobId = jobId, failureDetails = failureDetails)
   output <- .codepipeline$put_job_failure_result_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -973,12 +1103,13 @@ codepipeline_put_job_success_result <- function(jobId, currentRevision = NULL, c
     name = "PutJobSuccessResult",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$put_job_success_result_input(jobId = jobId, currentRevision = currentRevision, continuationToken = continuationToken, executionDetails = executionDetails, outputVariables = outputVariables)
   output <- .codepipeline$put_job_success_result_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1008,12 +1139,13 @@ codepipeline_put_third_party_job_failure_result <- function(jobId, clientToken, 
     name = "PutThirdPartyJobFailureResult",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$put_third_party_job_failure_result_input(jobId = jobId, clientToken = clientToken, failureDetails = failureDetails)
   output <- .codepipeline$put_third_party_job_failure_result_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1052,12 +1184,13 @@ codepipeline_put_third_party_job_success_result <- function(jobId, clientToken, 
     name = "PutThirdPartyJobSuccessResult",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$put_third_party_job_success_result_input(jobId = jobId, clientToken = clientToken, currentRevision = currentRevision, continuationToken = continuationToken, executionDetails = executionDetails)
   output <- .codepipeline$put_third_party_job_success_result_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1087,12 +1220,13 @@ codepipeline_put_webhook <- function(webhook, tags = NULL) {
     name = "PutWebhook",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$put_webhook_input(webhook = webhook, tags = tags)
   output <- .codepipeline$put_webhook_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1118,12 +1252,13 @@ codepipeline_register_webhook_with_third_party <- function(webhookName = NULL) {
     name = "RegisterWebhookWithThirdParty",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$register_webhook_with_third_party_input(webhookName = webhookName)
   output <- .codepipeline$register_webhook_with_third_party_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1153,12 +1288,13 @@ codepipeline_retry_stage_execution <- function(pipelineName, stageName, pipeline
     name = "RetryStageExecution",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$retry_stage_execution_input(pipelineName = pipelineName, stageName = stageName, pipelineExecutionId = pipelineExecutionId, retryMode = retryMode)
   output <- .codepipeline$retry_stage_execution_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1184,12 +1320,13 @@ codepipeline_rollback_stage <- function(pipelineName, stageName, targetPipelineE
     name = "RollbackStage",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$rollback_stage_input(pipelineName = pipelineName, stageName = stageName, targetPipelineExecutionId = targetPipelineExecutionId)
   output <- .codepipeline$rollback_stage_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1222,12 +1359,13 @@ codepipeline_start_pipeline_execution <- function(name, variables = NULL, client
     name = "StartPipelineExecution",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$start_pipeline_execution_input(name = name, variables = variables, clientRequestToken = clientRequestToken, sourceRevisions = sourceRevisions)
   output <- .codepipeline$start_pipeline_execution_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1260,12 +1398,13 @@ codepipeline_stop_pipeline_execution <- function(pipelineName, pipelineExecution
     name = "StopPipelineExecution",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$stop_pipeline_execution_input(pipelineName = pipelineName, pipelineExecutionId = pipelineExecutionId, abandon = abandon, reason = reason)
   output <- .codepipeline$stop_pipeline_execution_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1290,12 +1429,13 @@ codepipeline_tag_resource <- function(resourceArn, tags) {
     name = "TagResource",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$tag_resource_input(resourceArn = resourceArn, tags = tags)
   output <- .codepipeline$tag_resource_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1320,12 +1460,13 @@ codepipeline_untag_resource <- function(resourceArn, tagKeys) {
     name = "UntagResource",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$untag_resource_input(resourceArn = resourceArn, tagKeys = tagKeys)
   output <- .codepipeline$untag_resource_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1351,12 +1492,13 @@ codepipeline_update_action_type <- function(actionType) {
     name = "UpdateActionType",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$update_action_type_input(actionType = actionType)
   output <- .codepipeline$update_action_type_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1380,12 +1522,13 @@ codepipeline_update_pipeline <- function(pipeline) {
     name = "UpdatePipeline",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .codepipeline$update_pipeline_input(pipeline = pipeline)
   output <- .codepipeline$update_pipeline_output()
   config <- get_config()
-  svc <- .codepipeline$service(config)
+  svc <- .codepipeline$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)

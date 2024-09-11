@@ -5,10 +5,10 @@ NULL
 #' AWS Fault Injection Simulator
 #'
 #' @description
-#' Fault Injection Service is a managed service that enables you to perform
-#' fault injection experiments on your Amazon Web Services workloads. For
-#' more information, see the [Fault Injection Service User
-#' Guide](https://docs.aws.amazon.com/fis/latest/userguide/).
+#' Amazon Web Services Fault Injection Service is a managed service that
+#' enables you to perform fault injection experiments on your Amazon Web
+#' Services workloads. For more information, see the [Fault Injection
+#' Service User Guide](https://docs.aws.amazon.com/fis/latest/userguide/).
 #'
 #' @param
 #' config
@@ -156,7 +156,7 @@ fis <- function(config = list(), credentials = list(), endpoint = NULL, region =
   target_prefix = ""
 )
 
-.fis$service <- function(config = list()) {
+.fis$service <- function(config = list(), op = NULL) {
   handlers <- new_handlers("restjson", "v4")
-  new_service(.fis$metadata, handlers, config)
+  new_service(.fis$metadata, handlers, config, op)
 }

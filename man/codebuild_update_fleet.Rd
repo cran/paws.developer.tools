@@ -11,6 +11,9 @@ codebuild_update_fleet(
   computeType = NULL,
   scalingConfiguration = NULL,
   overflowBehavior = NULL,
+  vpcConfig = NULL,
+  imageId = NULL,
+  fleetServiceRole = NULL,
   tags = NULL
 )
 }
@@ -18,7 +21,7 @@ codebuild_update_fleet(
 \item{arn}{[required] The ARN of the compute fleet.}
 
 \item{baseCapacity}{The initial number of machines allocated to the compute ﬂeet, which
-deﬁnes the number of builds that can run in parallel.}
+defines the number of builds that can run in parallel.}
 
 \item{environmentType}{The environment type of the compute fleet.
 \itemize{
@@ -36,6 +39,12 @@ Asia Pacific (Mumbai).
 regions US East (N. Virginia), US East (Ohio), US West (Oregon), EU
 (Ireland), EU (Frankfurt), Asia Pacific (Tokyo), and Asia Pacific
 (Sydney).
+\item The environment type \code{MAC_ARM} is available for Medium fleets only
+in regions US East (N. Virginia), US East (Ohio), US West (Oregon),
+Asia Pacific (Sydney), and EU (Frankfurt)
+\item The environment type \code{MAC_ARM} is available for Large fleets only in
+regions US East (N. Virginia), US East (Ohio), US West (Oregon), and
+Asia Pacific (Sydney).
 \item The environment type \code{WINDOWS_SERVER_2019_CONTAINER} is available
 only in regions US East (N. Virginia), US East (Ohio), US West
 (Oregon), Asia Pacific (Sydney), Asia Pacific (Tokyo), Asia Pacific
@@ -97,7 +106,20 @@ in the \emph{CodeBuild User Guide.}}
 the existing fleet instance to become available.
 \item For overflow behavior \code{ON_DEMAND}, your overflow builds run on
 CodeBuild on-demand.
+
+If you choose to set your overflow behavior to on-demand while
+creating a VPC-connected fleet, make sure that you add the required
+VPC permissions to your project service role. For more information,
+see \href{https://docs.aws.amazon.com/codebuild/latest/userguide/auth-and-access-control-iam-identity-based-access-control.html#customer-managed-policies-example-create-vpc-network-interface}{Example policy statement to allow CodeBuild access to Amazon Web Services services required to create a VPC network interface}.
 }}
+
+\item{vpcConfig}{}
+
+\item{imageId}{The Amazon Machine Image (AMI) of the compute fleet.}
+
+\item{fleetServiceRole}{The service role associated with the compute fleet. For more
+information, see \href{https://docs.aws.amazon.com/codebuild/latest/userguide/auth-and-access-control-iam-identity-based-access-control.html#customer-managed-policies-example-permission-policy-fleet-service-role.html}{Allow a user to add a permission policy for a fleet service role}
+in the \emph{CodeBuild User Guide}.}
 
 \item{tags}{A list of tag key and value pairs associated with this compute fleet.
 
