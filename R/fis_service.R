@@ -101,6 +101,7 @@ NULL
 #'  \link[=fis_get_experiment]{get_experiment} \tab Gets information about the specified experiment\cr
 #'  \link[=fis_get_experiment_target_account_configuration]{get_experiment_target_account_configuration} \tab Gets information about the specified target account configuration of the experiment\cr
 #'  \link[=fis_get_experiment_template]{get_experiment_template} \tab Gets information about the specified experiment template\cr
+#'  \link[=fis_get_safety_lever]{get_safety_lever} \tab Gets information about the specified safety lever\cr
 #'  \link[=fis_get_target_account_configuration]{get_target_account_configuration} \tab Gets information about the specified target account configuration of the experiment template\cr
 #'  \link[=fis_get_target_resource_type]{get_target_resource_type} \tab Gets information about the specified resource type\cr
 #'  \link[=fis_list_actions]{list_actions} \tab Lists the available FIS actions\cr
@@ -116,6 +117,7 @@ NULL
 #'  \link[=fis_tag_resource]{tag_resource} \tab Applies the specified tags to the specified resource\cr
 #'  \link[=fis_untag_resource]{untag_resource} \tab Removes the specified tags from the specified resource\cr
 #'  \link[=fis_update_experiment_template]{update_experiment_template} \tab Updates the specified experiment template\cr
+#'  \link[=fis_update_safety_lever_state]{update_safety_lever_state} \tab Updates the specified safety lever state\cr
 #'  \link[=fis_update_target_account_configuration]{update_target_account_configuration} \tab Updates the target account configuration for the specified experiment template
 #' }
 #'
@@ -148,7 +150,7 @@ fis <- function(config = list(), credentials = list(), endpoint = NULL, region =
 
 .fis$metadata <- list(
   service_name = "fis",
-  endpoints = list("*" = list(endpoint = "fis.{region}.amazonaws.com", global = FALSE), "cn-*" = list(endpoint = "fis.{region}.amazonaws.com.cn", global = FALSE), "eu-isoe-*" = list(endpoint = "fis.{region}.cloud.adc-e.uk", global = FALSE), "us-iso-*" = list(endpoint = "fis.{region}.c2s.ic.gov", global = FALSE), "us-isob-*" = list(endpoint = "fis.{region}.sc2s.sgov.gov", global = FALSE), "us-isof-*" = list(endpoint = "fis.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "fis.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "fis.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "fis.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "fis.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "fis.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "fis.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "fis.{region}.csp.hci.ic.gov", global = FALSE)),
   service_id = "fis",
   api_version = "2020-12-01",
   signing_name = "fis",

@@ -21,7 +21,8 @@ codebuild_batch_delete_builds <- function(ids) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$batch_delete_builds_input(ids = ids)
   output <- .codebuild$batch_delete_builds_output()
@@ -51,7 +52,8 @@ codebuild_batch_get_build_batches <- function(ids) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$batch_get_build_batches_input(ids = ids)
   output <- .codebuild$batch_get_build_batches_output()
@@ -81,7 +83,8 @@ codebuild_batch_get_builds <- function(ids) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$batch_get_builds_input(ids = ids)
   output <- .codebuild$batch_get_builds_output()
@@ -111,7 +114,8 @@ codebuild_batch_get_fleets <- function(names) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$batch_get_fleets_input(names = names)
   output <- .codebuild$batch_get_fleets_output()
@@ -143,7 +147,8 @@ codebuild_batch_get_projects <- function(names) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$batch_get_projects_input(names = names)
   output <- .codebuild$batch_get_projects_output()
@@ -173,7 +178,8 @@ codebuild_batch_get_report_groups <- function(reportGroupArns) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$batch_get_report_groups_input(reportGroupArns = reportGroupArns)
   output <- .codebuild$batch_get_report_groups_output()
@@ -203,7 +209,8 @@ codebuild_batch_get_reports <- function(reportArns) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$batch_get_reports_input(reportArns = reportArns)
   output <- .codebuild$batch_get_reports_output()
@@ -233,11 +240,23 @@ codebuild_batch_get_reports <- function(reportArns) {
 #'     (Singapore), Asia Pacific (Sydney), EU (Frankfurt), and South
 #'     America (São Paulo).
 #' 
+#' -   The environment type `ARM_EC2` is available only in regions US East
+#'     (N. Virginia), US East (Ohio), US West (Oregon), EU (Ireland), EU
+#'     (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Singapore), Asia
+#'     Pacific (Sydney), South America (São Paulo), and Asia Pacific
+#'     (Mumbai).
+#' 
 #' -   The environment type `LINUX_CONTAINER` is available only in regions
 #'     US East (N. Virginia), US East (Ohio), US West (Oregon), EU
 #'     (Ireland), EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific
 #'     (Singapore), Asia Pacific (Sydney), South America (São Paulo), and
 #'     Asia Pacific (Mumbai).
+#' 
+#' -   The environment type `LINUX_EC2` is available only in regions US
+#'     East (N. Virginia), US East (Ohio), US West (Oregon), EU (Ireland),
+#'     EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Singapore), Asia
+#'     Pacific (Sydney), South America (São Paulo), and Asia Pacific
+#'     (Mumbai).
 #' 
 #' -   The environment type `LINUX_GPU_CONTAINER` is available only in
 #'     regions US East (N. Virginia), US East (Ohio), US West (Oregon), EU
@@ -251,6 +270,12 @@ codebuild_batch_get_reports <- function(reportArns) {
 #' -   The environment type `MAC_ARM` is available for Large fleets only in
 #'     regions US East (N. Virginia), US East (Ohio), US West (Oregon), and
 #'     Asia Pacific (Sydney).
+#' 
+#' -   The environment type `WINDOWS_EC2` is available only in regions US
+#'     East (N. Virginia), US East (Ohio), US West (Oregon), EU (Ireland),
+#'     EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Singapore), Asia
+#'     Pacific (Sydney), South America (São Paulo), and Asia Pacific
+#'     (Mumbai).
 #' 
 #' -   The environment type `WINDOWS_SERVER_2019_CONTAINER` is available
 #'     only in regions US East (N. Virginia), US East (Ohio), US West
@@ -269,47 +294,79 @@ codebuild_batch_get_reports <- function(reportArns) {
 #' @param computeType &#91;required&#93; Information about the compute resources the compute fleet uses.
 #' Available values include:
 #' 
-#' -   `BUILD_GENERAL1_SMALL`: Use up to 3 GB memory and 2 vCPUs for
+#' -   `ATTRIBUTE_BASED_COMPUTE`: Specify the amount of vCPUs, memory, disk
+#'     space, and the type of machine.
+#' 
+#'     If you use `ATTRIBUTE_BASED_COMPUTE`, you must define your
+#'     attributes by using `computeConfiguration`. CodeBuild will select
+#'     the cheapest instance that satisfies your specified attributes. For
+#'     more information, see [Reserved capacity environment
+#'     types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html#environment-reserved-capacity.types)
+#'     in the *CodeBuild User Guide*.
+#' 
+#' -   `BUILD_GENERAL1_SMALL`: Use up to 4 GiB memory and 2 vCPUs for
 #'     builds.
 #' 
-#' -   `BUILD_GENERAL1_MEDIUM`: Use up to 7 GB memory and 4 vCPUs for
+#' -   `BUILD_GENERAL1_MEDIUM`: Use up to 8 GiB memory and 4 vCPUs for
 #'     builds.
 #' 
-#' -   `BUILD_GENERAL1_LARGE`: Use up to 16 GB memory and 8 vCPUs for
+#' -   `BUILD_GENERAL1_LARGE`: Use up to 16 GiB memory and 8 vCPUs for
 #'     builds, depending on your environment type.
 #' 
-#' -   `BUILD_GENERAL1_XLARGE`: Use up to 70 GB memory and 36 vCPUs for
+#' -   `BUILD_GENERAL1_XLARGE`: Use up to 72 GiB memory and 36 vCPUs for
 #'     builds, depending on your environment type.
 #' 
-#' -   `BUILD_GENERAL1_2XLARGE`: Use up to 145 GB memory, 72 vCPUs, and 824
-#'     GB of SSD storage for builds. This compute type supports Docker
+#' -   `BUILD_GENERAL1_2XLARGE`: Use up to 144 GiB memory, 72 vCPUs, and
+#'     824 GB of SSD storage for builds. This compute type supports Docker
 #'     images up to 100 GB uncompressed.
+#' 
+#' -   `BUILD_LAMBDA_1GB`: Use up to 1 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
+#' 
+#' -   `BUILD_LAMBDA_2GB`: Use up to 2 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
+#' 
+#' -   `BUILD_LAMBDA_4GB`: Use up to 4 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
+#' 
+#' -   `BUILD_LAMBDA_8GB`: Use up to 8 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
+#' 
+#' -   `BUILD_LAMBDA_10GB`: Use up to 10 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
 #' 
 #' If you use `BUILD_GENERAL1_SMALL`:
 #' 
-#' -   For environment type `LINUX_CONTAINER`, you can use up to 3 GB
+#' -   For environment type `LINUX_CONTAINER`, you can use up to 4 GiB
 #'     memory and 2 vCPUs for builds.
 #' 
-#' -   For environment type `LINUX_GPU_CONTAINER`, you can use up to 16 GB
+#' -   For environment type `LINUX_GPU_CONTAINER`, you can use up to 16 GiB
 #'     memory, 4 vCPUs, and 1 NVIDIA A10G Tensor Core GPU for builds.
 #' 
-#' -   For environment type `ARM_CONTAINER`, you can use up to 4 GB memory
+#' -   For environment type `ARM_CONTAINER`, you can use up to 4 GiB memory
 #'     and 2 vCPUs on ARM-based processors for builds.
 #' 
 #' If you use `BUILD_GENERAL1_LARGE`:
 #' 
-#' -   For environment type `LINUX_CONTAINER`, you can use up to 15 GB
+#' -   For environment type `LINUX_CONTAINER`, you can use up to 16 GiB
 #'     memory and 8 vCPUs for builds.
 #' 
-#' -   For environment type `LINUX_GPU_CONTAINER`, you can use up to 255 GB
-#'     memory, 32 vCPUs, and 4 NVIDIA Tesla V100 GPUs for builds.
+#' -   For environment type `LINUX_GPU_CONTAINER`, you can use up to 255
+#'     GiB memory, 32 vCPUs, and 4 NVIDIA Tesla V100 GPUs for builds.
 #' 
-#' -   For environment type `ARM_CONTAINER`, you can use up to 16 GB memory
-#'     and 8 vCPUs on ARM-based processors for builds.
+#' -   For environment type `ARM_CONTAINER`, you can use up to 16 GiB
+#'     memory and 8 vCPUs on ARM-based processors for builds.
 #' 
-#' For more information, see [Build environment compute
-#' types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html)
+#' For more information, see [On-demand environment
+#' types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html#environment.types)
 #' in the *CodeBuild User Guide.*
+#' @param computeConfiguration The compute configuration of the compute fleet. This is only required if
+#' `computeType` is set to `ATTRIBUTE_BASED_COMPUTE`.
 #' @param scalingConfiguration The scaling configuration of the compute fleet.
 #' @param overflowBehavior The compute fleet overflow behavior.
 #' 
@@ -326,6 +383,7 @@ codebuild_batch_get_reports <- function(reportArns) {
 #'     Web Services services required to create a VPC network
 #'     interface](https://docs.aws.amazon.com/codebuild/latest/userguide/auth-and-access-control-iam-identity-based-access-control.html#customer-managed-policies-example-create-vpc-network-interface).
 #' @param vpcConfig 
+#' @param proxyConfiguration The proxy configuration of the compute fleet.
 #' @param imageId The Amazon Machine Image (AMI) of the compute fleet.
 #' @param fleetServiceRole The service role associated with the compute fleet. For more
 #' information, see [Allow a user to add a permission policy for a fleet
@@ -340,15 +398,16 @@ codebuild_batch_get_reports <- function(reportArns) {
 #' @keywords internal
 #'
 #' @rdname codebuild_create_fleet
-codebuild_create_fleet <- function(name, baseCapacity, environmentType, computeType, scalingConfiguration = NULL, overflowBehavior = NULL, vpcConfig = NULL, imageId = NULL, fleetServiceRole = NULL, tags = NULL) {
+codebuild_create_fleet <- function(name, baseCapacity, environmentType, computeType, computeConfiguration = NULL, scalingConfiguration = NULL, overflowBehavior = NULL, vpcConfig = NULL, proxyConfiguration = NULL, imageId = NULL, fleetServiceRole = NULL, tags = NULL) {
   op <- new_operation(
     name = "CreateFleet",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .codebuild$create_fleet_input(name = name, baseCapacity = baseCapacity, environmentType = environmentType, computeType = computeType, scalingConfiguration = scalingConfiguration, overflowBehavior = overflowBehavior, vpcConfig = vpcConfig, imageId = imageId, fleetServiceRole = fleetServiceRole, tags = tags)
+  input <- .codebuild$create_fleet_input(name = name, baseCapacity = baseCapacity, environmentType = environmentType, computeType = computeType, computeConfiguration = computeConfiguration, scalingConfiguration = scalingConfiguration, overflowBehavior = overflowBehavior, vpcConfig = vpcConfig, proxyConfiguration = proxyConfiguration, imageId = imageId, fleetServiceRole = fleetServiceRole, tags = tags)
   output <- .codebuild$create_fleet_output()
   config <- get_config()
   svc <- .codebuild$service(config, op)
@@ -445,19 +504,24 @@ codebuild_create_fleet <- function(name, baseCapacity, environmentType, computeT
 #' New builds are only started if the current number of builds is less than
 #' or equal to this limit. If the current build count meets this limit, new
 #' builds are throttled and are not run.
+#' @param autoRetryLimit The maximum number of additional automatic retries after a failed build.
+#' For example, if the auto-retry limit is set to 2, CodeBuild will call
+#' the [`retry_build`][codebuild_retry_build] API to automatically retry
+#' your build for up to 2 additional times.
 #'
 #' @keywords internal
 #'
 #' @rdname codebuild_create_project
-codebuild_create_project <- function(name, description = NULL, source, secondarySources = NULL, sourceVersion = NULL, secondarySourceVersions = NULL, artifacts, secondaryArtifacts = NULL, cache = NULL, environment, serviceRole, timeoutInMinutes = NULL, queuedTimeoutInMinutes = NULL, encryptionKey = NULL, tags = NULL, vpcConfig = NULL, badgeEnabled = NULL, logsConfig = NULL, fileSystemLocations = NULL, buildBatchConfig = NULL, concurrentBuildLimit = NULL) {
+codebuild_create_project <- function(name, description = NULL, source, secondarySources = NULL, sourceVersion = NULL, secondarySourceVersions = NULL, artifacts, secondaryArtifacts = NULL, cache = NULL, environment, serviceRole, timeoutInMinutes = NULL, queuedTimeoutInMinutes = NULL, encryptionKey = NULL, tags = NULL, vpcConfig = NULL, badgeEnabled = NULL, logsConfig = NULL, fileSystemLocations = NULL, buildBatchConfig = NULL, concurrentBuildLimit = NULL, autoRetryLimit = NULL) {
   op <- new_operation(
     name = "CreateProject",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .codebuild$create_project_input(name = name, description = description, source = source, secondarySources = secondarySources, sourceVersion = sourceVersion, secondarySourceVersions = secondarySourceVersions, artifacts = artifacts, secondaryArtifacts = secondaryArtifacts, cache = cache, environment = environment, serviceRole = serviceRole, timeoutInMinutes = timeoutInMinutes, queuedTimeoutInMinutes = queuedTimeoutInMinutes, encryptionKey = encryptionKey, tags = tags, vpcConfig = vpcConfig, badgeEnabled = badgeEnabled, logsConfig = logsConfig, fileSystemLocations = fileSystemLocations, buildBatchConfig = buildBatchConfig, concurrentBuildLimit = concurrentBuildLimit)
+  input <- .codebuild$create_project_input(name = name, description = description, source = source, secondarySources = secondarySources, sourceVersion = sourceVersion, secondarySourceVersions = secondarySourceVersions, artifacts = artifacts, secondaryArtifacts = secondaryArtifacts, cache = cache, environment = environment, serviceRole = serviceRole, timeoutInMinutes = timeoutInMinutes, queuedTimeoutInMinutes = queuedTimeoutInMinutes, encryptionKey = encryptionKey, tags = tags, vpcConfig = vpcConfig, badgeEnabled = badgeEnabled, logsConfig = logsConfig, fileSystemLocations = fileSystemLocations, buildBatchConfig = buildBatchConfig, concurrentBuildLimit = concurrentBuildLimit, autoRetryLimit = autoRetryLimit)
   output <- .codebuild$create_project_output()
   config <- get_config()
   svc <- .codebuild$service(config, op)
@@ -492,7 +556,8 @@ codebuild_create_report_group <- function(name, type, exportConfig, tags = NULL)
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$create_report_group_input(name = name, type = type, exportConfig = exportConfig, tags = tags)
   output <- .codebuild$create_report_group_output()
@@ -549,7 +614,8 @@ codebuild_create_webhook <- function(projectName, branchFilter = NULL, filterGro
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$create_webhook_input(projectName = projectName, branchFilter = branchFilter, filterGroups = filterGroups, buildType = buildType, manualCreation = manualCreation, scopeConfiguration = scopeConfiguration)
   output <- .codebuild$create_webhook_output()
@@ -579,7 +645,8 @@ codebuild_delete_build_batch <- function(id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$delete_build_batch_input(id = id)
   output <- .codebuild$delete_build_batch_output()
@@ -609,7 +676,8 @@ codebuild_delete_fleet <- function(arn) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$delete_fleet_input(arn = arn)
   output <- .codebuild$delete_fleet_output()
@@ -639,7 +707,8 @@ codebuild_delete_project <- function(name) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$delete_project_input(name = name)
   output <- .codebuild$delete_project_output()
@@ -669,7 +738,8 @@ codebuild_delete_report <- function(arn) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$delete_report_input(arn = arn)
   output <- .codebuild$delete_report_output()
@@ -708,7 +778,8 @@ codebuild_delete_report_group <- function(arn, deleteReports = NULL) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$delete_report_group_input(arn = arn, deleteReports = deleteReports)
   output <- .codebuild$delete_report_group_output()
@@ -738,7 +809,8 @@ codebuild_delete_resource_policy <- function(resourceArn) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$delete_resource_policy_input(resourceArn = resourceArn)
   output <- .codebuild$delete_resource_policy_output()
@@ -769,7 +841,8 @@ codebuild_delete_source_credentials <- function(arn) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$delete_source_credentials_input(arn = arn)
   output <- .codebuild$delete_source_credentials_output()
@@ -801,7 +874,8 @@ codebuild_delete_webhook <- function(projectName) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$delete_webhook_input(projectName = projectName)
   output <- .codebuild$delete_webhook_output()
@@ -848,7 +922,8 @@ codebuild_describe_code_coverages <- function(reportArn, nextToken = NULL, maxRe
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "codeCoverages")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "codeCoverages"),
+    stream_api = FALSE
   )
   input <- .codebuild$describe_code_coverages_input(reportArn = reportArn, nextToken = nextToken, maxResults = maxResults, sortOrder = sortOrder, sortBy = sortBy, minLineCoveragePercentage = minLineCoveragePercentage, maxLineCoveragePercentage = maxLineCoveragePercentage)
   output <- .codebuild$describe_code_coverages_output()
@@ -889,7 +964,8 @@ codebuild_describe_test_cases <- function(reportArn, nextToken = NULL, maxResult
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "testCases")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "testCases"),
+    stream_api = FALSE
   )
   input <- .codebuild$describe_test_cases_input(reportArn = reportArn, nextToken = nextToken, maxResults = maxResults, filter = filter)
   output <- .codebuild$describe_test_cases_output()
@@ -968,7 +1044,8 @@ codebuild_get_report_group_trend <- function(reportGroupArn, numOfReports = NULL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$get_report_group_trend_input(reportGroupArn = reportGroupArn, numOfReports = numOfReports, trendField = trendField)
   output <- .codebuild$get_report_group_trend_output()
@@ -998,7 +1075,8 @@ codebuild_get_resource_policy <- function(resourceArn) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$get_resource_policy_input(resourceArn = resourceArn)
   output <- .codebuild$get_resource_policy_output()
@@ -1043,7 +1121,8 @@ codebuild_import_source_credentials <- function(username = NULL, token, serverTy
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$import_source_credentials_input(username = username, token = token, serverType = serverType, authType = authType, shouldOverwrite = shouldOverwrite)
   output <- .codebuild$import_source_credentials_output()
@@ -1073,7 +1152,8 @@ codebuild_invalidate_project_cache <- function(projectName) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$invalidate_project_cache_input(projectName = projectName)
   output <- .codebuild$invalidate_project_cache_output()
@@ -1115,7 +1195,8 @@ codebuild_list_build_batches <- function(filter = NULL, maxResults = NULL, sortO
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "ids")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "ids"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_build_batches_input(filter = filter, maxResults = maxResults, sortOrder = sortOrder, nextToken = nextToken)
   output <- .codebuild$list_build_batches_output()
@@ -1158,7 +1239,8 @@ codebuild_list_build_batches_for_project <- function(projectName = NULL, filter 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "ids")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "ids"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_build_batches_for_project_input(projectName = projectName, filter = filter, maxResults = maxResults, sortOrder = sortOrder, nextToken = nextToken)
   output <- .codebuild$list_build_batches_for_project_output()
@@ -1198,7 +1280,8 @@ codebuild_list_builds <- function(sortOrder = NULL, nextToken = NULL) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", result_key = "ids")
+    paginator = list(output_token = "nextToken", input_token = "nextToken", result_key = "ids"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_builds_input(sortOrder = sortOrder, nextToken = nextToken)
   output <- .codebuild$list_builds_output()
@@ -1249,7 +1332,8 @@ codebuild_list_builds_for_project <- function(projectName, sortOrder = NULL, nex
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", result_key = "ids")
+    paginator = list(output_token = "nextToken", input_token = "nextToken", result_key = "ids"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_builds_for_project_input(projectName = projectName, sortOrder = sortOrder, nextToken = nextToken)
   output <- .codebuild$list_builds_for_project_output()
@@ -1279,7 +1363,8 @@ codebuild_list_curated_environment_images <- function() {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$list_curated_environment_images_input()
   output <- .codebuild$list_curated_environment_images_output()
@@ -1337,7 +1422,8 @@ codebuild_list_fleets <- function(nextToken = NULL, maxResults = NULL, sortOrder
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_fleets_input(nextToken = nextToken, maxResults = maxResults, sortOrder = sortOrder, sortBy = sortBy)
   output <- .codebuild$list_fleets_output()
@@ -1393,7 +1479,8 @@ codebuild_list_projects <- function(sortBy = NULL, sortOrder = NULL, nextToken =
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", result_key = "projects")
+    paginator = list(output_token = "nextToken", input_token = "nextToken", result_key = "projects"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_projects_input(sortBy = sortBy, sortOrder = sortOrder, nextToken = nextToken)
   output <- .codebuild$list_projects_output()
@@ -1444,7 +1531,8 @@ codebuild_list_report_groups <- function(sortOrder = NULL, sortBy = NULL, nextTo
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "reportGroups")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "reportGroups"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_report_groups_input(sortOrder = sortOrder, sortBy = sortBy, nextToken = nextToken, maxResults = maxResults)
   output <- .codebuild$list_report_groups_output()
@@ -1493,7 +1581,8 @@ codebuild_list_reports <- function(sortOrder = NULL, nextToken = NULL, maxResult
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "reports")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "reports"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_reports_input(sortOrder = sortOrder, nextToken = nextToken, maxResults = maxResults, filter = filter)
   output <- .codebuild$list_reports_output()
@@ -1536,7 +1625,8 @@ codebuild_list_reports_for_report_group <- function(reportGroupArn, nextToken = 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "reports")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "reports"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_reports_for_report_group_input(reportGroupArn = reportGroupArn, nextToken = nextToken, sortOrder = sortOrder, maxResults = maxResults, filter = filter)
   output <- .codebuild$list_reports_for_report_group_output()
@@ -1588,7 +1678,8 @@ codebuild_list_shared_projects <- function(sortBy = NULL, sortOrder = NULL, maxR
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "projects")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "projects"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_shared_projects_input(sortBy = sortBy, sortOrder = sortOrder, maxResults = maxResults, nextToken = nextToken)
   output <- .codebuild$list_shared_projects_output()
@@ -1640,7 +1731,8 @@ codebuild_list_shared_report_groups <- function(sortOrder = NULL, sortBy = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "reportGroups")
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "reportGroups"),
+    stream_api = FALSE
   )
   input <- .codebuild$list_shared_report_groups_input(sortOrder = sortOrder, sortBy = sortBy, nextToken = nextToken, maxResults = maxResults)
   output <- .codebuild$list_shared_report_groups_output()
@@ -1670,7 +1762,8 @@ codebuild_list_source_credentials <- function() {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$list_source_credentials_input()
   output <- .codebuild$list_source_credentials_output()
@@ -1706,7 +1799,8 @@ codebuild_put_resource_policy <- function(policy, resourceArn) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$put_resource_policy_input(policy = policy, resourceArn = resourceArn)
   output <- .codebuild$put_resource_policy_output()
@@ -1742,7 +1836,8 @@ codebuild_retry_build <- function(id = NULL, idempotencyToken = NULL) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$retry_build_input(id = id, idempotencyToken = idempotencyToken)
   output <- .codebuild$retry_build_output()
@@ -1781,7 +1876,8 @@ codebuild_retry_build_batch <- function(id = NULL, idempotencyToken = NULL, retr
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$retry_build_batch_input(id = id, idempotencyToken = idempotencyToken, retryType = retryType)
   output <- .codebuild$retry_build_batch_output()
@@ -1887,8 +1983,8 @@ codebuild_retry_build_batch <- function(id = NULL, idempotencyToken = NULL, retr
 #' override applies only if the build's source is GitHub Enterprise.
 #' @param reportBuildStatusOverride Set to true to report to your source provider the status of a build's
 #' start and completion. If you use this option with a source provider
-#' other than GitHub, GitHub Enterprise, or Bitbucket, an
-#' `invalidInputException` is thrown.
+#' other than GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+#' Bitbucket, an `invalidInputException` is thrown.
 #' 
 #' To be able to report the build status to the source provider, the user
 #' associated with the source provider must have write access to the repo.
@@ -1958,19 +2054,24 @@ codebuild_retry_build_batch <- function(id = NULL, idempotencyToken = NULL, retr
 #' Manager](https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html).
 #' @param fleetOverride A ProjectFleet object specified for this build that overrides the one
 #' defined in the build project.
+#' @param autoRetryLimitOverride The maximum number of additional automatic retries after a failed build.
+#' For example, if the auto-retry limit is set to 2, CodeBuild will call
+#' the [`retry_build`][codebuild_retry_build] API to automatically retry
+#' your build for up to 2 additional times.
 #'
 #' @keywords internal
 #'
 #' @rdname codebuild_start_build
-codebuild_start_build <- function(projectName, secondarySourcesOverride = NULL, secondarySourcesVersionOverride = NULL, sourceVersion = NULL, artifactsOverride = NULL, secondaryArtifactsOverride = NULL, environmentVariablesOverride = NULL, sourceTypeOverride = NULL, sourceLocationOverride = NULL, sourceAuthOverride = NULL, gitCloneDepthOverride = NULL, gitSubmodulesConfigOverride = NULL, buildspecOverride = NULL, insecureSslOverride = NULL, reportBuildStatusOverride = NULL, buildStatusConfigOverride = NULL, environmentTypeOverride = NULL, imageOverride = NULL, computeTypeOverride = NULL, certificateOverride = NULL, cacheOverride = NULL, serviceRoleOverride = NULL, privilegedModeOverride = NULL, timeoutInMinutesOverride = NULL, queuedTimeoutInMinutesOverride = NULL, encryptionKeyOverride = NULL, idempotencyToken = NULL, logsConfigOverride = NULL, registryCredentialOverride = NULL, imagePullCredentialsTypeOverride = NULL, debugSessionEnabled = NULL, fleetOverride = NULL) {
+codebuild_start_build <- function(projectName, secondarySourcesOverride = NULL, secondarySourcesVersionOverride = NULL, sourceVersion = NULL, artifactsOverride = NULL, secondaryArtifactsOverride = NULL, environmentVariablesOverride = NULL, sourceTypeOverride = NULL, sourceLocationOverride = NULL, sourceAuthOverride = NULL, gitCloneDepthOverride = NULL, gitSubmodulesConfigOverride = NULL, buildspecOverride = NULL, insecureSslOverride = NULL, reportBuildStatusOverride = NULL, buildStatusConfigOverride = NULL, environmentTypeOverride = NULL, imageOverride = NULL, computeTypeOverride = NULL, certificateOverride = NULL, cacheOverride = NULL, serviceRoleOverride = NULL, privilegedModeOverride = NULL, timeoutInMinutesOverride = NULL, queuedTimeoutInMinutesOverride = NULL, encryptionKeyOverride = NULL, idempotencyToken = NULL, logsConfigOverride = NULL, registryCredentialOverride = NULL, imagePullCredentialsTypeOverride = NULL, debugSessionEnabled = NULL, fleetOverride = NULL, autoRetryLimitOverride = NULL) {
   op <- new_operation(
     name = "StartBuild",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .codebuild$start_build_input(projectName = projectName, secondarySourcesOverride = secondarySourcesOverride, secondarySourcesVersionOverride = secondarySourcesVersionOverride, sourceVersion = sourceVersion, artifactsOverride = artifactsOverride, secondaryArtifactsOverride = secondaryArtifactsOverride, environmentVariablesOverride = environmentVariablesOverride, sourceTypeOverride = sourceTypeOverride, sourceLocationOverride = sourceLocationOverride, sourceAuthOverride = sourceAuthOverride, gitCloneDepthOverride = gitCloneDepthOverride, gitSubmodulesConfigOverride = gitSubmodulesConfigOverride, buildspecOverride = buildspecOverride, insecureSslOverride = insecureSslOverride, reportBuildStatusOverride = reportBuildStatusOverride, buildStatusConfigOverride = buildStatusConfigOverride, environmentTypeOverride = environmentTypeOverride, imageOverride = imageOverride, computeTypeOverride = computeTypeOverride, certificateOverride = certificateOverride, cacheOverride = cacheOverride, serviceRoleOverride = serviceRoleOverride, privilegedModeOverride = privilegedModeOverride, timeoutInMinutesOverride = timeoutInMinutesOverride, queuedTimeoutInMinutesOverride = queuedTimeoutInMinutesOverride, encryptionKeyOverride = encryptionKeyOverride, idempotencyToken = idempotencyToken, logsConfigOverride = logsConfigOverride, registryCredentialOverride = registryCredentialOverride, imagePullCredentialsTypeOverride = imagePullCredentialsTypeOverride, debugSessionEnabled = debugSessionEnabled, fleetOverride = fleetOverride)
+  input <- .codebuild$start_build_input(projectName = projectName, secondarySourcesOverride = secondarySourcesOverride, secondarySourcesVersionOverride = secondarySourcesVersionOverride, sourceVersion = sourceVersion, artifactsOverride = artifactsOverride, secondaryArtifactsOverride = secondaryArtifactsOverride, environmentVariablesOverride = environmentVariablesOverride, sourceTypeOverride = sourceTypeOverride, sourceLocationOverride = sourceLocationOverride, sourceAuthOverride = sourceAuthOverride, gitCloneDepthOverride = gitCloneDepthOverride, gitSubmodulesConfigOverride = gitSubmodulesConfigOverride, buildspecOverride = buildspecOverride, insecureSslOverride = insecureSslOverride, reportBuildStatusOverride = reportBuildStatusOverride, buildStatusConfigOverride = buildStatusConfigOverride, environmentTypeOverride = environmentTypeOverride, imageOverride = imageOverride, computeTypeOverride = computeTypeOverride, certificateOverride = certificateOverride, cacheOverride = cacheOverride, serviceRoleOverride = serviceRoleOverride, privilegedModeOverride = privilegedModeOverride, timeoutInMinutesOverride = timeoutInMinutesOverride, queuedTimeoutInMinutesOverride = queuedTimeoutInMinutesOverride, encryptionKeyOverride = encryptionKeyOverride, idempotencyToken = idempotencyToken, logsConfigOverride = logsConfigOverride, registryCredentialOverride = registryCredentialOverride, imagePullCredentialsTypeOverride = imagePullCredentialsTypeOverride, debugSessionEnabled = debugSessionEnabled, fleetOverride = fleetOverride, autoRetryLimitOverride = autoRetryLimitOverride)
   output <- .codebuild$start_build_output()
   config <- get_config()
   svc <- .codebuild$service(config, op)
@@ -2137,7 +2238,8 @@ codebuild_start_build_batch <- function(projectName, secondarySourcesOverride = 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$start_build_batch_input(projectName = projectName, secondarySourcesOverride = secondarySourcesOverride, secondarySourcesVersionOverride = secondarySourcesVersionOverride, sourceVersion = sourceVersion, artifactsOverride = artifactsOverride, secondaryArtifactsOverride = secondaryArtifactsOverride, environmentVariablesOverride = environmentVariablesOverride, sourceTypeOverride = sourceTypeOverride, sourceLocationOverride = sourceLocationOverride, sourceAuthOverride = sourceAuthOverride, gitCloneDepthOverride = gitCloneDepthOverride, gitSubmodulesConfigOverride = gitSubmodulesConfigOverride, buildspecOverride = buildspecOverride, insecureSslOverride = insecureSslOverride, reportBuildBatchStatusOverride = reportBuildBatchStatusOverride, environmentTypeOverride = environmentTypeOverride, imageOverride = imageOverride, computeTypeOverride = computeTypeOverride, certificateOverride = certificateOverride, cacheOverride = cacheOverride, serviceRoleOverride = serviceRoleOverride, privilegedModeOverride = privilegedModeOverride, buildTimeoutInMinutesOverride = buildTimeoutInMinutesOverride, queuedTimeoutInMinutesOverride = queuedTimeoutInMinutesOverride, encryptionKeyOverride = encryptionKeyOverride, idempotencyToken = idempotencyToken, logsConfigOverride = logsConfigOverride, registryCredentialOverride = registryCredentialOverride, imagePullCredentialsTypeOverride = imagePullCredentialsTypeOverride, buildBatchConfigOverride = buildBatchConfigOverride, debugSessionEnabled = debugSessionEnabled)
   output <- .codebuild$start_build_batch_output()
@@ -2167,7 +2269,8 @@ codebuild_stop_build <- function(id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$stop_build_input(id = id)
   output <- .codebuild$stop_build_output()
@@ -2197,7 +2300,8 @@ codebuild_stop_build_batch <- function(id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$stop_build_batch_input(id = id)
   output <- .codebuild$stop_build_batch_output()
@@ -2227,11 +2331,23 @@ codebuild_stop_build_batch <- function(id) {
 #'     (Singapore), Asia Pacific (Sydney), EU (Frankfurt), and South
 #'     America (São Paulo).
 #' 
+#' -   The environment type `ARM_EC2` is available only in regions US East
+#'     (N. Virginia), US East (Ohio), US West (Oregon), EU (Ireland), EU
+#'     (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Singapore), Asia
+#'     Pacific (Sydney), South America (São Paulo), and Asia Pacific
+#'     (Mumbai).
+#' 
 #' -   The environment type `LINUX_CONTAINER` is available only in regions
 #'     US East (N. Virginia), US East (Ohio), US West (Oregon), EU
 #'     (Ireland), EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific
 #'     (Singapore), Asia Pacific (Sydney), South America (São Paulo), and
 #'     Asia Pacific (Mumbai).
+#' 
+#' -   The environment type `LINUX_EC2` is available only in regions US
+#'     East (N. Virginia), US East (Ohio), US West (Oregon), EU (Ireland),
+#'     EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Singapore), Asia
+#'     Pacific (Sydney), South America (São Paulo), and Asia Pacific
+#'     (Mumbai).
 #' 
 #' -   The environment type `LINUX_GPU_CONTAINER` is available only in
 #'     regions US East (N. Virginia), US East (Ohio), US West (Oregon), EU
@@ -2245,6 +2361,12 @@ codebuild_stop_build_batch <- function(id) {
 #' -   The environment type `MAC_ARM` is available for Large fleets only in
 #'     regions US East (N. Virginia), US East (Ohio), US West (Oregon), and
 #'     Asia Pacific (Sydney).
+#' 
+#' -   The environment type `WINDOWS_EC2` is available only in regions US
+#'     East (N. Virginia), US East (Ohio), US West (Oregon), EU (Ireland),
+#'     EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Singapore), Asia
+#'     Pacific (Sydney), South America (São Paulo), and Asia Pacific
+#'     (Mumbai).
 #' 
 #' -   The environment type `WINDOWS_SERVER_2019_CONTAINER` is available
 #'     only in regions US East (N. Virginia), US East (Ohio), US West
@@ -2263,47 +2385,79 @@ codebuild_stop_build_batch <- function(id) {
 #' @param computeType Information about the compute resources the compute fleet uses.
 #' Available values include:
 #' 
-#' -   `BUILD_GENERAL1_SMALL`: Use up to 3 GB memory and 2 vCPUs for
+#' -   `ATTRIBUTE_BASED_COMPUTE`: Specify the amount of vCPUs, memory, disk
+#'     space, and the type of machine.
+#' 
+#'     If you use `ATTRIBUTE_BASED_COMPUTE`, you must define your
+#'     attributes by using `computeConfiguration`. CodeBuild will select
+#'     the cheapest instance that satisfies your specified attributes. For
+#'     more information, see [Reserved capacity environment
+#'     types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html#environment-reserved-capacity.types)
+#'     in the *CodeBuild User Guide*.
+#' 
+#' -   `BUILD_GENERAL1_SMALL`: Use up to 4 GiB memory and 2 vCPUs for
 #'     builds.
 #' 
-#' -   `BUILD_GENERAL1_MEDIUM`: Use up to 7 GB memory and 4 vCPUs for
+#' -   `BUILD_GENERAL1_MEDIUM`: Use up to 8 GiB memory and 4 vCPUs for
 #'     builds.
 #' 
-#' -   `BUILD_GENERAL1_LARGE`: Use up to 16 GB memory and 8 vCPUs for
+#' -   `BUILD_GENERAL1_LARGE`: Use up to 16 GiB memory and 8 vCPUs for
 #'     builds, depending on your environment type.
 #' 
-#' -   `BUILD_GENERAL1_XLARGE`: Use up to 70 GB memory and 36 vCPUs for
+#' -   `BUILD_GENERAL1_XLARGE`: Use up to 72 GiB memory and 36 vCPUs for
 #'     builds, depending on your environment type.
 #' 
-#' -   `BUILD_GENERAL1_2XLARGE`: Use up to 145 GB memory, 72 vCPUs, and 824
-#'     GB of SSD storage for builds. This compute type supports Docker
+#' -   `BUILD_GENERAL1_2XLARGE`: Use up to 144 GiB memory, 72 vCPUs, and
+#'     824 GB of SSD storage for builds. This compute type supports Docker
 #'     images up to 100 GB uncompressed.
+#' 
+#' -   `BUILD_LAMBDA_1GB`: Use up to 1 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
+#' 
+#' -   `BUILD_LAMBDA_2GB`: Use up to 2 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
+#' 
+#' -   `BUILD_LAMBDA_4GB`: Use up to 4 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
+#' 
+#' -   `BUILD_LAMBDA_8GB`: Use up to 8 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
+#' 
+#' -   `BUILD_LAMBDA_10GB`: Use up to 10 GiB memory for builds. Only
+#'     available for environment type `LINUX_LAMBDA_CONTAINER` and
+#'     `ARM_LAMBDA_CONTAINER`.
 #' 
 #' If you use `BUILD_GENERAL1_SMALL`:
 #' 
-#' -   For environment type `LINUX_CONTAINER`, you can use up to 3 GB
+#' -   For environment type `LINUX_CONTAINER`, you can use up to 4 GiB
 #'     memory and 2 vCPUs for builds.
 #' 
-#' -   For environment type `LINUX_GPU_CONTAINER`, you can use up to 16 GB
+#' -   For environment type `LINUX_GPU_CONTAINER`, you can use up to 16 GiB
 #'     memory, 4 vCPUs, and 1 NVIDIA A10G Tensor Core GPU for builds.
 #' 
-#' -   For environment type `ARM_CONTAINER`, you can use up to 4 GB memory
+#' -   For environment type `ARM_CONTAINER`, you can use up to 4 GiB memory
 #'     and 2 vCPUs on ARM-based processors for builds.
 #' 
 #' If you use `BUILD_GENERAL1_LARGE`:
 #' 
-#' -   For environment type `LINUX_CONTAINER`, you can use up to 15 GB
+#' -   For environment type `LINUX_CONTAINER`, you can use up to 16 GiB
 #'     memory and 8 vCPUs for builds.
 #' 
-#' -   For environment type `LINUX_GPU_CONTAINER`, you can use up to 255 GB
-#'     memory, 32 vCPUs, and 4 NVIDIA Tesla V100 GPUs for builds.
+#' -   For environment type `LINUX_GPU_CONTAINER`, you can use up to 255
+#'     GiB memory, 32 vCPUs, and 4 NVIDIA Tesla V100 GPUs for builds.
 #' 
-#' -   For environment type `ARM_CONTAINER`, you can use up to 16 GB memory
-#'     and 8 vCPUs on ARM-based processors for builds.
+#' -   For environment type `ARM_CONTAINER`, you can use up to 16 GiB
+#'     memory and 8 vCPUs on ARM-based processors for builds.
 #' 
-#' For more information, see [Build environment compute
-#' types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html)
+#' For more information, see [On-demand environment
+#' types](https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html#environment.types)
 #' in the *CodeBuild User Guide.*
+#' @param computeConfiguration The compute configuration of the compute fleet. This is only required if
+#' `computeType` is set to `ATTRIBUTE_BASED_COMPUTE`.
 #' @param scalingConfiguration The scaling configuration of the compute fleet.
 #' @param overflowBehavior The compute fleet overflow behavior.
 #' 
@@ -2320,6 +2474,7 @@ codebuild_stop_build_batch <- function(id) {
 #'     Web Services services required to create a VPC network
 #'     interface](https://docs.aws.amazon.com/codebuild/latest/userguide/auth-and-access-control-iam-identity-based-access-control.html#customer-managed-policies-example-create-vpc-network-interface).
 #' @param vpcConfig 
+#' @param proxyConfiguration The proxy configuration of the compute fleet.
 #' @param imageId The Amazon Machine Image (AMI) of the compute fleet.
 #' @param fleetServiceRole The service role associated with the compute fleet. For more
 #' information, see [Allow a user to add a permission policy for a fleet
@@ -2334,15 +2489,16 @@ codebuild_stop_build_batch <- function(id) {
 #' @keywords internal
 #'
 #' @rdname codebuild_update_fleet
-codebuild_update_fleet <- function(arn, baseCapacity = NULL, environmentType = NULL, computeType = NULL, scalingConfiguration = NULL, overflowBehavior = NULL, vpcConfig = NULL, imageId = NULL, fleetServiceRole = NULL, tags = NULL) {
+codebuild_update_fleet <- function(arn, baseCapacity = NULL, environmentType = NULL, computeType = NULL, computeConfiguration = NULL, scalingConfiguration = NULL, overflowBehavior = NULL, vpcConfig = NULL, proxyConfiguration = NULL, imageId = NULL, fleetServiceRole = NULL, tags = NULL) {
   op <- new_operation(
     name = "UpdateFleet",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .codebuild$update_fleet_input(arn = arn, baseCapacity = baseCapacity, environmentType = environmentType, computeType = computeType, scalingConfiguration = scalingConfiguration, overflowBehavior = overflowBehavior, vpcConfig = vpcConfig, imageId = imageId, fleetServiceRole = fleetServiceRole, tags = tags)
+  input <- .codebuild$update_fleet_input(arn = arn, baseCapacity = baseCapacity, environmentType = environmentType, computeType = computeType, computeConfiguration = computeConfiguration, scalingConfiguration = scalingConfiguration, overflowBehavior = overflowBehavior, vpcConfig = vpcConfig, proxyConfiguration = proxyConfiguration, imageId = imageId, fleetServiceRole = fleetServiceRole, tags = tags)
   output <- .codebuild$update_fleet_output()
   config <- get_config()
   svc <- .codebuild$service(config, op)
@@ -2443,19 +2599,24 @@ codebuild_update_fleet <- function(arn, baseCapacity = NULL, environmentType = N
 #' builds are throttled and are not run.
 #' 
 #' To remove this limit, set this value to -1.
+#' @param autoRetryLimit The maximum number of additional automatic retries after a failed build.
+#' For example, if the auto-retry limit is set to 2, CodeBuild will call
+#' the [`retry_build`][codebuild_retry_build] API to automatically retry
+#' your build for up to 2 additional times.
 #'
 #' @keywords internal
 #'
 #' @rdname codebuild_update_project
-codebuild_update_project <- function(name, description = NULL, source = NULL, secondarySources = NULL, sourceVersion = NULL, secondarySourceVersions = NULL, artifacts = NULL, secondaryArtifacts = NULL, cache = NULL, environment = NULL, serviceRole = NULL, timeoutInMinutes = NULL, queuedTimeoutInMinutes = NULL, encryptionKey = NULL, tags = NULL, vpcConfig = NULL, badgeEnabled = NULL, logsConfig = NULL, fileSystemLocations = NULL, buildBatchConfig = NULL, concurrentBuildLimit = NULL) {
+codebuild_update_project <- function(name, description = NULL, source = NULL, secondarySources = NULL, sourceVersion = NULL, secondarySourceVersions = NULL, artifacts = NULL, secondaryArtifacts = NULL, cache = NULL, environment = NULL, serviceRole = NULL, timeoutInMinutes = NULL, queuedTimeoutInMinutes = NULL, encryptionKey = NULL, tags = NULL, vpcConfig = NULL, badgeEnabled = NULL, logsConfig = NULL, fileSystemLocations = NULL, buildBatchConfig = NULL, concurrentBuildLimit = NULL, autoRetryLimit = NULL) {
   op <- new_operation(
     name = "UpdateProject",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .codebuild$update_project_input(name = name, description = description, source = source, secondarySources = secondarySources, sourceVersion = sourceVersion, secondarySourceVersions = secondarySourceVersions, artifacts = artifacts, secondaryArtifacts = secondaryArtifacts, cache = cache, environment = environment, serviceRole = serviceRole, timeoutInMinutes = timeoutInMinutes, queuedTimeoutInMinutes = queuedTimeoutInMinutes, encryptionKey = encryptionKey, tags = tags, vpcConfig = vpcConfig, badgeEnabled = badgeEnabled, logsConfig = logsConfig, fileSystemLocations = fileSystemLocations, buildBatchConfig = buildBatchConfig, concurrentBuildLimit = concurrentBuildLimit)
+  input <- .codebuild$update_project_input(name = name, description = description, source = source, secondarySources = secondarySources, sourceVersion = sourceVersion, secondarySourceVersions = secondarySourceVersions, artifacts = artifacts, secondaryArtifacts = secondaryArtifacts, cache = cache, environment = environment, serviceRole = serviceRole, timeoutInMinutes = timeoutInMinutes, queuedTimeoutInMinutes = queuedTimeoutInMinutes, encryptionKey = encryptionKey, tags = tags, vpcConfig = vpcConfig, badgeEnabled = badgeEnabled, logsConfig = logsConfig, fileSystemLocations = fileSystemLocations, buildBatchConfig = buildBatchConfig, concurrentBuildLimit = concurrentBuildLimit, autoRetryLimit = autoRetryLimit)
   output <- .codebuild$update_project_output()
   config <- get_config()
   svc <- .codebuild$service(config, op)
@@ -2486,7 +2647,8 @@ codebuild_update_project_visibility <- function(projectArn, projectVisibility, r
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$update_project_visibility_input(projectArn = projectArn, projectVisibility = projectVisibility, resourceAccessRole = resourceAccessRole)
   output <- .codebuild$update_project_visibility_output()
@@ -2526,7 +2688,8 @@ codebuild_update_report_group <- function(arn, exportConfig = NULL, tags = NULL)
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$update_report_group_input(arn = arn, exportConfig = exportConfig, tags = tags)
   output <- .codebuild$update_report_group_output()
@@ -2569,7 +2732,8 @@ codebuild_update_webhook <- function(projectName, branchFilter = NULL, rotateSec
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .codebuild$update_webhook_input(projectName = projectName, branchFilter = branchFilter, rotateSecret = rotateSecret, filterGroups = filterGroups, buildType = buildType)
   output <- .codebuild$update_webhook_output()
