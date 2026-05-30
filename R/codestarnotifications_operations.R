@@ -6,40 +6,20 @@ NULL
 #' Creates a notification rule for a resource
 #'
 #' @description
-#' Creates a notification rule for a resource. The rule specifies the events you want notifications about and the targets (such as Chatbot topics or Chatbot clients configured for Slack) where you want to receive them.
+#' Creates a notification rule for a resource. The rule specifies the events you want notifications about and the targets (such as Amazon Q Developer in chat applications topics or Amazon Q Developer in chat applications clients configured for Slack) where you want to receive them.
 #'
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_create_notification_rule/](https://www.paws-r-sdk.com/docs/codestarnotifications_create_notification_rule/) for full documentation.
 #'
-#' @param Name &#91;required&#93; The name for the notification rule. Notification rule names must be
-#' unique in your Amazon Web Services account.
-#' @param EventTypeIds &#91;required&#93; A list of event types associated with this notification rule. For a list
-#' of allowed events, see EventTypeSummary.
-#' @param Resource &#91;required&#93; The Amazon Resource Name (ARN) of the resource to associate with the
-#' notification rule. Supported resources include pipelines in
-#' CodePipeline, repositories in CodeCommit, and build projects in
-#' CodeBuild.
-#' @param Targets &#91;required&#93; A list of Amazon Resource Names (ARNs) of Amazon Simple Notification
-#' Service topics and Chatbot clients to associate with the notification
-#' rule.
-#' @param DetailType &#91;required&#93; The level of detail to include in the notifications for this resource.
-#' `BASIC` will include only the contents of the event as it would appear
-#' in Amazon CloudWatch. `FULL` will include any supplemental information
-#' provided by AWS CodeStar Notifications and/or the service for the
-#' resource for which the notification is created.
-#' @param ClientRequestToken A unique, client-generated idempotency token that, when provided in a
-#' request, ensures the request cannot be repeated with a changed
-#' parameter. If a request with the same parameters is received and a token
-#' is included, the request returns information about the initial request
-#' that used that token.
+#' @param Name &#91;required&#93; The name for the notification rule. Notification rule names must be unique in your Amazon Web Services account.
+#' @param EventTypeIds &#91;required&#93; A list of event types associated with this notification rule. For a list of allowed events, see EventTypeSummary.
+#' @param Resource &#91;required&#93; The Amazon Resource Name (ARN) of the resource to associate with the notification rule. Supported resources include pipelines in CodePipeline, repositories in CodeCommit, and build projects in CodeBuild.
+#' @param Targets &#91;required&#93; A list of Amazon Resource Names (ARNs) of Amazon Simple Notification Service topics and Amazon Q Developer in chat applications clients to associate with the notification rule.
+#' @param DetailType &#91;required&#93; The level of detail to include in the notifications for this resource. `BASIC` will include only the contents of the event as it would appear in Amazon CloudWatch. `FULL` will include any supplemental information provided by CodeStar Notifications and/or the service for the resource for which the notification is created.
+#' @param ClientRequestToken A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be repeated with a changed parameter. If a request with the same parameters is received and a token is included, the request returns information about the initial request that used that token.
 #' 
-#' The Amazon Web Services SDKs prepopulate client request tokens. If you
-#' are using an Amazon Web Services SDK, an idempotency token is created
-#' for you.
-#' @param Tags A list of tags to apply to this notification rule. Key names cannot
-#' start with "`aws`".
-#' @param Status The status of the notification rule. The default value is `ENABLED`. If
-#' the status is set to `DISABLED`, notifications aren't sent for the
-#' notification rule.
+#' The Amazon Web Services SDKs prepopulate client request tokens. If you are using an Amazon Web Services SDK, an idempotency token is created for you.
+#' @param Tags A list of tags to apply to this notification rule. Key names cannot start with "`aws`".
+#' @param Status The status of the notification rule. The default value is `ENABLED`. If the status is set to `DISABLED`, notifications aren't sent for the notification rule.
 #'
 #' @keywords internal
 #'
@@ -70,8 +50,7 @@ codestarnotifications_create_notification_rule <- function(Name, EventTypeIds, R
 #'
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_delete_notification_rule/](https://www.paws-r-sdk.com/docs/codestarnotifications_delete_notification_rule/) for full documentation.
 #'
-#' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule you want to
-#' delete.
+#' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule you want to delete.
 #'
 #' @keywords internal
 #'
@@ -102,12 +81,8 @@ codestarnotifications_delete_notification_rule <- function(Arn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_delete_target/](https://www.paws-r-sdk.com/docs/codestarnotifications_delete_target/) for full documentation.
 #'
-#' @param TargetAddress &#91;required&#93; The Amazon Resource Name (ARN) of the Chatbot topic or Chatbot client to
-#' delete.
-#' @param ForceUnsubscribeAll A Boolean value that can be used to delete all associations with this
-#' Chatbot topic. The default value is FALSE. If set to TRUE, all
-#' associations between that target and every notification rule in your
-#' Amazon Web Services account are deleted.
+#' @param TargetAddress &#91;required&#93; The Amazon Resource Name (ARN) of the Amazon Q Developer in chat applications topic or Amazon Q Developer in chat applications client to delete.
+#' @param ForceUnsubscribeAll A Boolean value that can be used to delete all associations with this Amazon Q Developer in chat applications topic. The default value is FALSE. If set to TRUE, all associations between that target and every notification rule in your Amazon Web Services account are deleted.
 #'
 #' @keywords internal
 #'
@@ -171,11 +146,8 @@ codestarnotifications_describe_notification_rule <- function(Arn) {
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_list_event_types/](https://www.paws-r-sdk.com/docs/codestarnotifications_list_event_types/) for full documentation.
 #'
 #' @param Filters The filters to use to return information by service or resource type.
-#' @param NextToken An enumeration token that, when provided in a request, returns the next
-#' batch of the results.
-#' @param MaxResults A non-negative integer used to limit the number of returned results. The
-#' default number is 50. The maximum number of results that can be returned
-#' is 100.
+#' @param NextToken An enumeration token that, when provided in a request, returns the next batch of the results.
+#' @param MaxResults A non-negative integer used to limit the number of returned results. The default number is 50. The maximum number of results that can be returned is 100.
 #'
 #' @keywords internal
 #'
@@ -207,16 +179,11 @@ codestarnotifications_list_event_types <- function(Filters = NULL, NextToken = N
 #'
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_list_notification_rules/](https://www.paws-r-sdk.com/docs/codestarnotifications_list_notification_rules/) for full documentation.
 #'
-#' @param Filters The filters to use to return information by service or resource type.
-#' For valid values, see ListNotificationRulesFilter.
+#' @param Filters The filters to use to return information by service or resource type. For valid values, see ListNotificationRulesFilter.
 #' 
-#' A filter with the same name can appear more than once when used with OR
-#' statements. Filters with different names should be applied with AND
-#' statements.
-#' @param NextToken An enumeration token that, when provided in a request, returns the next
-#' batch of the results.
-#' @param MaxResults A non-negative integer used to limit the number of returned results. The
-#' maximum number of results that can be returned is 100.
+#' A filter with the same name can appear more than once when used with OR statements. Filters with different names should be applied with AND statements.
+#' @param NextToken An enumeration token that, when provided in a request, returns the next batch of the results.
+#' @param MaxResults A non-negative integer used to limit the number of returned results. The maximum number of results that can be returned is 100.
 #'
 #' @keywords internal
 #'
@@ -279,16 +246,11 @@ codestarnotifications_list_tags_for_resource <- function(Arn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_list_targets/](https://www.paws-r-sdk.com/docs/codestarnotifications_list_targets/) for full documentation.
 #'
-#' @param Filters The filters to use to return information by service or resource type.
-#' Valid filters include target type, target address, and target status.
+#' @param Filters The filters to use to return information by service or resource type. Valid filters include target type, target address, and target status.
 #' 
-#' A filter with the same name can appear more than once when used with OR
-#' statements. Filters with different names should be applied with AND
-#' statements.
-#' @param NextToken An enumeration token that, when provided in a request, returns the next
-#' batch of the results.
-#' @param MaxResults A non-negative integer used to limit the number of returned results. The
-#' maximum number of results that can be returned is 100.
+#' A filter with the same name can appear more than once when used with OR statements. Filters with different names should be applied with AND statements.
+#' @param NextToken An enumeration token that, when provided in a request, returns the next batch of the results.
+#' @param MaxResults A non-negative integer used to limit the number of returned results. The maximum number of results that can be returned is 100.
 #'
 #' @keywords internal
 #'
@@ -312,20 +274,19 @@ codestarnotifications_list_targets <- function(Filters = NULL, NextToken = NULL,
 }
 .codestarnotifications$operations$list_targets <- codestarnotifications_list_targets
 
-#' Creates an association between a notification rule and an Chatbot topic
-#' or Chatbot client so that the associated target can receive
+#' Creates an association between a notification rule and an Amazon Q
+#' Developer in chat applications topic or Amazon Q Developer in chat
+#' applications client so that the associated target can receive
 #' notifications when the events described in the rule are triggered
 #'
 #' @description
-#' Creates an association between a notification rule and an Chatbot topic or Chatbot client so that the associated target can receive notifications when the events described in the rule are triggered.
+#' Creates an association between a notification rule and an Amazon Q Developer in chat applications topic or Amazon Q Developer in chat applications client so that the associated target can receive notifications when the events described in the rule are triggered.
 #'
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_subscribe/](https://www.paws-r-sdk.com/docs/codestarnotifications_subscribe/) for full documentation.
 #'
-#' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule for which you
-#' want to create the association.
-#' @param Target &#91;required&#93; 
-#' @param ClientRequestToken An enumeration token that, when provided in a request, returns the next
-#' batch of the results.
+#' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule for which you want to create the association.
+#' @param Target &#91;required&#93; Information about the Amazon Q Developer in chat applications topics or Amazon Q Developer in chat applications clients associated with a notification rule.
+#' @param ClientRequestToken An enumeration token that, when provided in a request, returns the next batch of the results.
 #'
 #' @keywords internal
 #'
@@ -357,8 +318,7 @@ codestarnotifications_subscribe <- function(Arn, Target, ClientRequestToken = NU
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_tag_resource/](https://www.paws-r-sdk.com/docs/codestarnotifications_tag_resource/) for full documentation.
 #'
 #' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule to tag.
-#' @param Tags &#91;required&#93; The list of tags to associate with the resource. Tag key names cannot
-#' start with "`aws`".
+#' @param Tags &#91;required&#93; The list of tags to associate with the resource. Tag key names cannot start with "`aws`".
 #'
 #' @keywords internal
 #'
@@ -382,17 +342,18 @@ codestarnotifications_tag_resource <- function(Arn, Tags) {
 }
 .codestarnotifications$operations$tag_resource <- codestarnotifications_tag_resource
 
-#' Removes an association between a notification rule and an Chatbot topic
-#' so that subscribers to that topic stop receiving notifications when the
-#' events described in the rule are triggered
+#' Removes an association between a notification rule and an Amazon Q
+#' Developer in chat applications topic so that subscribers to that topic
+#' stop receiving notifications when the events described in the rule are
+#' triggered
 #'
 #' @description
-#' Removes an association between a notification rule and an Chatbot topic so that subscribers to that topic stop receiving notifications when the events described in the rule are triggered.
+#' Removes an association between a notification rule and an Amazon Q Developer in chat applications topic so that subscribers to that topic stop receiving notifications when the events described in the rule are triggered.
 #'
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_unsubscribe/](https://www.paws-r-sdk.com/docs/codestarnotifications_unsubscribe/) for full documentation.
 #'
 #' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule.
-#' @param TargetAddress &#91;required&#93; The ARN of the Chatbot topic to unsubscribe from the notification rule.
+#' @param TargetAddress &#91;required&#93; The ARN of the Amazon Q Developer in chat applications topic to unsubscribe from the notification rule.
 #'
 #' @keywords internal
 #'
@@ -424,8 +385,7 @@ codestarnotifications_unsubscribe <- function(Arn, TargetAddress) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/codestarnotifications_untag_resource/](https://www.paws-r-sdk.com/docs/codestarnotifications_untag_resource/) for full documentation.
 #'
-#' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule from which to
-#' remove the tags.
+#' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule from which to remove the tags.
 #' @param TagKeys &#91;required&#93; The key names of the tags to remove.
 #'
 #' @keywords internal
@@ -459,19 +419,10 @@ codestarnotifications_untag_resource <- function(Arn, TagKeys) {
 #'
 #' @param Arn &#91;required&#93; The Amazon Resource Name (ARN) of the notification rule.
 #' @param Name The name of the notification rule.
-#' @param Status The status of the notification rule. Valid statuses include enabled
-#' (sending notifications) or disabled (not sending notifications).
-#' @param EventTypeIds A list of event types associated with this notification rule. For a
-#' complete list of event types and IDs, see [Notification
-#' concepts](https://docs.aws.amazon.com/dtconsole/latest/userguide/concepts.html#concepts-api)
-#' in the *Developer Tools Console User Guide*.
-#' @param Targets The address and type of the targets to receive notifications from this
-#' notification rule.
-#' @param DetailType The level of detail to include in the notifications for this resource.
-#' BASIC will include only the contents of the event as it would appear in
-#' Amazon CloudWatch. FULL will include any supplemental information
-#' provided by AWS CodeStar Notifications and/or the service for the
-#' resource for which the notification is created.
+#' @param Status The status of the notification rule. Valid statuses include enabled (sending notifications) or disabled (not sending notifications).
+#' @param EventTypeIds A list of event types associated with this notification rule. For a complete list of event types and IDs, see [Notification concepts](https://docs.aws.amazon.com/dtconsole/latest/userguide/concepts.html#concepts-api) in the *Developer Tools Console User Guide*.
+#' @param Targets The address and type of the targets to receive notifications from this notification rule.
+#' @param DetailType The level of detail to include in the notifications for this resource. BASIC will include only the contents of the event as it would appear in Amazon CloudWatch. FULL will include any supplemental information provided by CodeStar Notifications and/or the service for the resource for which the notification is created.
 #'
 #' @keywords internal
 #'

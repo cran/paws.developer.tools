@@ -5,27 +5,11 @@ NULL
 #' Amazon DevOps Guru
 #'
 #' @description
-#' Amazon DevOps Guru is a fully managed service that helps you identify
-#' anomalous behavior in business critical operational applications. You
-#' specify the Amazon Web Services resources that you want DevOps Guru to
-#' cover, then the Amazon CloudWatch metrics and Amazon Web Services
-#' CloudTrail events related to those resources are analyzed. When
-#' anomalous behavior is detected, DevOps Guru creates an *insight* that
-#' includes recommendations, related events, and related metrics that can
-#' help you improve your operational applications. For more information,
-#' see [What is Amazon DevOps
-#' Guru](https://docs.aws.amazon.com/devops-guru/latest/userguide/welcome.html).
+#' Amazon DevOps Guru is a fully managed service that helps you identify anomalous behavior in business critical operational applications. You specify the Amazon Web Services resources that you want DevOps Guru to cover, then the Amazon CloudWatch metrics and Amazon Web Services CloudTrail events related to those resources are analyzed. When anomalous behavior is detected, DevOps Guru creates an *insight* that includes recommendations, related events, and related metrics that can help you improve your operational applications. For more information, see [What is Amazon DevOps Guru](https://docs.aws.amazon.com/devops-guru/latest/userguide/welcome.html).
 #' 
-#' You can specify 1 or 2 Amazon Simple Notification Service topics so you
-#' are notified every time a new insight is created. You can also enable
-#' DevOps Guru to generate an OpsItem in Amazon Web Services Systems
-#' Manager for each insight to help you manage and track your work
-#' addressing insights.
+#' You can specify 1 or 2 Amazon Simple Notification Service topics so you are notified every time a new insight is created. You can also enable DevOps Guru to generate an OpsItem in Amazon Web Services Systems Manager for each insight to help you manage and track your work addressing insights.
 #' 
-#' To learn about the DevOps Guru workflow, see [How DevOps Guru
-#' works](https://docs.aws.amazon.com/devops-guru/latest/userguide/welcome.html#how-it-works).
-#' To learn about DevOps Guru concepts, see [Concepts in DevOps
-#' Guru](https://docs.aws.amazon.com/devops-guru/latest/userguide/concepts.html).
+#' To learn about the DevOps Guru workflow, see [How DevOps Guru works](https://docs.aws.amazon.com/devops-guru/latest/userguide/welcome.html#how-it-works). To learn about DevOps Guru concepts, see [Concepts in DevOps Guru](https://docs.aws.amazon.com/devops-guru/latest/userguide/concepts.html).
 #'
 #' @param
 #' config
@@ -172,7 +156,7 @@ devopsguru <- function(config = list(), credentials = list(), endpoint = NULL, r
 
 .devopsguru$metadata <- list(
   service_name = "devopsguru",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "devops-guru.{region}.amazonaws.eu", global = FALSE)),
   service_id = "DevOps Guru",
   api_version = "2020-12-01",
   signing_name = "devops-guru",

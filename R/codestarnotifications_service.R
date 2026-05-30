@@ -5,64 +5,43 @@ NULL
 #' AWS CodeStar Notifications
 #'
 #' @description
-#' This AWS CodeStar Notifications API Reference provides descriptions and
-#' usage examples of the operations and data types for the AWS CodeStar
-#' Notifications API. You can use the AWS CodeStar Notifications API to
-#' work with the following objects:
+#' This CodeStar Notifications API Reference provides descriptions and usage examples of the operations and data types for the CodeStar Notifications API. You can use the CodeStar Notifications API to work with the following objects:
 #' 
 #' Notification rules, by calling the following:
 #' 
-#' -   [`create_notification_rule`][codestarnotifications_create_notification_rule],
-#'     which creates a notification rule for a resource in your account.
+#' -   [`create_notification_rule`][codestarnotifications_create_notification_rule], which creates a notification rule for a resource in your account.
 #' 
-#' -   [`delete_notification_rule`][codestarnotifications_delete_notification_rule],
-#'     which deletes a notification rule.
+#' -   [`delete_notification_rule`][codestarnotifications_delete_notification_rule], which deletes a notification rule.
 #' 
-#' -   [`describe_notification_rule`][codestarnotifications_describe_notification_rule],
-#'     which provides information about a notification rule.
+#' -   [`describe_notification_rule`][codestarnotifications_describe_notification_rule], which provides information about a notification rule.
 #' 
-#' -   [`list_notification_rules`][codestarnotifications_list_notification_rules],
-#'     which lists the notification rules associated with your account.
+#' -   [`list_notification_rules`][codestarnotifications_list_notification_rules], which lists the notification rules associated with your account.
 #' 
-#' -   [`update_notification_rule`][codestarnotifications_update_notification_rule],
-#'     which changes the name, events, or targets associated with a
-#'     notification rule.
+#' -   [`update_notification_rule`][codestarnotifications_update_notification_rule], which changes the name, events, or targets associated with a notification rule.
 #' 
-#' -   [`subscribe`][codestarnotifications_subscribe], which subscribes a
-#'     target to a notification rule.
+#' -   [`subscribe`][codestarnotifications_subscribe], which subscribes a target to a notification rule.
 #' 
-#' -   [`unsubscribe`][codestarnotifications_unsubscribe], which removes a
-#'     target from a notification rule.
+#' -   [`unsubscribe`][codestarnotifications_unsubscribe], which removes a target from a notification rule.
 #' 
 #' Targets, by calling the following:
 #' 
-#' -   [`delete_target`][codestarnotifications_delete_target], which
-#'     removes a notification rule target from a notification rule.
+#' -   [`delete_target`][codestarnotifications_delete_target], which removes a notification rule target from a notification rule.
 #' 
-#' -   [`list_targets`][codestarnotifications_list_targets], which lists
-#'     the targets associated with a notification rule.
+#' -   [`list_targets`][codestarnotifications_list_targets], which lists the targets associated with a notification rule.
 #' 
 #' Events, by calling the following:
 #' 
-#' -   [`list_event_types`][codestarnotifications_list_event_types], which
-#'     lists the event types you can include in a notification rule.
+#' -   [`list_event_types`][codestarnotifications_list_event_types], which lists the event types you can include in a notification rule.
 #' 
 #' Tags, by calling the following:
 #' 
-#' -   [`list_tags_for_resource`][codestarnotifications_list_tags_for_resource],
-#'     which lists the tags already associated with a notification rule in
-#'     your account.
+#' -   [`list_tags_for_resource`][codestarnotifications_list_tags_for_resource], which lists the tags already associated with a notification rule in your account.
 #' 
-#' -   [`tag_resource`][codestarnotifications_tag_resource], which
-#'     associates a tag you provide with a notification rule in your
-#'     account.
+#' -   [`tag_resource`][codestarnotifications_tag_resource], which associates a tag you provide with a notification rule in your account.
 #' 
-#' -   [`untag_resource`][codestarnotifications_untag_resource], which
-#'     removes a tag from a notification rule in your account.
+#' -   [`untag_resource`][codestarnotifications_untag_resource], which removes a tag from a notification rule in your account.
 #' 
-#' For information about how to use AWS CodeStar Notifications, see the
-#' [Amazon Web Services Developer Tools Console User
-#' Guide](https://docs.aws.amazon.com/dtconsole/latest/userguide/what-is-dtconsole.html).
+#' For information about how to use CodeStar Notifications, see the [Amazon Web Services Developer Tools Console User Guide](https://docs.aws.amazon.com/dtconsole/latest/userguide/what-is-dtconsole.html).
 #'
 #' @param
 #' config
@@ -155,9 +134,9 @@ NULL
 #'  \link[=codestarnotifications_list_notification_rules]{list_notification_rules} \tab Returns a list of the notification rules for an Amazon Web Services account\cr
 #'  \link[=codestarnotifications_list_tags_for_resource]{list_tags_for_resource} \tab Returns a list of the tags associated with a notification rule\cr
 #'  \link[=codestarnotifications_list_targets]{list_targets} \tab Returns a list of the notification rule targets for an Amazon Web Services account\cr
-#'  \link[=codestarnotifications_subscribe]{subscribe} \tab Creates an association between a notification rule and an Chatbot topic or Chatbot client so that the associated target can receive notifications when the events described in the rule are triggered\cr
+#'  \link[=codestarnotifications_subscribe]{subscribe} \tab Creates an association between a notification rule and an Amazon Q Developer in chat applications topic or Amazon Q Developer in chat applications client so that the associated target can receive notifications when the events described in the rule are triggered\cr
 #'  \link[=codestarnotifications_tag_resource]{tag_resource} \tab Associates a set of provided tags with a notification rule\cr
-#'  \link[=codestarnotifications_unsubscribe]{unsubscribe} \tab Removes an association between a notification rule and an Chatbot topic so that subscribers to that topic stop receiving notifications when the events described in the rule are triggered\cr
+#'  \link[=codestarnotifications_unsubscribe]{unsubscribe} \tab Removes an association between a notification rule and an Amazon Q Developer in chat applications topic so that subscribers to that topic stop receiving notifications when the events described in the rule are triggered\cr
 #'  \link[=codestarnotifications_untag_resource]{untag_resource} \tab Removes the association between one or more provided tags and a notification rule\cr
 #'  \link[=codestarnotifications_update_notification_rule]{update_notification_rule} \tab Updates a notification rule for a resource
 #' }
@@ -191,7 +170,7 @@ codestarnotifications <- function(config = list(), credentials = list(), endpoin
 
 .codestarnotifications$metadata <- list(
   service_name = "codestarnotifications",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "codestar-notifications.{region}.amazonaws.eu", global = FALSE)),
   service_id = "codestar notifications",
   api_version = "2019-10-15",
   signing_name = "codestar-notifications",

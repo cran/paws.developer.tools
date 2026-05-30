@@ -5,18 +5,11 @@ NULL
 #' Amazon CodeGuru Security
 #'
 #' @description
-#' Amazon CodeGuru Security is in preview release and is subject to change.
+#' On November 20, 2025, AWS will discontinue support for Amazon CodeGuru Security. After November 20, 2025, you will no longer be able to access the /codeguru/security console, service resources, or documentation. For more information, see https://docs.aws.amazon.com/codeguru/latest/security-ug/end-of-support.html.
 #' 
-#' This section provides documentation for the Amazon CodeGuru Security API
-#' operations. CodeGuru Security is a service that uses program analysis
-#' and machine learning to detect security policy violations and
-#' vulnerabilities, and recommends ways to address these security risks.
+#' This section provides documentation for the Amazon CodeGuru Security API operations. CodeGuru Security is a service that uses program analysis and machine learning to detect security policy violations and vulnerabilities, and recommends ways to address these security risks.
 #' 
-#' By proactively detecting and providing recommendations for addressing
-#' security risks, CodeGuru Security improves the overall security of your
-#' application code. For more information about CodeGuru Security, see the
-#' [Amazon CodeGuru Security User
-#' Guide](https://docs.aws.amazon.com/codeguru/latest/security-ug/what-is-codeguru-security.html).
+#' By proactively detecting and providing recommendations for addressing security risks, CodeGuru Security improves the overall security of your application code. For more information about CodeGuru Security, see the Amazon CodeGuru Security User Guide.
 #'
 #' @param
 #' config
@@ -145,11 +138,11 @@ codegurusecurity <- function(config = list(), credentials = list(), endpoint = N
 
 .codegurusecurity$metadata <- list(
   service_name = "codegurusecurity",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-security.{region}.amazonaws.eu", global = FALSE)),
   service_id = "CodeGuru Security",
   api_version = "2018-05-10",
   signing_name = "codeguru-security",
-  json_version = "1.1",
+  json_version = "",
   target_prefix = ""
 )
 

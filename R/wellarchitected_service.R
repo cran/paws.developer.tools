@@ -7,12 +7,7 @@ NULL
 #' @description
 #' Well-Architected Tool
 #' 
-#' This is the *Well-Architected Tool API Reference*. The WA Tool API
-#' provides programmatic access to the [Well-Architected
-#' Tool](https://aws.amazon.com/well-architected-tool/) in the Amazon Web
-#' Services Management Console. For information about the Well-Architected
-#' Tool, see the [Well-Architected Tool User
-#' Guide](https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html).
+#' This is the *Well-Architected Tool API Reference*. The WA Tool API provides programmatic access to the [Well-Architected Tool](https://aws.amazon.com/well-architected-tool/) in the Amazon Web Services Management Console. For information about the Well-Architected Tool, see the [Well-Architected Tool User Guide](https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html).
 #'
 #' @param
 #' config
@@ -200,7 +195,7 @@ wellarchitected <- function(config = list(), credentials = list(), endpoint = NU
 
 .wellarchitected$metadata <- list(
   service_name = "wellarchitected",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "wellarchitected.{region}.amazonaws.eu", global = FALSE)),
   service_id = "WellArchitected",
   api_version = "2020-03-31",
   signing_name = "wellarchitected",

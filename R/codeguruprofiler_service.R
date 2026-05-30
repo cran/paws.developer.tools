@@ -5,30 +5,15 @@ NULL
 #' Amazon CodeGuru Profiler
 #'
 #' @description
-#' This section provides documentation for the Amazon CodeGuru Profiler API
-#' operations.
+#' This section provides documentation for the Amazon CodeGuru Profiler API operations.
 #' 
-#' Amazon CodeGuru Profiler collects runtime performance data from your
-#' live applications, and provides recommendations that can help you
-#' fine-tune your application performance. Using machine learning
-#' algorithms, CodeGuru Profiler can help you find your most expensive
-#' lines of code and suggest ways you can improve efficiency and remove CPU
-#' bottlenecks.
+#' Amazon CodeGuru Profiler collects runtime performance data from your live applications, and provides recommendations that can help you fine-tune your application performance. Using machine learning algorithms, CodeGuru Profiler can help you find your most expensive lines of code and suggest ways you can improve efficiency and remove CPU bottlenecks.
 #' 
-#' Amazon CodeGuru Profiler provides different visualizations of profiling
-#' data to help you identify what code is running on the CPU, see how much
-#' time is consumed, and suggest ways to reduce CPU utilization.
+#' Amazon CodeGuru Profiler provides different visualizations of profiling data to help you identify what code is running on the CPU, see how much time is consumed, and suggest ways to reduce CPU utilization.
 #' 
-#' Amazon CodeGuru Profiler currently supports applications written in all
-#' Java virtual machine (JVM) languages and Python. While CodeGuru Profiler
-#' supports both visualizations and recommendations for applications
-#' written in Java, it can also generate visualizations and a subset of
-#' recommendations for applications written in other JVM languages and
-#' Python.
+#' Amazon CodeGuru Profiler currently supports applications written in all Java virtual machine (JVM) languages and Python. While CodeGuru Profiler supports both visualizations and recommendations for applications written in Java, it can also generate visualizations and a subset of recommendations for applications written in other JVM languages and Python.
 #' 
-#' For more information, see [What is Amazon CodeGuru
-#' Profiler](https://docs.aws.amazon.com/codeguru/latest/profiler-ug/what-is-codeguru-profiler.html)
-#' in the *Amazon CodeGuru Profiler User Guide*.
+#' For more information, see [What is Amazon CodeGuru Profiler](https://docs.aws.amazon.com/codeguru/latest/profiler-ug/what-is-codeguru-profiler.html) in the *Amazon CodeGuru Profiler User Guide*.
 #'
 #' @param
 #' config
@@ -167,7 +152,7 @@ codeguruprofiler <- function(config = list(), credentials = list(), endpoint = N
 
 .codeguruprofiler$metadata <- list(
   service_name = "codeguruprofiler",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "codeguru-profiler.{region}.amazonaws.eu", global = FALSE)),
   service_id = "CodeGuruProfiler",
   api_version = "2019-07-18",
   signing_name = "codeguru-profiler",
