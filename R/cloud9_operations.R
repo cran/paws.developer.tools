@@ -31,21 +31,13 @@ NULL
 #' 
 #' **AMI aliases**
 #' 
-#' -   Amazon Linux 2: `amazonlinux-2-x86_64`
-#' 
 #' -   Amazon Linux 2023 (recommended): `amazonlinux-2023-x86_64`
-#' 
-#' -   Ubuntu 18.04: `ubuntu-18.04-x86_64`
 #' 
 #' -   Ubuntu 22.04: `ubuntu-22.04-x86_64`
 #' 
 #' **SSM paths**
 #' 
-#' -   Amazon Linux 2: `resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64`
-#' 
 #' -   Amazon Linux 2023 (recommended): `resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64`
-#' 
-#' -   Ubuntu 18.04: `resolve:ssm:/aws/service/cloud9/amis/ubuntu-18.04-x86_64`
 #' 
 #' -   Ubuntu 22.04: `resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64`
 #' @param automaticStopTimeMinutes The number of minutes until the running instance is shut down after the environment has last been used.
@@ -66,7 +58,8 @@ cloud9_create_environment_ec2 <- function(name, description = NULL, clientReques
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$create_environment_ec2_input(name = name, description = description, clientRequestToken = clientRequestToken, instanceType = instanceType, subnetId = subnetId, imageId = imageId, automaticStopTimeMinutes = automaticStopTimeMinutes, ownerArn = ownerArn, tags = tags, connectionType = connectionType, dryRun = dryRun)
   output <- .cloud9$create_environment_ec2_output()
@@ -103,7 +96,8 @@ cloud9_create_environment_membership <- function(environmentId, userArn, permiss
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$create_environment_membership_input(environmentId = environmentId, userArn = userArn, permissions = permissions)
   output <- .cloud9$create_environment_membership_output()
@@ -134,7 +128,8 @@ cloud9_delete_environment <- function(environmentId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$delete_environment_input(environmentId = environmentId)
   output <- .cloud9$delete_environment_output()
@@ -166,7 +161,8 @@ cloud9_delete_environment_membership <- function(environmentId, userArn) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$delete_environment_membership_input(environmentId = environmentId, userArn = userArn)
   output <- .cloud9$delete_environment_membership_output()
@@ -210,7 +206,8 @@ cloud9_describe_environment_memberships <- function(userArn = NULL, environmentI
     http_path = "/",
     host_prefix = "",
     paginator = list(result_key = "memberships", output_token = "nextToken", input_token = "nextToken", limit_key = "maxResults"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$describe_environment_memberships_input(userArn = userArn, environmentId = environmentId, permissions = permissions, nextToken = nextToken, maxResults = maxResults)
   output <- .cloud9$describe_environment_memberships_output()
@@ -241,7 +238,8 @@ cloud9_describe_environment_status <- function(environmentId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$describe_environment_status_input(environmentId = environmentId)
   output <- .cloud9$describe_environment_status_output()
@@ -272,7 +270,8 @@ cloud9_describe_environments <- function(environmentIds) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$describe_environments_input(environmentIds = environmentIds)
   output <- .cloud9$describe_environments_output()
@@ -304,7 +303,8 @@ cloud9_list_environments <- function(nextToken = NULL, maxResults = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(result_key = "environmentIds", output_token = "nextToken", input_token = "nextToken", limit_key = "maxResults"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$list_environments_input(nextToken = nextToken, maxResults = maxResults)
   output <- .cloud9$list_environments_output()
@@ -336,7 +336,8 @@ cloud9_list_tags_for_resource <- function(ResourceARN) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$list_tags_for_resource_input(ResourceARN = ResourceARN)
   output <- .cloud9$list_tags_for_resource_output()
@@ -368,7 +369,8 @@ cloud9_tag_resource <- function(ResourceARN, Tags) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$tag_resource_input(ResourceARN = ResourceARN, Tags = Tags)
   output <- .cloud9$tag_resource_output()
@@ -400,7 +402,8 @@ cloud9_untag_resource <- function(ResourceARN, TagKeys) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$untag_resource_input(ResourceARN = ResourceARN, TagKeys = TagKeys)
   output <- .cloud9$untag_resource_output()
@@ -440,7 +443,8 @@ cloud9_update_environment <- function(environmentId, name = NULL, description = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$update_environment_input(environmentId = environmentId, name = name, description = description, managedCredentialsAction = managedCredentialsAction)
   output <- .cloud9$update_environment_output()
@@ -478,7 +482,8 @@ cloud9_update_environment_membership <- function(environmentId, userArn, permiss
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .cloud9$update_environment_membership_input(environmentId = environmentId, userArn = userArn, permissions = permissions)
   output <- .cloud9$update_environment_membership_output()

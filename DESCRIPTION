@@ -1,6 +1,6 @@
 Package: paws.developer.tools
 Title: 'Amazon Web Services' Developer Tools Services
-Version: 0.10.0
+Version: 0.11.0
 Authors@R: c(
     person("David", "Kretch", , "david.kretch@gmail.com", role = "aut"),
     person("Adam", "Banker", , "adam.banker39@gmail.com", role = "aut"),
@@ -15,10 +15,11 @@ URL: https://github.com/paws-r/paws,
         https://paws-r.r-universe.dev/paws.developer.tools,
         https://www.paws-r-sdk.com
 BugReports: https://github.com/paws-r/paws/issues
-Imports: paws.common (>= 0.8.0)
+Depends: R (>= 3.5.0)
+Imports: paws.common (>= 0.9.0)
 Suggests: testthat
 Encoding: UTF-8
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
 Collate: 'cloud9_service.R' 'cloud9_interfaces.R' 'cloud9_operations.R'
         'cloudcontrolapi_service.R' 'cloudcontrolapi_interfaces.R'
         'cloudcontrolapi_operations.R' 'codeartifact_service.R'
@@ -49,11 +50,11 @@ Collate: 'cloud9_service.R' 'cloud9_interfaces.R' 'cloud9_operations.R'
         'wellarchitected_interfaces.R' 'wellarchitected_operations.R'
         'xray_service.R' 'xray_interfaces.R' 'xray_operations.R'
 NeedsCompilation: no
-Packaged: 2026-05-29 17:21:54 UTC; dyfan
+Packaged: 2026-10-07 17:45:55 UTC; Dyfan.Jones
 Author: David Kretch [aut],
   Adam Banker [aut],
   Dyfan Jones [cre],
   Amazon.com, Inc. [cph]
 Maintainer: Dyfan Jones <dyfan.r.jones@gmail.com>
 Repository: CRAN
-Date/Publication: 2026-05-30 05:11:25 UTC
+Date/Publication: 2026-10-07 19:30:02 UTC

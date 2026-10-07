@@ -24,7 +24,8 @@ drs_associate_source_network_stack <- function(sourceNetworkID, cfnStackName) {
     http_path = "/AssociateSourceNetworkStack",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$associate_source_network_stack_input(sourceNetworkID = sourceNetworkID, cfnStackName = cfnStackName)
   output <- .drs$associate_source_network_stack_output()
@@ -35,6 +36,38 @@ drs_associate_source_network_stack <- function(sourceNetworkID, cfnStackName) {
   return(response)
 }
 .drs$operations$associate_source_network_stack <- drs_associate_source_network_stack
+
+#' Cancels an in-progress Recovery Plan execution
+#'
+#' @description
+#' Cancels an in-progress Recovery Plan execution. Remaining steps are skipped.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_cancel_recovery_plan_execution/](https://www.paws-r-sdk.com/docs/drs_cancel_recovery_plan_execution/) for full documentation.
+#'
+#' @param recoveryPlanExecutionArn &#91;required&#93; The ARN of the Recovery Plan execution to cancel.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_cancel_recovery_plan_execution
+drs_cancel_recovery_plan_execution <- function(recoveryPlanExecutionArn) {
+  op <- new_operation(
+    name = "CancelRecoveryPlanExecution",
+    http_method = "POST",
+    http_path = "/CancelRecoveryPlanExecution",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$cancel_recovery_plan_execution_input(recoveryPlanExecutionArn = recoveryPlanExecutionArn)
+  output <- .drs$cancel_recovery_plan_execution_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$cancel_recovery_plan_execution <- drs_cancel_recovery_plan_execution
 
 #' Create an extended source server in the target Account based on the
 #' source server in staging account
@@ -57,7 +90,8 @@ drs_create_extended_source_server <- function(sourceServerArn, tags = NULL) {
     http_path = "/CreateExtendedSourceServer",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$create_extended_source_server_input(sourceServerArn = sourceServerArn, tags = tags)
   output <- .drs$create_extended_source_server_output()
@@ -85,20 +119,22 @@ drs_create_extended_source_server <- function(sourceServerArn, tags = NULL) {
 #' @param exportBucketArn S3 bucket ARN to export Source Network templates.
 #' @param postLaunchEnabled Whether we want to activate post-launch actions.
 #' @param launchIntoSourceInstance DRS will set the 'launch into instance ID' of any source server when performing a drill, recovery or failback to the previous region or availability zone, using the instance ID of the source instance.
+#' @param recoveryMode Recovery mode.
 #'
 #' @keywords internal
 #'
 #' @rdname drs_create_launch_configuration_template
-drs_create_launch_configuration_template <- function(tags = NULL, launchDisposition = NULL, targetInstanceTypeRightSizingMethod = NULL, copyPrivateIp = NULL, copyTags = NULL, licensing = NULL, exportBucketArn = NULL, postLaunchEnabled = NULL, launchIntoSourceInstance = NULL) {
+drs_create_launch_configuration_template <- function(tags = NULL, launchDisposition = NULL, targetInstanceTypeRightSizingMethod = NULL, copyPrivateIp = NULL, copyTags = NULL, licensing = NULL, exportBucketArn = NULL, postLaunchEnabled = NULL, launchIntoSourceInstance = NULL, recoveryMode = NULL) {
   op <- new_operation(
     name = "CreateLaunchConfigurationTemplate",
     http_method = "POST",
     http_path = "/CreateLaunchConfigurationTemplate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .drs$create_launch_configuration_template_input(tags = tags, launchDisposition = launchDisposition, targetInstanceTypeRightSizingMethod = targetInstanceTypeRightSizingMethod, copyPrivateIp = copyPrivateIp, copyTags = copyTags, licensing = licensing, exportBucketArn = exportBucketArn, postLaunchEnabled = postLaunchEnabled, launchIntoSourceInstance = launchIntoSourceInstance)
+  input <- .drs$create_launch_configuration_template_input(tags = tags, launchDisposition = launchDisposition, targetInstanceTypeRightSizingMethod = targetInstanceTypeRightSizingMethod, copyPrivateIp = copyPrivateIp, copyTags = copyTags, licensing = licensing, exportBucketArn = exportBucketArn, postLaunchEnabled = postLaunchEnabled, launchIntoSourceInstance = launchIntoSourceInstance, recoveryMode = recoveryMode)
   output <- .drs$create_launch_configuration_template_output()
   config <- get_config()
   svc <- .drs$service(config, op)
@@ -107,6 +143,77 @@ drs_create_launch_configuration_template <- function(tags = NULL, launchDisposit
   return(response)
 }
 .drs$operations$create_launch_configuration_template <- drs_create_launch_configuration_template
+
+#' Creates a Recovery Plan to orchestrate multi-server disaster recovery
+#'
+#' @description
+#' Creates a Recovery Plan to orchestrate multi-server disaster recovery.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_create_recovery_plan/](https://www.paws-r-sdk.com/docs/drs_create_recovery_plan/) for full documentation.
+#'
+#' @param name &#91;required&#93; The name of a Recovery Plan.
+#' @param description The description of a Recovery Plan.
+#' @param clientToken A unique string provided to ensure request idempotency.
+#' @param tags The tags to apply to the Recovery Plan.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_create_recovery_plan
+drs_create_recovery_plan <- function(name, description = NULL, clientToken = NULL, tags = NULL) {
+  op <- new_operation(
+    name = "CreateRecoveryPlan",
+    http_method = "POST",
+    http_path = "/CreateRecoveryPlan",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$create_recovery_plan_input(name = name, description = description, clientToken = clientToken, tags = tags)
+  output <- .drs$create_recovery_plan_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$create_recovery_plan <- drs_create_recovery_plan
+
+#' Creates a step in a Recovery Plan
+#'
+#' @description
+#' Creates a step in a Recovery Plan. A step is either `SERVER` type (servers to recover in parallel) or `WAIT` type (timed pause between steps).
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_create_recovery_plan_step/](https://www.paws-r-sdk.com/docs/drs_create_recovery_plan_step/) for full documentation.
+#'
+#' @param recoveryPlanArn &#91;required&#93; The ARN of the Recovery Plan to add the step to.
+#' @param stepName &#91;required&#93; The name of a Recovery Plan Step.
+#' @param stepOrder The order of a step within a Recovery Plan (1-based).
+#' @param configuration &#91;required&#93; Type-specific configuration for a recovery plan step. Exactly one member must be set.
+#' @param clientToken A unique string provided to ensure request idempotency.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_create_recovery_plan_step
+drs_create_recovery_plan_step <- function(recoveryPlanArn, stepName, stepOrder = NULL, configuration, clientToken = NULL) {
+  op <- new_operation(
+    name = "CreateRecoveryPlanStep",
+    http_method = "POST",
+    http_path = "/CreateRecoveryPlanStep",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$create_recovery_plan_step_input(recoveryPlanArn = recoveryPlanArn, stepName = stepName, stepOrder = stepOrder, configuration = configuration, clientToken = clientToken)
+  output <- .drs$create_recovery_plan_step_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$create_recovery_plan_step <- drs_create_recovery_plan_step
 
 #' Creates a new ReplicationConfigurationTemplate
 #'
@@ -142,7 +249,8 @@ drs_create_replication_configuration_template <- function(stagingAreaSubnetId, a
     http_path = "/CreateReplicationConfigurationTemplate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$create_replication_configuration_template_input(stagingAreaSubnetId = stagingAreaSubnetId, associateDefaultSecurityGroup = associateDefaultSecurityGroup, replicationServersSecurityGroupsIDs = replicationServersSecurityGroupsIDs, replicationServerInstanceType = replicationServerInstanceType, useDedicatedReplicationServer = useDedicatedReplicationServer, defaultLargeStagingDiskType = defaultLargeStagingDiskType, ebsEncryption = ebsEncryption, ebsEncryptionKeyArn = ebsEncryptionKeyArn, bandwidthThrottling = bandwidthThrottling, dataPlaneRouting = dataPlaneRouting, createPublicIP = createPublicIP, stagingAreaTags = stagingAreaTags, pitPolicy = pitPolicy, tags = tags, autoReplicateNewDisks = autoReplicateNewDisks, internetProtocol = internetProtocol)
   output <- .drs$create_replication_configuration_template_output()
@@ -176,7 +284,8 @@ drs_create_source_network <- function(vpcID, originAccountID, originRegion, tags
     http_path = "/CreateSourceNetwork",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$create_source_network_input(vpcID = vpcID, originAccountID = originAccountID, originRegion = originRegion, tags = tags)
   output <- .drs$create_source_network_output()
@@ -207,7 +316,8 @@ drs_delete_job <- function(jobID) {
     http_path = "/DeleteJob",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$delete_job_input(jobID = jobID)
   output <- .drs$delete_job_output()
@@ -239,7 +349,8 @@ drs_delete_launch_action <- function(resourceId, actionId) {
     http_path = "/DeleteLaunchAction",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$delete_launch_action_input(resourceId = resourceId, actionId = actionId)
   output <- .drs$delete_launch_action_output()
@@ -270,7 +381,8 @@ drs_delete_launch_configuration_template <- function(launchConfigurationTemplate
     http_path = "/DeleteLaunchConfigurationTemplate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$delete_launch_configuration_template_input(launchConfigurationTemplateID = launchConfigurationTemplateID)
   output <- .drs$delete_launch_configuration_template_output()
@@ -301,7 +413,8 @@ drs_delete_recovery_instance <- function(recoveryInstanceID) {
     http_path = "/DeleteRecoveryInstance",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$delete_recovery_instance_input(recoveryInstanceID = recoveryInstanceID)
   output <- .drs$delete_recovery_instance_output()
@@ -312,6 +425,102 @@ drs_delete_recovery_instance <- function(recoveryInstanceID) {
   return(response)
 }
 .drs$operations$delete_recovery_instance <- drs_delete_recovery_instance
+
+#' Deletes a Recovery Plan
+#'
+#' @description
+#' Deletes a Recovery Plan. Cannot delete a plan that has an execution in a non-terminal status (`CREATED`, `IN_PROGRESS`).
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_delete_recovery_plan/](https://www.paws-r-sdk.com/docs/drs_delete_recovery_plan/) for full documentation.
+#'
+#' @param recoveryPlanArn &#91;required&#93; The ARN of the Recovery Plan to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_delete_recovery_plan
+drs_delete_recovery_plan <- function(recoveryPlanArn) {
+  op <- new_operation(
+    name = "DeleteRecoveryPlan",
+    http_method = "POST",
+    http_path = "/DeleteRecoveryPlan",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$delete_recovery_plan_input(recoveryPlanArn = recoveryPlanArn)
+  output <- .drs$delete_recovery_plan_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$delete_recovery_plan <- drs_delete_recovery_plan
+
+#' Deletes a Recovery Plan execution record
+#'
+#' @description
+#' Deletes a Recovery Plan execution record. Must be in a terminal status.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_delete_recovery_plan_execution/](https://www.paws-r-sdk.com/docs/drs_delete_recovery_plan_execution/) for full documentation.
+#'
+#' @param recoveryPlanExecutionArn &#91;required&#93; The ARN of the Recovery Plan execution to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_delete_recovery_plan_execution
+drs_delete_recovery_plan_execution <- function(recoveryPlanExecutionArn) {
+  op <- new_operation(
+    name = "DeleteRecoveryPlanExecution",
+    http_method = "POST",
+    http_path = "/DeleteRecoveryPlanExecution",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$delete_recovery_plan_execution_input(recoveryPlanExecutionArn = recoveryPlanExecutionArn)
+  output <- .drs$delete_recovery_plan_execution_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$delete_recovery_plan_execution <- drs_delete_recovery_plan_execution
+
+#' Deletes a step from a Recovery Plan
+#'
+#' @description
+#' Deletes a step from a Recovery Plan.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_delete_recovery_plan_step/](https://www.paws-r-sdk.com/docs/drs_delete_recovery_plan_step/) for full documentation.
+#'
+#' @param recoveryPlanStepArn &#91;required&#93; The ARN of the Recovery Plan step to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_delete_recovery_plan_step
+drs_delete_recovery_plan_step <- function(recoveryPlanStepArn) {
+  op <- new_operation(
+    name = "DeleteRecoveryPlanStep",
+    http_method = "POST",
+    http_path = "/DeleteRecoveryPlanStep",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$delete_recovery_plan_step_input(recoveryPlanStepArn = recoveryPlanStepArn)
+  output <- .drs$delete_recovery_plan_step_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$delete_recovery_plan_step <- drs_delete_recovery_plan_step
 
 #' Deletes a single Replication Configuration Template by ID
 #'
@@ -332,7 +541,8 @@ drs_delete_replication_configuration_template <- function(replicationConfigurati
     http_path = "/DeleteReplicationConfigurationTemplate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$delete_replication_configuration_template_input(replicationConfigurationTemplateID = replicationConfigurationTemplateID)
   output <- .drs$delete_replication_configuration_template_output()
@@ -363,7 +573,8 @@ drs_delete_source_network <- function(sourceNetworkID) {
     http_path = "/DeleteSourceNetwork",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$delete_source_network_input(sourceNetworkID = sourceNetworkID)
   output <- .drs$delete_source_network_output()
@@ -394,7 +605,8 @@ drs_delete_source_server <- function(sourceServerID) {
     http_path = "/DeleteSourceServer",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$delete_source_server_input(sourceServerID = sourceServerID)
   output <- .drs$delete_source_server_output()
@@ -427,7 +639,8 @@ drs_describe_job_log_items <- function(jobID, maxResults = NULL, nextToken = NUL
     http_path = "/DescribeJobLogItems",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$describe_job_log_items_input(jobID = jobID, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$describe_job_log_items_output()
@@ -460,7 +673,8 @@ drs_describe_jobs <- function(filters = NULL, maxResults = NULL, nextToken = NUL
     http_path = "/DescribeJobs",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$describe_jobs_input(filters = filters, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$describe_jobs_output()
@@ -494,7 +708,8 @@ drs_describe_launch_configuration_templates <- function(launchConfigurationTempl
     http_path = "/DescribeLaunchConfigurationTemplates",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$describe_launch_configuration_templates_input(launchConfigurationTemplateIDs = launchConfigurationTemplateIDs, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$describe_launch_configuration_templates_output()
@@ -527,7 +742,8 @@ drs_describe_recovery_instances <- function(filters = NULL, maxResults = NULL, n
     http_path = "/DescribeRecoveryInstances",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$describe_recovery_instances_input(filters = filters, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$describe_recovery_instances_output()
@@ -562,7 +778,8 @@ drs_describe_recovery_snapshots <- function(sourceServerID, filters = NULL, orde
     http_path = "/DescribeRecoverySnapshots",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$describe_recovery_snapshots_input(sourceServerID = sourceServerID, filters = filters, order = order, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$describe_recovery_snapshots_output()
@@ -596,7 +813,8 @@ drs_describe_replication_configuration_templates <- function(replicationConfigur
     http_path = "/DescribeReplicationConfigurationTemplates",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$describe_replication_configuration_templates_input(replicationConfigurationTemplateIDs = replicationConfigurationTemplateIDs, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$describe_replication_configuration_templates_output()
@@ -629,7 +847,8 @@ drs_describe_source_networks <- function(filters = NULL, maxResults = NULL, next
     http_path = "/DescribeSourceNetworks",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$describe_source_networks_input(filters = filters, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$describe_source_networks_output()
@@ -662,7 +881,8 @@ drs_describe_source_servers <- function(filters = NULL, maxResults = NULL, nextT
     http_path = "/DescribeSourceServers",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$describe_source_servers_input(filters = filters, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$describe_source_servers_output()
@@ -693,7 +913,8 @@ drs_disconnect_recovery_instance <- function(recoveryInstanceID) {
     http_path = "/DisconnectRecoveryInstance",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$disconnect_recovery_instance_input(recoveryInstanceID = recoveryInstanceID)
   output <- .drs$disconnect_recovery_instance_output()
@@ -724,7 +945,8 @@ drs_disconnect_source_server <- function(sourceServerID) {
     http_path = "/DisconnectSourceServer",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$disconnect_source_server_input(sourceServerID = sourceServerID)
   output <- .drs$disconnect_source_server_output()
@@ -755,7 +977,8 @@ drs_export_source_network_cfn_template <- function(sourceNetworkID) {
     http_path = "/ExportSourceNetworkCfnTemplate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$export_source_network_cfn_template_input(sourceNetworkID = sourceNetworkID)
   output <- .drs$export_source_network_cfn_template_output()
@@ -787,7 +1010,8 @@ drs_get_failback_replication_configuration <- function(recoveryInstanceID) {
     http_path = "/GetFailbackReplicationConfiguration",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$get_failback_replication_configuration_input(recoveryInstanceID = recoveryInstanceID)
   output <- .drs$get_failback_replication_configuration_output()
@@ -818,7 +1042,8 @@ drs_get_launch_configuration <- function(sourceServerID) {
     http_path = "/GetLaunchConfiguration",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$get_launch_configuration_input(sourceServerID = sourceServerID)
   output <- .drs$get_launch_configuration_output()
@@ -829,6 +1054,134 @@ drs_get_launch_configuration <- function(sourceServerID) {
   return(response)
 }
 .drs$operations$get_launch_configuration <- drs_get_launch_configuration
+
+#' Gets a Recovery Plan by ARN
+#'
+#' @description
+#' Gets a Recovery Plan by ARN.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_get_recovery_plan/](https://www.paws-r-sdk.com/docs/drs_get_recovery_plan/) for full documentation.
+#'
+#' @param recoveryPlanArn &#91;required&#93; The ARN of the Recovery Plan to retrieve.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_get_recovery_plan
+drs_get_recovery_plan <- function(recoveryPlanArn) {
+  op <- new_operation(
+    name = "GetRecoveryPlan",
+    http_method = "POST",
+    http_path = "/GetRecoveryPlan",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$get_recovery_plan_input(recoveryPlanArn = recoveryPlanArn)
+  output <- .drs$get_recovery_plan_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$get_recovery_plan <- drs_get_recovery_plan
+
+#' Gets the details of a Recovery Plan execution
+#'
+#' @description
+#' Gets the details of a Recovery Plan execution.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_get_recovery_plan_execution/](https://www.paws-r-sdk.com/docs/drs_get_recovery_plan_execution/) for full documentation.
+#'
+#' @param recoveryPlanExecutionArn &#91;required&#93; The ARN of the Recovery Plan execution.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_get_recovery_plan_execution
+drs_get_recovery_plan_execution <- function(recoveryPlanExecutionArn) {
+  op <- new_operation(
+    name = "GetRecoveryPlanExecution",
+    http_method = "POST",
+    http_path = "/GetRecoveryPlanExecution",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$get_recovery_plan_execution_input(recoveryPlanExecutionArn = recoveryPlanExecutionArn)
+  output <- .drs$get_recovery_plan_execution_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$get_recovery_plan_execution <- drs_get_recovery_plan_execution
+
+#' Gets the details of a step within a Recovery Plan execution
+#'
+#' @description
+#' Gets the details of a step within a Recovery Plan execution.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_get_recovery_plan_execution_step/](https://www.paws-r-sdk.com/docs/drs_get_recovery_plan_execution_step/) for full documentation.
+#'
+#' @param recoveryPlanExecutionStepArn &#91;required&#93; The ARN of the execution step.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_get_recovery_plan_execution_step
+drs_get_recovery_plan_execution_step <- function(recoveryPlanExecutionStepArn) {
+  op <- new_operation(
+    name = "GetRecoveryPlanExecutionStep",
+    http_method = "POST",
+    http_path = "/GetRecoveryPlanExecutionStep",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$get_recovery_plan_execution_step_input(recoveryPlanExecutionStepArn = recoveryPlanExecutionStepArn)
+  output <- .drs$get_recovery_plan_execution_step_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$get_recovery_plan_execution_step <- drs_get_recovery_plan_execution_step
+
+#' Gets a Recovery Plan step by ARN
+#'
+#' @description
+#' Gets a Recovery Plan step by ARN.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_get_recovery_plan_step/](https://www.paws-r-sdk.com/docs/drs_get_recovery_plan_step/) for full documentation.
+#'
+#' @param recoveryPlanStepArn &#91;required&#93; The ARN of the Recovery Plan step to retrieve.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_get_recovery_plan_step
+drs_get_recovery_plan_step <- function(recoveryPlanStepArn) {
+  op <- new_operation(
+    name = "GetRecoveryPlanStep",
+    http_method = "POST",
+    http_path = "/GetRecoveryPlanStep",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$get_recovery_plan_step_input(recoveryPlanStepArn = recoveryPlanStepArn)
+  output <- .drs$get_recovery_plan_step_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$get_recovery_plan_step <- drs_get_recovery_plan_step
 
 #' Gets a ReplicationConfiguration, filtered by Source Server ID
 #'
@@ -849,7 +1202,8 @@ drs_get_replication_configuration <- function(sourceServerID) {
     http_path = "/GetReplicationConfiguration",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$get_replication_configuration_input(sourceServerID = sourceServerID)
   output <- .drs$get_replication_configuration_output()
@@ -880,7 +1234,8 @@ drs_initialize_service <- function() {
     http_path = "/InitializeService",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$initialize_service_input()
   output <- .drs$initialize_service_output()
@@ -914,7 +1269,8 @@ drs_list_extensible_source_servers <- function(stagingAccountID, maxResults = NU
     http_path = "/ListExtensibleSourceServers",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$list_extensible_source_servers_input(stagingAccountID = stagingAccountID, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$list_extensible_source_servers_output()
@@ -948,7 +1304,8 @@ drs_list_launch_actions <- function(resourceId, filters = NULL, maxResults = NUL
     http_path = "/ListLaunchActions",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "items"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$list_launch_actions_input(resourceId = resourceId, filters = filters, maxResults = maxResults, nextToken = nextToken)
   output <- .drs$list_launch_actions_output()
@@ -959,6 +1316,144 @@ drs_list_launch_actions <- function(resourceId, filters = NULL, maxResults = NUL
   return(response)
 }
 .drs$operations$list_launch_actions <- drs_list_launch_actions
+
+#' Lists all steps within a Recovery Plan execution
+#'
+#' @description
+#' Lists all steps within a Recovery Plan execution.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_list_recovery_plan_execution_steps/](https://www.paws-r-sdk.com/docs/drs_list_recovery_plan_execution_steps/) for full documentation.
+#'
+#' @param recoveryPlanExecutionArn &#91;required&#93; The ARN of the Recovery Plan execution.
+#' @param filter Filters for listing execution steps.
+#' @param maxResults Maximum number of results to return.
+#' @param nextToken The token for the next page of results.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_list_recovery_plan_execution_steps
+drs_list_recovery_plan_execution_steps <- function(recoveryPlanExecutionArn, filter = NULL, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListRecoveryPlanExecutionSteps",
+    http_method = "POST",
+    http_path = "/ListRecoveryPlanExecutionSteps",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "recoveryPlanExecutionSteps"),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$list_recovery_plan_execution_steps_input(recoveryPlanExecutionArn = recoveryPlanExecutionArn, filter = filter, maxResults = maxResults, nextToken = nextToken)
+  output <- .drs$list_recovery_plan_execution_steps_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$list_recovery_plan_execution_steps <- drs_list_recovery_plan_execution_steps
+
+#' Lists executions of Recovery Plans, optionally filtered by plan or
+#' status
+#'
+#' @description
+#' Lists executions of Recovery Plans, optionally filtered by plan or status.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_list_recovery_plan_executions/](https://www.paws-r-sdk.com/docs/drs_list_recovery_plan_executions/) for full documentation.
+#'
+#' @param recoveryPlanArn Filter executions by Recovery Plan ARN.
+#' @param status Filter executions by status.
+#' @param maxResults Maximum number of results to return.
+#' @param nextToken The token for the next page of results.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_list_recovery_plan_executions
+drs_list_recovery_plan_executions <- function(recoveryPlanArn = NULL, status = NULL, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListRecoveryPlanExecutions",
+    http_method = "POST",
+    http_path = "/ListRecoveryPlanExecutions",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "recoveryPlanExecutions"),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$list_recovery_plan_executions_input(recoveryPlanArn = recoveryPlanArn, status = status, maxResults = maxResults, nextToken = nextToken)
+  output <- .drs$list_recovery_plan_executions_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$list_recovery_plan_executions <- drs_list_recovery_plan_executions
+
+#' Lists all steps in a Recovery Plan
+#'
+#' @description
+#' Lists all steps in a Recovery Plan.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_list_recovery_plan_steps/](https://www.paws-r-sdk.com/docs/drs_list_recovery_plan_steps/) for full documentation.
+#'
+#' @param recoveryPlanArn &#91;required&#93; The ARN of the Recovery Plan.
+#' @param maxResults Maximum number of results to return.
+#' @param nextToken The token for the next page of results.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_list_recovery_plan_steps
+drs_list_recovery_plan_steps <- function(recoveryPlanArn, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListRecoveryPlanSteps",
+    http_method = "POST",
+    http_path = "/ListRecoveryPlanSteps",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "recoveryPlanSteps"),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$list_recovery_plan_steps_input(recoveryPlanArn = recoveryPlanArn, maxResults = maxResults, nextToken = nextToken)
+  output <- .drs$list_recovery_plan_steps_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$list_recovery_plan_steps <- drs_list_recovery_plan_steps
+
+#' Lists all Recovery Plans in the account
+#'
+#' @description
+#' Lists all Recovery Plans in the account.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_list_recovery_plans/](https://www.paws-r-sdk.com/docs/drs_list_recovery_plans/) for full documentation.
+#'
+#' @param maxResults Maximum number of results to return.
+#' @param nextToken The token for the next page of results.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_list_recovery_plans
+drs_list_recovery_plans <- function(maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListRecoveryPlans",
+    http_method = "POST",
+    http_path = "/ListRecoveryPlans",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "recoveryPlans"),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$list_recovery_plans_input(maxResults = maxResults, nextToken = nextToken)
+  output <- .drs$list_recovery_plans_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$list_recovery_plans <- drs_list_recovery_plans
 
 #' Returns an array of staging accounts for existing extended source
 #' servers
@@ -981,7 +1476,8 @@ drs_list_staging_accounts <- function(maxResults = NULL, nextToken = NULL) {
     http_path = "/ListStagingAccounts",
     host_prefix = "",
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "accounts"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$list_staging_accounts_input(maxResults = maxResults, nextToken = nextToken)
   output <- .drs$list_staging_accounts_output()
@@ -1012,7 +1508,8 @@ drs_list_tags_for_resource <- function(resourceArn) {
     http_path = "/tags/{resourceArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$list_tags_for_resource_input(resourceArn = resourceArn)
   output <- .drs$list_tags_for_resource_output()
@@ -1053,7 +1550,8 @@ drs_put_launch_action <- function(resourceId, actionCode, order, actionId, optio
     http_path = "/PutLaunchAction",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$put_launch_action_input(resourceId = resourceId, actionCode = actionCode, order = order, actionId = actionId, optional = optional, active = active, name = name, actionVersion = actionVersion, category = category, parameters = parameters, description = description)
   output <- .drs$put_launch_action_output()
@@ -1064,6 +1562,39 @@ drs_put_launch_action <- function(resourceId, actionCode, order, actionId, optio
   return(response)
 }
 .drs$operations$put_launch_action <- drs_put_launch_action
+
+#' Reorders steps in a Recovery Plan
+#'
+#' @description
+#' Reorders steps in a Recovery Plan. Accepts a complete ordered list of step ARNs.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_reorder_recovery_plan_steps/](https://www.paws-r-sdk.com/docs/drs_reorder_recovery_plan_steps/) for full documentation.
+#'
+#' @param recoveryPlanArn &#91;required&#93; The ARN of the Recovery Plan.
+#' @param orderedStepArns &#91;required&#93; Ordered list of all step ARNs representing the desired sequence.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_reorder_recovery_plan_steps
+drs_reorder_recovery_plan_steps <- function(recoveryPlanArn, orderedStepArns) {
+  op <- new_operation(
+    name = "ReorderRecoveryPlanSteps",
+    http_method = "POST",
+    http_path = "/ReorderRecoveryPlanSteps",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$reorder_recovery_plan_steps_input(recoveryPlanArn = recoveryPlanArn, orderedStepArns = orderedStepArns)
+  output <- .drs$reorder_recovery_plan_steps_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$reorder_recovery_plan_steps <- drs_reorder_recovery_plan_steps
 
 #' WARNING: RetryDataReplication is deprecated
 #'
@@ -1084,7 +1615,8 @@ drs_retry_data_replication <- function(sourceServerID) {
     http_path = "/RetryDataReplication",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$retry_data_replication_input(sourceServerID = sourceServerID)
   output <- .drs$retry_data_replication_output()
@@ -1095,6 +1627,38 @@ drs_retry_data_replication <- function(sourceServerID) {
   return(response)
 }
 .drs$operations$retry_data_replication <- drs_retry_data_replication
+
+#' Retries a failed SERVER type execution step
+#'
+#' @description
+#' Retries a failed `SERVER` type execution step.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_retry_recovery_plan_execution_step/](https://www.paws-r-sdk.com/docs/drs_retry_recovery_plan_execution_step/) for full documentation.
+#'
+#' @param recoveryPlanExecutionStepArn &#91;required&#93; The ARN of the execution step to retry.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_retry_recovery_plan_execution_step
+drs_retry_recovery_plan_execution_step <- function(recoveryPlanExecutionStepArn) {
+  op <- new_operation(
+    name = "RetryRecoveryPlanExecutionStep",
+    http_method = "POST",
+    http_path = "/RetryRecoveryPlanExecutionStep",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$retry_recovery_plan_execution_step_input(recoveryPlanExecutionStepArn = recoveryPlanExecutionStepArn)
+  output <- .drs$retry_recovery_plan_execution_step_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$retry_recovery_plan_execution_step <- drs_retry_recovery_plan_execution_step
 
 #' Start replication to origin / target region - applies only to protected
 #' instances that originated in EC2
@@ -1116,7 +1680,8 @@ drs_reverse_replication <- function(recoveryInstanceID) {
     http_path = "/ReverseReplication",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$reverse_replication_input(recoveryInstanceID = recoveryInstanceID)
   output <- .drs$reverse_replication_output()
@@ -1149,7 +1714,8 @@ drs_start_failback_launch <- function(recoveryInstanceIDs, tags = NULL) {
     http_path = "/StartFailbackLaunch",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$start_failback_launch_input(recoveryInstanceIDs = recoveryInstanceIDs, tags = tags)
   output <- .drs$start_failback_launch_output()
@@ -1182,7 +1748,8 @@ drs_start_recovery <- function(sourceServers, isDrill = NULL, tags = NULL) {
     http_path = "/StartRecovery",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$start_recovery_input(sourceServers = sourceServers, isDrill = isDrill, tags = tags)
   output <- .drs$start_recovery_output()
@@ -1193,6 +1760,42 @@ drs_start_recovery <- function(sourceServers, isDrill = NULL, tags = NULL) {
   return(response)
 }
 .drs$operations$start_recovery <- drs_start_recovery
+
+#' Starts executing a Recovery Plan in DRILL or RECOVERY mode
+#'
+#' @description
+#' Starts executing a Recovery Plan in `DRILL` or `RECOVERY` mode. A plan cannot have more than one execution in a non-terminal status at a time.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_start_recovery_plan_execution/](https://www.paws-r-sdk.com/docs/drs_start_recovery_plan_execution/) for full documentation.
+#'
+#' @param recoveryPlanArn &#91;required&#93; The ARN of the Recovery Plan to execute.
+#' @param mode &#91;required&#93; The execution mode (`DRILL` or `RECOVERY`).
+#' @param clientToken A unique string provided to ensure request idempotency.
+#' @param sourceServers Optional list of source servers with specific recovery snapshots. If not provided, the latest snapshot is used for each server.
+#' @param tags The tags to apply to the Recovery Plan execution.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_start_recovery_plan_execution
+drs_start_recovery_plan_execution <- function(recoveryPlanArn, mode, clientToken = NULL, sourceServers = NULL, tags = NULL) {
+  op <- new_operation(
+    name = "StartRecoveryPlanExecution",
+    http_method = "POST",
+    http_path = "/StartRecoveryPlanExecution",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$start_recovery_plan_execution_input(recoveryPlanArn = recoveryPlanArn, mode = mode, clientToken = clientToken, sourceServers = sourceServers, tags = tags)
+  output <- .drs$start_recovery_plan_execution_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$start_recovery_plan_execution <- drs_start_recovery_plan_execution
 
 #' Starts replication for a stopped Source Server
 #'
@@ -1213,7 +1816,8 @@ drs_start_replication <- function(sourceServerID) {
     http_path = "/StartReplication",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$start_replication_input(sourceServerID = sourceServerID)
   output <- .drs$start_replication_output()
@@ -1247,7 +1851,8 @@ drs_start_source_network_recovery <- function(sourceNetworks, deployAsNew = NULL
     http_path = "/StartSourceNetworkRecovery",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$start_source_network_recovery_input(sourceNetworks = sourceNetworks, deployAsNew = deployAsNew, tags = tags)
   output <- .drs$start_source_network_recovery_output()
@@ -1278,7 +1883,8 @@ drs_start_source_network_replication <- function(sourceNetworkID) {
     http_path = "/StartSourceNetworkReplication",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$start_source_network_replication_input(sourceNetworkID = sourceNetworkID)
   output <- .drs$start_source_network_replication_output()
@@ -1309,7 +1915,8 @@ drs_stop_failback <- function(recoveryInstanceID) {
     http_path = "/StopFailback",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$stop_failback_input(recoveryInstanceID = recoveryInstanceID)
   output <- .drs$stop_failback_output()
@@ -1340,7 +1947,8 @@ drs_stop_replication <- function(sourceServerID) {
     http_path = "/StopReplication",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$stop_replication_input(sourceServerID = sourceServerID)
   output <- .drs$stop_replication_output()
@@ -1371,7 +1979,8 @@ drs_stop_source_network_replication <- function(sourceNetworkID) {
     http_path = "/StopSourceNetworkReplication",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$stop_source_network_replication_input(sourceNetworkID = sourceNetworkID)
   output <- .drs$stop_source_network_replication_output()
@@ -1404,7 +2013,8 @@ drs_tag_resource <- function(resourceArn, tags) {
     http_path = "/tags/{resourceArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$tag_resource_input(resourceArn = resourceArn, tags = tags)
   output <- .drs$tag_resource_output()
@@ -1437,7 +2047,8 @@ drs_terminate_recovery_instances <- function(recoveryInstanceIDs) {
     http_path = "/TerminateRecoveryInstances",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$terminate_recovery_instances_input(recoveryInstanceIDs = recoveryInstanceIDs)
   output <- .drs$terminate_recovery_instances_output()
@@ -1470,7 +2081,8 @@ drs_untag_resource <- function(resourceArn, tagKeys) {
     http_path = "/tags/{resourceArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$untag_resource_input(resourceArn = resourceArn, tagKeys = tagKeys)
   output <- .drs$untag_resource_output()
@@ -1506,7 +2118,8 @@ drs_update_failback_replication_configuration <- function(recoveryInstanceID, na
     http_path = "/UpdateFailbackReplicationConfiguration",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$update_failback_replication_configuration_input(recoveryInstanceID = recoveryInstanceID, name = name, bandwidthThrottling = bandwidthThrottling, usePrivateIP = usePrivateIP, internetProtocol = internetProtocol)
   output <- .drs$update_failback_replication_configuration_output()
@@ -1534,20 +2147,22 @@ drs_update_failback_replication_configuration <- function(recoveryInstanceID, na
 #' @param licensing The licensing configuration to be used for this launch configuration.
 #' @param postLaunchEnabled Whether we want to enable post-launch actions for the Source Server.
 #' @param launchIntoInstanceProperties Launch into existing instance properties.
+#' @param recoveryMode Recovery mode.
 #'
 #' @keywords internal
 #'
 #' @rdname drs_update_launch_configuration
-drs_update_launch_configuration <- function(sourceServerID, name = NULL, launchDisposition = NULL, targetInstanceTypeRightSizingMethod = NULL, copyPrivateIp = NULL, copyTags = NULL, licensing = NULL, postLaunchEnabled = NULL, launchIntoInstanceProperties = NULL) {
+drs_update_launch_configuration <- function(sourceServerID, name = NULL, launchDisposition = NULL, targetInstanceTypeRightSizingMethod = NULL, copyPrivateIp = NULL, copyTags = NULL, licensing = NULL, postLaunchEnabled = NULL, launchIntoInstanceProperties = NULL, recoveryMode = NULL) {
   op <- new_operation(
     name = "UpdateLaunchConfiguration",
     http_method = "POST",
     http_path = "/UpdateLaunchConfiguration",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .drs$update_launch_configuration_input(sourceServerID = sourceServerID, name = name, launchDisposition = launchDisposition, targetInstanceTypeRightSizingMethod = targetInstanceTypeRightSizingMethod, copyPrivateIp = copyPrivateIp, copyTags = copyTags, licensing = licensing, postLaunchEnabled = postLaunchEnabled, launchIntoInstanceProperties = launchIntoInstanceProperties)
+  input <- .drs$update_launch_configuration_input(sourceServerID = sourceServerID, name = name, launchDisposition = launchDisposition, targetInstanceTypeRightSizingMethod = targetInstanceTypeRightSizingMethod, copyPrivateIp = copyPrivateIp, copyTags = copyTags, licensing = licensing, postLaunchEnabled = postLaunchEnabled, launchIntoInstanceProperties = launchIntoInstanceProperties, recoveryMode = recoveryMode)
   output <- .drs$update_launch_configuration_output()
   config <- get_config()
   svc <- .drs$service(config, op)
@@ -1573,20 +2188,22 @@ drs_update_launch_configuration <- function(sourceServerID, name = NULL, launchD
 #' @param exportBucketArn S3 bucket ARN to export Source Network templates.
 #' @param postLaunchEnabled Whether we want to activate post-launch actions.
 #' @param launchIntoSourceInstance DRS will set the 'launch into instance ID' of any source server when performing a drill, recovery or failback to the previous region or availability zone, using the instance ID of the source instance.
+#' @param recoveryMode Recovery mode.
 #'
 #' @keywords internal
 #'
 #' @rdname drs_update_launch_configuration_template
-drs_update_launch_configuration_template <- function(launchConfigurationTemplateID, launchDisposition = NULL, targetInstanceTypeRightSizingMethod = NULL, copyPrivateIp = NULL, copyTags = NULL, licensing = NULL, exportBucketArn = NULL, postLaunchEnabled = NULL, launchIntoSourceInstance = NULL) {
+drs_update_launch_configuration_template <- function(launchConfigurationTemplateID, launchDisposition = NULL, targetInstanceTypeRightSizingMethod = NULL, copyPrivateIp = NULL, copyTags = NULL, licensing = NULL, exportBucketArn = NULL, postLaunchEnabled = NULL, launchIntoSourceInstance = NULL, recoveryMode = NULL) {
   op <- new_operation(
     name = "UpdateLaunchConfigurationTemplate",
     http_method = "POST",
     http_path = "/UpdateLaunchConfigurationTemplate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .drs$update_launch_configuration_template_input(launchConfigurationTemplateID = launchConfigurationTemplateID, launchDisposition = launchDisposition, targetInstanceTypeRightSizingMethod = targetInstanceTypeRightSizingMethod, copyPrivateIp = copyPrivateIp, copyTags = copyTags, licensing = licensing, exportBucketArn = exportBucketArn, postLaunchEnabled = postLaunchEnabled, launchIntoSourceInstance = launchIntoSourceInstance)
+  input <- .drs$update_launch_configuration_template_input(launchConfigurationTemplateID = launchConfigurationTemplateID, launchDisposition = launchDisposition, targetInstanceTypeRightSizingMethod = targetInstanceTypeRightSizingMethod, copyPrivateIp = copyPrivateIp, copyTags = copyTags, licensing = licensing, exportBucketArn = exportBucketArn, postLaunchEnabled = postLaunchEnabled, launchIntoSourceInstance = launchIntoSourceInstance, recoveryMode = recoveryMode)
   output <- .drs$update_launch_configuration_template_output()
   config <- get_config()
   svc <- .drs$service(config, op)
@@ -1595,6 +2212,109 @@ drs_update_launch_configuration_template <- function(launchConfigurationTemplate
   return(response)
 }
 .drs$operations$update_launch_configuration_template <- drs_update_launch_configuration_template
+
+#' Updates a Recovery Plan's name or description
+#'
+#' @description
+#' Updates a Recovery Plan's name or description.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_update_recovery_plan/](https://www.paws-r-sdk.com/docs/drs_update_recovery_plan/) for full documentation.
+#'
+#' @param recoveryPlanArn &#91;required&#93; The ARN of the Recovery Plan to update.
+#' @param name The name of a Recovery Plan.
+#' @param description The description of a Recovery Plan.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_update_recovery_plan
+drs_update_recovery_plan <- function(recoveryPlanArn, name = NULL, description = NULL) {
+  op <- new_operation(
+    name = "UpdateRecoveryPlan",
+    http_method = "POST",
+    http_path = "/UpdateRecoveryPlan",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$update_recovery_plan_input(recoveryPlanArn = recoveryPlanArn, name = name, description = description)
+  output <- .drs$update_recovery_plan_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$update_recovery_plan <- drs_update_recovery_plan
+
+#' Updates an execution step
+#'
+#' @description
+#' Updates an execution step. Supports two actions: (1) skip a step that is in `NOT_STARTED` or `FAILED` status; (2) update the wait duration of a `WAIT` type step that is in `NOT_STARTED` status.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_update_recovery_plan_execution_step/](https://www.paws-r-sdk.com/docs/drs_update_recovery_plan_execution_step/) for full documentation.
+#'
+#' @param recoveryPlanExecutionStepArn &#91;required&#93; The ARN of the execution step to update.
+#' @param status Only SKIPPED is accepted. Step must be in NOT_STARTED or FAILED status.
+#' @param servers Full replacement of the server list. Only allowed when the step is in NOT_STARTED status (Server type steps only).
+#' @param waitDurationMinutes Updated wait duration. Only allowed when the step is in NOT_STARTED status (Wait type steps only).
+#'
+#' @keywords internal
+#'
+#' @rdname drs_update_recovery_plan_execution_step
+drs_update_recovery_plan_execution_step <- function(recoveryPlanExecutionStepArn, status = NULL, servers = NULL, waitDurationMinutes = NULL) {
+  op <- new_operation(
+    name = "UpdateRecoveryPlanExecutionStep",
+    http_method = "POST",
+    http_path = "/UpdateRecoveryPlanExecutionStep",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$update_recovery_plan_execution_step_input(recoveryPlanExecutionStepArn = recoveryPlanExecutionStepArn, status = status, servers = servers, waitDurationMinutes = waitDurationMinutes)
+  output <- .drs$update_recovery_plan_execution_step_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$update_recovery_plan_execution_step <- drs_update_recovery_plan_execution_step
+
+#' Updates a Recovery Plan step's name or configuration
+#'
+#' @description
+#' Updates a Recovery Plan step's name or configuration. Step type is immutable.
+#'
+#' See [https://www.paws-r-sdk.com/docs/drs_update_recovery_plan_step/](https://www.paws-r-sdk.com/docs/drs_update_recovery_plan_step/) for full documentation.
+#'
+#' @param recoveryPlanStepArn &#91;required&#93; The ARN of the Recovery Plan step to update.
+#' @param stepName The name of a Recovery Plan Step.
+#' @param configuration Type-specific configuration for a recovery plan step. Exactly one member must be set.
+#'
+#' @keywords internal
+#'
+#' @rdname drs_update_recovery_plan_step
+drs_update_recovery_plan_step <- function(recoveryPlanStepArn, stepName = NULL, configuration = NULL) {
+  op <- new_operation(
+    name = "UpdateRecoveryPlanStep",
+    http_method = "POST",
+    http_path = "/UpdateRecoveryPlanStep",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .drs$update_recovery_plan_step_input(recoveryPlanStepArn = recoveryPlanStepArn, stepName = stepName, configuration = configuration)
+  output <- .drs$update_recovery_plan_step_output()
+  config <- get_config()
+  svc <- .drs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.drs$operations$update_recovery_plan_step <- drs_update_recovery_plan_step
 
 #' Allows you to update a ReplicationConfiguration by Source Server ID
 #'
@@ -1632,7 +2352,8 @@ drs_update_replication_configuration <- function(sourceServerID, name = NULL, st
     http_path = "/UpdateReplicationConfiguration",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$update_replication_configuration_input(sourceServerID = sourceServerID, name = name, stagingAreaSubnetId = stagingAreaSubnetId, associateDefaultSecurityGroup = associateDefaultSecurityGroup, replicationServersSecurityGroupsIDs = replicationServersSecurityGroupsIDs, replicationServerInstanceType = replicationServerInstanceType, useDedicatedReplicationServer = useDedicatedReplicationServer, defaultLargeStagingDiskType = defaultLargeStagingDiskType, replicatedDisks = replicatedDisks, ebsEncryption = ebsEncryption, ebsEncryptionKeyArn = ebsEncryptionKeyArn, bandwidthThrottling = bandwidthThrottling, dataPlaneRouting = dataPlaneRouting, createPublicIP = createPublicIP, stagingAreaTags = stagingAreaTags, pitPolicy = pitPolicy, autoReplicateNewDisks = autoReplicateNewDisks, internetProtocol = internetProtocol)
   output <- .drs$update_replication_configuration_output()
@@ -1679,7 +2400,8 @@ drs_update_replication_configuration_template <- function(replicationConfigurati
     http_path = "/UpdateReplicationConfigurationTemplate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .drs$update_replication_configuration_template_input(replicationConfigurationTemplateID = replicationConfigurationTemplateID, arn = arn, stagingAreaSubnetId = stagingAreaSubnetId, associateDefaultSecurityGroup = associateDefaultSecurityGroup, replicationServersSecurityGroupsIDs = replicationServersSecurityGroupsIDs, replicationServerInstanceType = replicationServerInstanceType, useDedicatedReplicationServer = useDedicatedReplicationServer, defaultLargeStagingDiskType = defaultLargeStagingDiskType, ebsEncryption = ebsEncryption, ebsEncryptionKeyArn = ebsEncryptionKeyArn, bandwidthThrottling = bandwidthThrottling, dataPlaneRouting = dataPlaneRouting, createPublicIP = createPublicIP, stagingAreaTags = stagingAreaTags, pitPolicy = pitPolicy, autoReplicateNewDisks = autoReplicateNewDisks, internetProtocol = internetProtocol)
   output <- .drs$update_replication_configuration_template_output()

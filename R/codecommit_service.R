@@ -47,6 +47,8 @@ NULL
 #' 
 #' -   [`get_blob`][codecommit_get_blob], which returns the base-64 encoded content of an individual Git blob object in a repository.
 #' 
+#' -   [`get_blob_differences`][codecommit_get_blob_differences], which returns a structured, line-level diff between two blob versions in a repository, with optional surrounding context lines.
+#' 
 #' -   [`get_file`][codecommit_get_file], which returns the base-64 encoded content of a specified file.
 #' 
 #' -   [`get_folder`][codecommit_get_folder], which returns the contents of a specified folder or directory.
@@ -210,6 +212,7 @@ NULL
 #' \item{\strong{timeout}: The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
 #' \item{\strong{s3_force_path_style}: Set this to `true` to force the request to use path-style addressing, i.e. `http://s3.amazonaws.com/BUCKET/KEY`.}
 #' \item{\strong{sts_regional_endpoint}: Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
+#' \item{\strong{use_dual_stack}: Set this to `true` to use the dualstack (IPv4 and IPv6) endpoint for a service, where available, falling back to the regular endpoint when it isn't. Defaults to the `AWS_USE_DUALSTACK_ENDPOINT` environment variable when unset.}
 #' }
 #' @param
 #' credentials
@@ -248,7 +251,8 @@ NULL
 #'     close_connection = "logical",
 #'     timeout = "numeric",
 #'     s3_force_path_style = "logical",
-#'     sts_regional_endpoint = "string"
+#'     sts_regional_endpoint = "string",
+#'     use_dual_stack = "logical"
 #'   ),
 #'   credentials = list(
 #'     creds = list(
@@ -299,6 +303,7 @@ NULL
 #'  \link[=codecommit_evaluate_pull_request_approval_rules]{evaluate_pull_request_approval_rules} \tab Evaluates whether a pull request has met all the conditions specified in its associated approval rules\cr
 #'  \link[=codecommit_get_approval_rule_template]{get_approval_rule_template} \tab Returns information about a specified approval rule template\cr
 #'  \link[=codecommit_get_blob]{get_blob} \tab Returns the base-64 encoded content of an individual blob in a repository\cr
+#'  \link[=codecommit_get_blob_differences]{get_blob_differences} \tab Returns a structured, line-level diff between two blob versions in a repository\cr
 #'  \link[=codecommit_get_branch]{get_branch} \tab Returns information about a repository branch, including its name and the last commit ID\cr
 #'  \link[=codecommit_get_comment]{get_comment} \tab Returns the content of a comment made on a change, file, or commit in a repository\cr
 #'  \link[=codecommit_get_comment_reactions]{get_comment_reactions} \tab Returns information about reactions to a specified comment ID\cr
